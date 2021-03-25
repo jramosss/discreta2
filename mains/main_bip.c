@@ -2,8 +2,8 @@
 #include <stdbool.h>
 #include <time.h>
 
-#include "src/utils.h"
-#include "veinteveinte.h"
+#include "../src/utils.h"
+#include "../veinteveinte.h"
 
 const double MAX_TIME = 60*15;
 

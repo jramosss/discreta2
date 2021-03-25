@@ -78,7 +78,7 @@ char Bipartito(Grafo G){
                             free(visitados);
                             removeQueue(queue);
                             Greedy(G);
-                            return 0;
+                            return '0';
                         }
                     }else {
                         enqueue(OrdenVecino(j,v,G),queue);
@@ -92,7 +92,7 @@ char Bipartito(Grafo G){
 
     free(visitados);
     removeQueue(queue);
-    return 1;
+    return '1';
 }
 
 /* Funcion auxiliar de qsort 
@@ -131,12 +131,12 @@ char SwitchColores(Grafo G, u32 i, u32 j){
         }
         free(colors);
         colors = NULL;
-        return 0; 
+        return '0'; 
     
     } else {
         free(colors);
         colors = NULL;
-        return 1;
+        return '1';
     }
 
 }

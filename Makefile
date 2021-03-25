@@ -20,12 +20,19 @@ FUNCIONES = $(filter-out $(wildcard main*.c), $(wildcard $(FUNCIONES_PATH)))
 
 #Reemplazar dependiendo del main que desean usar, para tests.sh solo main.c
 #NORMAL = mainpulenta.c
-NORMAL = mains/main_bip.c
-DESAPROBACION = mains/main_desaprobacion.c
+NORMAL 			= mains/main_bip.c
+DESAPROBACION 	= mains/main_desaprobacion.c
+CHICOGRANDE 	= mains/main_for_chicogrande.c
+GREEDY 			= mains/main_for_greedy.c
+BIPARTITO 		= mains/main_for_bipartito.c
+NUMCCS 			= mains/main_for_NumCCs.c
+ALV				= mains/main_for_aleatvert.c
+SWITCH			= mains/main_for_switchcolores.c 
+WP 				= mains/main_for_welshpowell.c
 
 # Acá pueden configurar el nombre y directorio del output.
 # Yo lo hago en el subdirectorio './bin/', y el archivo se llama 'out.o'.
-OUT = -o ts
+OUT = -o test
 
 
 ######## Tipos de testeo. ########
@@ -46,8 +53,32 @@ normal:
 desaprobacion:
 	$(CC) $(CFLAGS0) $(TEST) $(DESAPROBACION) $(OUT)
 
+cg:
+	$(CC) $(CFLAGS0) $(TEST) $(CHICOGRANDE) $(OUT)
+
+greedy:
+	$(CC) $(CFLAGS0) $(TEST) $(GREEDY) $(OUT)
+
+bip:
+	$(CC) $(CFLAGS0) $(TEST) $(BIPARTITO) $(OUT)
+
+nc:
+	$(CC) $(CFLAGS0) $(TEST) $(NUMCCS) $(OUT)
+
+alv:
+	$(CC) $(CFLAGS0) $(TEST) $(ALV) $(OUT)
+
+sc:
+	$(CC) $(CFLAGS0) $(TEST) $(SWITCH) $(OUT)
+
+wp:
+	$(CC) $(CFLAGS0) $(TEST) $(WP) $(OUT)
+
+list:
+	echo "cg,greedy,bip,nc,alv,sc,wp,debug,clean"
+
 debug:
 	$(CC) $(CFLAGS0) $(TEST_DEBUG) $(OUT)
 
 clean:
-	rm -rvf ts
+	rm -rvf test

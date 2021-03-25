@@ -1,10 +1,10 @@
 #include <stdio.h>
-#include "veinteveinte.h"
+#include "../veinteveinte.h"
 
 int main(void) {
     Grafo G = ConstruccionDelGrafo();
 
-    printf("%c", ChicoGrandeBC(G));
+    printf("Gotten Result: %d\n", ChicoGrandeBC(G));
     DestruccionDelGrafo(G);
 
     return (0);

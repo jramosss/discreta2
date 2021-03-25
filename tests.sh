@@ -14,7 +14,7 @@ clean_and_exit () {
 }
 
 test_setup () {
-  cp $CURRENT_MAIN main.c
+  cp $CURRENT_MAIN temp_main.c
   make clean > make_output.txt
   make >> make_output.txt
   score_reset 0
@@ -129,7 +129,7 @@ numCCs_test () {
 
 chicoGrande_test () {
   echo -e "\e[1;33m-------- TESTING ChicoGrande\e[0m"
-  CURRENT_MAIN="main_for_chicogrande.c"
+  CURRENT_MAIN="mains/main_for_chicogrande.c"
   CURRENT_DATA_DIR="chicogrande_test_data"
   test_setup 0
 

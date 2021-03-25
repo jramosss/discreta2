@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "../veinteveinte.h"
 #include "src/utils.h"
 #include "src/parser.h"
 

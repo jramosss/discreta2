@@ -231,7 +231,7 @@ static void randomswaps(u32 *array, u32 n, u32 R){
 }
 
 char AleatorizarVertices(Grafo G, u32 R){
-    u32 nvertices = NumeroDeVertices(G);
+    const u32 nvertices = NumeroDeVertices(G);
     u32 *guia = calloc(nvertices, sizeof(u32));    // Usamos este arreglo de guia para ordenar los vertices
     if(guia != NULL){
         /* Ordeno el arreglo principal de forma natural, para olvidarme del orden
@@ -250,12 +250,12 @@ char AleatorizarVertices(Grafo G, u32 R){
             } else {
                 free(guia);
                 guia = NULL;
-                return 1;
+                return '1';
             }
         }
         free(guia);
         guia = NULL;
-        return 0;
+        return '0';
     }
-    return 1;
+    return '1';
 }

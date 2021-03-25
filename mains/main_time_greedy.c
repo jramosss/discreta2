@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <time.h>
-#include "veinteveinte.h"
+#include "../veinteveinte.h"
 
 int main(void) {
     Grafo G = ConstruccionDelGrafo();

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include "parser.h"
+#include "../veinteveinte.h"
 
 static char es_coloreo_propio(Grafo G){
     for(u32 i = 0; i < NumeroDeVertices(G); i++){
