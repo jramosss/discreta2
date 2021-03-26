@@ -21,7 +21,7 @@ u32 Greedy(Grafo G){
     visitados[0] = 1;
     u32 cantcol = 1;
     for (u32 i = 1; i < NumeroDeVertices(G); i++){  // Itera vertices
-        for (u32 j = 0; j < Grado(i,G); j++)
+        for (u32 j = 0; j < Grado(i,G); j++)    
             if (visitados[OrdenVecino(j,i,G)]) 
                 usados[ColorVecino(j,i,G)] = 1;
 

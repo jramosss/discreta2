@@ -11,9 +11,9 @@ char FijarColor(u32 x, u32 idx, Grafo G)
     if (vert!=NULL){
         vert->color = x;
         return 0;
-    } else {
+    } 
+    else
         return 1;
-    }
 }
 
 char FijarOrden(u32 i,Grafo G,u32 N){
@@ -23,7 +23,7 @@ char FijarOrden(u32 i,Grafo G,u32 N){
         G->vertices[i]->index = i;
         
         return 0;
-    } else {
+    } 
+    else
         return 1;
-    }
 }

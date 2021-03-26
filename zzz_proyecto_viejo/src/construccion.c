@@ -30,6 +30,7 @@ Grafo ConstruccionDelGrafo (void)
     qsort(G->orden, G->nvertices, sizeof(Vert *), &compare);
     free(G->parseo);
     Greedy(G);
+    
     return G;
 }
 

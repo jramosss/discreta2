@@ -2,6 +2,7 @@
 .vscode
 *.o
 ts
+test
 a.out
 Consigna.pdf
 grafos/
@@ -12,3 +13,4 @@ numCCs_test_data
 welshpowell_test_data
 grafosoriginales
 backup
+PrimeraParte.pdf

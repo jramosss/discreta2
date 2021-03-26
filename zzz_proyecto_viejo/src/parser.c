@@ -13,7 +13,7 @@ Vert *vert_create (u32 name, u32 mlados)
     newvert->vecinos = calloc(mlados, sizeof(Vert*));
     newvert->nombre = name;
     newvert->index = name;
-    newvert->visited = 0;       //TODO usemos booleanos
+    newvert->visited = false;           //TODO usemos booleanos
     newvert->grado = 0;
     newvert->color = 4294967295;
     newvert->vert_iz = NULL;
@@ -204,13 +204,13 @@ void graph_fill(Grafo g)
                 vertices_fill(g, j, verty);
                 j++;
                 
-            } else if ((tree_contains(g->parseo[i].vx,g) == true) && (tree_contains(g->parseo[i].vy,g) == false)){
+            } else if (tree_contains(g->parseo[i].vx,g) && !tree_contains(g->parseo[i].vy,g)){
                 verty = vert_create(g->parseo[i].vy,g->nlados);
                 addvert_graph(verty, g, g->raiz);
                 vertices_fill(g, j, verty);
                 j++;
             }
-             else if ((tree_contains(g->parseo[i].vx,g) == false) && (tree_contains(g->parseo[i].vy,g) == true)){
+             else if (!tree_contains(g->parseo[i].vx,g) && tree_contains(g->parseo[i].vy,g) == true){
                 vertx = vert_create(g->parseo[i].vx,g->nlados);
                 addvert_graph(vertx, g, g->raiz);
                 vertices_fill(g, j, vertx);
