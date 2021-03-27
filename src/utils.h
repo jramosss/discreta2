@@ -1,7 +1,8 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
+#include "../veinteveinte.h"        //No se si esto es necesario
 
-#define forn(n) for (unsigned int i = 0; i < n; i++)
+#define forn(var,n) for (unsigned int var = 0; i < n; i++)
 
 #define blank(k) forn(k) printf("\n")
 
@@ -18,5 +19,6 @@ void check_coloreo_propio   (char);
 void check_chicogrande      (char);
 void check_wp               (char);
 void check_alv              (char);
+Vert* find_vert_by_index    (u32,Grafo);
 
 #endif

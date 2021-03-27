@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "utils.h"
+#include "../veinteveinte.h"
 
 void print_in_red (char* msg) {
     printf("\033[0;31m"); //Set the text to the color red
@@ -42,4 +43,10 @@ void check_wp (char wp) {
 //Check aleatorizar Vertices
 void check_alv (char alv) {
     check_cond(alv == '0', "BIEN:AleatorizarVertices","ERROR: AleatorizarVertices");
+}
+
+Vert* find_vert_by_index (u32 i, Grafo G)
+{
+    assert (i <= G->n);
+    return G->vertices[i];
 }
