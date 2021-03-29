@@ -15,8 +15,6 @@ u32 Delta(Grafo G) {
     return G->delta;            //Esto es por que opino que el delta deberia ser calculado en el parseo 
 }
 
-/*------ Datos vertices ------*/
-
 u32 Nombre(u32 i,Grafo G) {
     return find_vert_by_index(i,G)->nombre;
 }
@@ -29,12 +27,6 @@ u32 Grado(u32 i,Grafo G) {
     return find_vert_by_index(i,G)->grado;
 }
 
-// Funciones de la seccion 9
-
-/*  
-    Retorna el color del vecino numero j del vertice numero i en el orden 
-    guardado en ese momento en G 
-*/
 u32 ColorVecino(u32 j, u32 i, Grafo G){
     if (i >= G->n) return error;
 
@@ -42,11 +34,6 @@ u32 ColorVecino(u32 j, u32 i, Grafo G){
     return j < vert->grado ? vert->vecinos[j]->color : (u32)error;
 }
 
-
-/*  
-    Retorna el nombre del vecino numero j del vertice numero i en el orden 
-    guardado en ese momento en G 
-*/
 u32 NombreVecino(u32 j,u32 i,Grafo G){
     if (i >= G->n) return error;
 
@@ -56,10 +43,6 @@ u32 NombreVecino(u32 j,u32 i,Grafo G){
     //de lo necesario, ya que nunca andamos borrando vertices
 }
 
-/*  
-    Devuelve el orden del vecino numero j del vertice numero i en el orden 
-    guardado en ese momento en G 
-*/
 u32 OrdenVecino(u32 j,u32 i,Grafo G){
     if (i >= G->n) return error;
 

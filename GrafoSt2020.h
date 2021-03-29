@@ -13,6 +13,6 @@ typedef struct GrafoSt {
     u32     m;                      // Numero de lados del grafo
     u32     delta;                  // Mayor numero de vecinos
     Vert    *raiz;
-    Vert    **orden_numerico;       // Arreglo de vertices en orden numerico [1,2,...,n]
+    Vert    **orden_natural;        // Arreglo de vertices donde cada index se corresponde con el orden en el que fueron parseados
     Vert    **vertices;             // Arreglo de vertices con el orden en el que fue parseado el grafo
 } GrafoSt;

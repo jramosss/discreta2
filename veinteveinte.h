@@ -14,7 +14,7 @@
 typedef GrafoSt *Grafo;
 
 
-//construcci'on/destrucci'on
+//--------------------Funciones de Construccion/Destruccion--------------------
 
 Grafo ConstruccionDelGrafo(void);
 
@@ -22,33 +22,75 @@ void DestruccionDelGrafo(Grafo G);
 
 Grafo CopiarGrafo(Grafo G);
 
-//funciones para extraer datos del grafo. u32 esta definida en el .h de arriba
+//--------------------Funciones para extraer datos del grafo.--------------------
 
 u32 NumeroDeVertices(Grafo G);
 u32 NumeroDeLados(Grafo G);
 u32 Delta(Grafo G);
 
 
-//funciones de infoextract de vertices 
-//valor de retorno (2 a la 32)-1 para reportar errores.
-//salvo para las de "Nombre" que no tienen forma de reportar errores.
-//las otras no hay problema pues es imposible que (2 a la 32)-1 sea un color o un grado.
+//--------------------Funciones de extraccion de info de los vertices --------------------
+
+/**
+ * Dado un index i y un grafo retorna el nombre de ese vertice
+ * @param i index
+ * @param G el grafo
+ * @return Name
+*/
 u32 Nombre(u32 i,Grafo G);
+
+/**
+ * Dado un index i y un grafo retorna el color de ese vertice
+ * @param i index
+ * @param G el grafo
+ * @return Color, 2^32-1 (error) en caso de error
+*/
 u32 Color(u32 i,Grafo G);
+
+/**
+ * Dado un index i y un grafo retorna el nombre de ese vertice
+ * @param i index
+ * @param G el grafo
+ * @return Grado, 2^32-1 (error) en caso de error
+*/
 u32 Grado(u32 i,Grafo G);
 
-//vecinos info
+
+//--------------------Info de los vecinos--------------------
+
+/**
+ * Retorna el color del vecino numero j del vertice numero i en el orden  guardado en ese momento en G 
+ * @param j 
+ * @param i
+ * @param G
+ * @returns Color, error (2^32-1) si i >= G->n ò j >= vert->grado
+*/
 u32 ColorVecino(u32 j,u32 i,Grafo G);
+
+/**
+ * Retorna el nombre del vecino numero j del vertice numero i en el orden guardado en ese momento en G 
+ * @param j 
+ * @param i
+ * @param G
+ * @returns Nombre, error (2^32-1) si i >= G->n ò j >= vert->grado
+*/
 u32 NombreVecino(u32 j,u32 i,Grafo G);
+
+/**
+ * Devuelve el orden del vecino numero j del vertice numero i en el orden guardado en ese momento en G 
+ * @param j 
+ * @param i
+ * @param G
+ * @returns Color, error (2^32-1) si i >= G->n ò j >= vert->grado
+*/
 u32 OrdenVecino(u32 j,u32 i,Grafo G);
 
 
-//Funciones para modificar datos de los v'ertices, char es para retornar error
-//si se le pide algo fuera de rango o un alloc error.
+//--------------------Funciones para modificar datos de los vertices--------------------
 
-//asigna color x al vertice i del orden interno
 
 /**
+ * Asigna el color x al vertice i del orden interno
  * @param x el color a asignar
  * @param idx el index del vertice
  * @param G el grafo 
@@ -57,11 +99,11 @@ u32 OrdenVecino(u32 j,u32 i,Grafo G);
 char FijarColor(u32 x,u32 i,Grafo G);
 
 /**
+ * Asigna en el lugar i del orden el vertice N-esimo del orden natural.
  * @param i El lugar a asignar
  * @param G El grafo 
  * @param N El index en el arreglo de orden natural 
  * @returns '0' si salio todo bien, '1' si algo salio mal
- * asigna en el lugar i del orden el vertice N-esimo del orden natural.
 */
 char FijarOrden(u32 i,Grafo G,u32 N);
 
