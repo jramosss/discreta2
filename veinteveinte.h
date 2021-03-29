@@ -46,10 +46,23 @@ u32 OrdenVecino(u32 j,u32 i,Grafo G);
 //Funciones para modificar datos de los v'ertices, char es para retornar error
 //si se le pide algo fuera de rango o un alloc error.
 
-//asigna color x al v'ertice i del orden interno
+//asigna color x al vertice i del orden interno
+
+/**
+ * @param x el color a asignar
+ * @param idx el index del vertice
+ * @param G el grafo 
+ * @returns '0' si salio todo bien,'1' si algo salio mal
+*/
 char FijarColor(u32 x,u32 i,Grafo G);
 
-//asigna en el lugar i del orden el v'ertice N-esimo del orden natural.
+/**
+ * @param i El lugar a asignar
+ * @param G El grafo 
+ * @param N El index en el arreglo de orden natural 
+ * @returns '0' si salio todo bien, '1' si algo salio mal
+ * asigna en el lugar i del orden el vertice N-esimo del orden natural.
+*/
 char FijarOrden(u32 i,Grafo G,u32 N);
 
 
