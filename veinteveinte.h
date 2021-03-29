@@ -18,8 +18,19 @@ typedef GrafoSt *Grafo;
 
 Grafo ConstruccionDelGrafo(void);
 
+/**
+ * Esta funcion libera la memoria alocada para el grafo G incluyendo la memoria
+ * alocada para los vertices de G.
+ * @param Grafo G
+ */
 void DestruccionDelGrafo(Grafo G);
 
+/**
+ * Esta funcion crea una nueva instancia de un grafo G y copia todos sus 
+ * atributos
+ * @param Grafo G
+ * @return Grafo Copy
+ */
 Grafo CopiarGrafo(Grafo G);
 
 //--------------------Funciones para extraer datos del grafo.--------------------
