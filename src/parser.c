@@ -66,6 +66,34 @@ void num_lados_vertices (FILE *fp, Grafo g) {
     }
 }
 
+/* Agrega a la lista de vecinos de "vert" el vertice "vecino", y retorna el nuevo grado del vertice "vert" */
+static u32 agregar_vecino(Vert *vert, Vert *vecino){
+    if (vert->vecinos[vecino->nombre] == 0){
+        vert->vecinos[vecino->nombre] = vecino;
+        vert->grado++;
+    }
+    return vert->grado;
+}
+
+
+/* Dados 2 grados y el delta actual, si el mayor grado supera al delta se reemplaza. */
+static u32 actualizar_delta(u32 gradox, u32 gradoy, u32 delta) {
+
+    if (gradox > gradoy){
+        if (gradox > delta) {
+            return gradox;    
+        } else {
+            return delta;
+        }
+    } else {
+        if (gradoy > delta) {
+            return gradoy; 
+        } else {
+            return delta;
+        }
+    }
+}
+
 /* Esta funcion llena el arreglo vertices con el orden dado, y genera el arreglo con orden natural. */
 void fill_verts(FILE *fp, Grafo G) {
     char e[MAXCHAR];
@@ -74,12 +102,13 @@ void fill_verts(FILE *fp, Grafo G) {
     u32 pos = 0;   // Esta variable hacer referencia a la posicion de un vertice x en el grafo.txt
     u32 x = 0;
     u32 y = 0;
+    u32 delta = 0;
+    u32 gradox = 0;
+    u32 gradoy = 0;
     acomodar_puntero(fp);
 
-    printf("A leer %d lados", G->m);
     for (u32 i = 0; i < G->m; i++) {
         fscanf(fp, "%*s %s %s", xs, ys);
-        printf("\n%s %s\n", xs, ys);
         x = (u32)atoi(xs);
         y = (u32)atoi(ys);
         
@@ -91,18 +120,34 @@ void fill_verts(FILE *fp, Grafo G) {
             G->vertices[pos] = vx;
             G->vertices[pos+1] = vy;
             pos = pos + 2;
+            gradox = agregar_vecino(vx,vy);
+            gradoy = agregar_vecino(vy,vx);
+
+            delta = actualizar_delta(gradox, gradoy, delta);
+
         } else if (G->orden_natural[x] == 0 && G->orden_natural[y] != 0) {
             Vert *vx = vert_create(x,G->m);
             G->orden_natural[vx->nombre] = vx;
             G->vertices[pos] = vx;
             pos++;
+            gradox = agregar_vecino(vx, G->orden_natural[y]);
+            gradoy = agregar_vecino(G->orden_natural[y],vx);
+
+            delta = actualizar_delta(gradox, gradoy, delta);
+
         } else if (G->orden_natural[x] != 0 && G->orden_natural[y] == 0) {
             Vert *vy = vert_create(y,G->m);
             G->orden_natural[vy->nombre] = vy;
             G->vertices[pos] = vy;
             pos++;
+            gradox = agregar_vecino(G->orden_natural[x],vy);
+            gradoy = agregar_vecino(vy,G->orden_natural[x]);
+
+            delta = actualizar_delta(gradox, gradoy, delta);
         }
     }
+
+    G->delta = delta;
 
     fseek(stdin,0,SEEK_SET);
     

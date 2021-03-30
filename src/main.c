@@ -19,10 +19,11 @@ static void display_normalOrder (Grafo G){
 
 int main(void) {
     Grafo g = ConstruccionDelGrafo();
+    display_normalOrder(g);
+    display_naturalOrder(g);
     printf("\nVertices %d Lados %d\n", g->n, g->m);
     printf("2vert: %d\n", g->vertices[2]->nombre);
     printf("\nContenido de vertices[2]: %d\n", g->vertices[2]);
-    display_normalOrder(g);
-    display_naturalOrder(g);
+    printf("\nEl delta del grafo es: %d\n", g->delta);
     return 0;
 }
