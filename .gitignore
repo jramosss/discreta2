@@ -1,5 +1,5 @@
-.git
 .vscode
+.idea
 *.o
 ts
 test

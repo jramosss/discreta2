@@ -45,6 +45,11 @@ void check_alv (char alv) {
     check_cond(alv == '0', "BIEN:AleatorizarVertices","ERROR: AleatorizarVertices");
 }
 
+/**
+ * @param i Un indice
+ * @param G Un grafo
+ * @returns El vertice en el indice indicado
+*/
 Vert* find_vert_by_index (u32 i, Grafo G)
 {
     assert (i <= G->n);

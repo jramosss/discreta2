@@ -9,14 +9,10 @@ typedef struct Vert {
 } Vert;
 
 typedef struct GrafoSt {
-    u32     n;                      // Numero de vertices
-    u32     m;                      // Numero de lados
-    u32     delta;                  // Mayor numero de vecinos de un vertice, 
-                                    //? podriamos calcularlo mientras se hace el parseo 
-    Vert    *raiz;                  
-    Vert    **vertices;             // Arreglo de vertices que representa el orden de cada vertice. 
-                                    // Donde a index se le va a asignar su lugar en el arreglo.
-    Vert    **orden_numerico;       // Yo opino que tengamos el orden numerico guardado en la struct                                    
-                                    // Y que este sea simplemente hacer un sort cuando se cree el 
-                                    // arreglo de vertices
+    u32     n;                      // Numero de vertices del grafo 
+    u32     m;                      // Numero de lados del grafo
+    u32     delta;                  // Mayor numero de vecinos
+    Vert    *raiz;
+    Vert    **orden_natural;        // Arreglo de vertices donde cada index se corresponde con el orden en el que fueron parseados
+    Vert    **vertices;             // Arreglo de vertices con el orden en el que fue parseado el grafo
 } GrafoSt;
