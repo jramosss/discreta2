@@ -52,6 +52,5 @@ void check_alv (char alv) {
 */
 Vert* find_vert_by_index (u32 i, Grafo G)
 {
-    assert (i <= G->n);
     return G->vertices[i];
 }
