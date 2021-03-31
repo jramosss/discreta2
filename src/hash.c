@@ -59,5 +59,6 @@ void destruir_hash(Hash_table *hash)
       free(hash->tabla[i]);
     }
   }
+  free(hash->tabla);
   free(hash);
 }

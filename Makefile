@@ -19,7 +19,7 @@ FUNCIONES = $(filter-out $(wildcard main*.c), $(wildcard $(FUNCIONES_PATH)))
 # Reemplacen los paths de acuerdo a donde uds guarden sus mains.
 
 #Reemplazar dependiendo del main que desean usar, para tests.sh solo main.c
-NORMAL 			= src/main.c
+NORMAL 			= test_construccion.c
 BIP 			= mains/main_bip.c
 DESAPROBACION 	= mains/main_desaprobacion.c
 CHICOGRANDE 	= mains/main_for_chicogrande.c
