@@ -114,25 +114,28 @@ void fill_verts(FILE *fp, Grafo G) {
         y = (u32)atoi(ys);
         u32 pos_deX_enHash = hash_key(x,G->n);
         u32 pos_deY_enHash = hash_key(y,G->n);
+
+        u32 esta_x = buscar_vertice_en_hash(pos_deX_enHash,x,hash);
+        u32 esta_y = buscar_vertice_en_hash(pos_deY_enHash,y,hash);
         
-        if (buscar_vertice_en_hash(pos_deX_enHash,x,hash) == 0 && buscar_vertice_en_hash(pos_deY_enHash,y,hash) == 0) {
+        if (!esta_x && !esta_y) {
             Vert *vx = vert_create(x,G->m);
             Vert *vy = vert_create(y,G->m);
-            agregar_vertice(vx,pos_deX_enHash);
-            agregar_vertice(vy,pos_deY_enHash);
+            agregar_vertice(vx,pos_deX_enHash,hash);
+            agregar_vertice(vy,pos_deY_enHash,hash);
             G->vertices[pos] = vx;
             G->vertices[pos+1] = vy;
             pos = pos + 2;
 
-        } else if (buscar_vertice_en_hash(pos_deX_enHash,x,hash) == 0 && buscar_vertice_en_hash(pos_deY_enHash,y,hash) != 0) {
+        } else if (esta_x && !esta_y) {
             Vert *vx = vert_create(x,G->m);
-            agregar_vertice(vx,pos_deX_enHash);
+            agregar_vertice(vx,pos_deX_enHash,hash);
             G->vertices[pos] = vx;
             pos++;
 
-        } else if (buscar_vertice_en_hash(pos_deX_enHash,x,hash) != 0 && buscar_vertice_en_hash(pos_deY_enHash,y,hash) == 0) {
+        } else if (!esta_x  && esta_y) {
             Vert *vy = vert_create(y,G->m);
-            agregar_vertice(vy,pos_deY_enHash);
+            agregar_vertice(vy,pos_deY_enHash,hash);
             G->vertices[pos] = vy;
             pos++;
         }

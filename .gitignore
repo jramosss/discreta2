@@ -1,0 +1,17 @@
+.vscode
+.idea
+*.o
+ts
+test
+a.out
+Consigna.pdf
+grafos/
+bipartito_test_data
+chicogrande_test_data
+greedy_test_data
+numCCs_test_data
+welshpowell_test_data
+grafosoriginales
+backup
+PrimeraParte.pdf
+zzz_proyecto_viejo

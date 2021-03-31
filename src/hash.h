@@ -3,7 +3,7 @@
 typedef struct Element_t
 {
   Vert **vertices;
-  u32 usados;
+  u32 tam;
 } Element_t;
 
 typedef struct Hash_table
@@ -12,7 +12,7 @@ typedef struct Hash_table
   u32 num_datos;
 } Hash_table;
 
-u32 hash_key(u32 vertice, u32 tamaño_hash);
+u32 hash_key(u32 vertice, u32 tam_hash);
 
 /** Crea la tabla hash con n posiciones 
  * @param nvertices tamaño de la tabla a crear
@@ -32,6 +32,7 @@ u32 buscar_vertice_en_hash(u32 key, u32 nombre, Hash_table *hash);
 /** Agrega un vertice en la tabla hash, si se produce una colision es decir ya hay un vertice en esa 
   posicion, se lo agrega a en la siguiente posicion del arreglo vertices disponible.
   * @param v vertice a agregar.
-  * @param i posicion en la tabla hash.
+  * @param posicion posicion en la tabla hash.
+  * @param hash tabla hash donde se agrega el vertice
 */
-void agregar_vertice(Vert *v, Element_t *i_lugar);
+void agregar_vertice(Vert *v, u32 posicion, Hash_table *hash);
