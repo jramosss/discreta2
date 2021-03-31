@@ -36,3 +36,8 @@ Vert *buscar_vertice_en_hash(u32 key, u32 nombre, Hash_table *hash);
   * @param hash tabla hash donde se agrega el vertice
 */
 void agregar_vertice(Vert *v, u32 posicion, Hash_table *hash);
+
+/** Libera toda la memoria ocupada con la hash.
+ * @param hash tabla a destruir
+*/
+void destruir_hash(Hash_table *hash);

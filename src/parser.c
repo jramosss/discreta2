@@ -186,6 +186,7 @@ void fill_verts(FILE *fp, Grafo G) {
     }
 
     G->delta = delta;
+    destruir_hash(hash);
 
     fseek(stdin,0,SEEK_SET);
     

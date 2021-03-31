@@ -50,3 +50,12 @@ Vert *buscar_vertice_en_hash(u32 key, u32 nombre, Hash_table *hash)
     return NULL;
   }
 }
+
+void destruir_hash(Hash_table *hash)
+{
+  for (u32 i = 0; i < hash->num_datos; i++) {
+    free(hash->tabla[i]->vertices);
+    free(hash->tabla[i]);
+  }
+  free(hash);
+}

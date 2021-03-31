@@ -19,7 +19,6 @@ static void display_normalOrder (Grafo G){
 
 int main(void) {
     Grafo g = ConstruccionDelGrafo();
-    display_normalOrder(g);
     printf("\nVertices %d Lados %d\n", g->n, g->m);
     printf("2vert: %d\n", g->vertices[2]->nombre);
     printf("\nEl delta del grafo es: %d\n", g->delta);
