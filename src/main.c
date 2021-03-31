@@ -1,4 +1,4 @@
-#include "../veinteveinte.h"
+#include "../RomaVictor.h"
 
 static void display_naturalOrder (Grafo G){
     printf("\nVertices orden natural: [");

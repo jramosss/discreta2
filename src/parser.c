@@ -127,13 +127,13 @@ void fill_verts(FILE *fp, Grafo G) {
             G->vertices[pos+1] = vy;
             pos = pos + 2;
 
-        } else if (esta_x && !esta_y) {
+        } else if (!esta_x && esta_y) {
             Vert *vx = vert_create(x,G->m);
             agregar_vertice(vx,pos_deX_enHash,hash);
             G->vertices[pos] = vx;
             pos++;
 
-        } else if (!esta_x  && esta_y) {
+        } else if (esta_x  && !esta_y) {
             Vert *vy = vert_create(y,G->m);
             agregar_vertice(vy,pos_deY_enHash,hash);
             G->vertices[pos] = vy;

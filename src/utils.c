@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "utils.h"
-#include "../veinteveinte.h"
+#include "../RomaVictor.h"
 
 void print_in_red (char* msg) {
     printf("\033[0;31m"); //Set the text to the color red
@@ -52,6 +52,5 @@ void check_alv (char alv) {
 */
 Vert* find_vert_by_index (u32 i, Grafo G)
 {
-    assert (i <= G->n);
     return G->vertices[i];
 }
