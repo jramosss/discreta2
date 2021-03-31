@@ -3,12 +3,13 @@
 #include <stdlib.h>
 #include "parser.h"
 #include "utils.h"
+#include "hash.h"
 
 /**
- *  Esta funcion acomoda el puntero del fichero para empezar a leer las etiquetas "e x y"
+ * Esta funcion acomoda el puntero del fichero para empezar a leer las etiquetas "e x y"
+ * @param fp fichero donde vamos a acomodar el puntero
  *  PD: Para ahora codigo podriamos eliminarla, y usar el num_lados_vertices() para acomodar el     puntero
 */
-
 static void acomodar_puntero (FILE *fp) {
     char palabra1[MAXCHAR];                             // Buscaremos el valor "p"
     char palabra2[MAXCHAR];                             // Buscaremos el valor "edge"
@@ -68,11 +69,7 @@ void num_lados_vertices (FILE *fp, Grafo g) {
 
 /* Agrega a la lista de vecinos de "vert" el vertice "vecino", y retorna el nuevo grado del vertice "vert" */
 static u32 agregar_vecino(Vert *vert, Vert *vecino){
-    if (vert->vecinos[vecino->nombre] == 0){
-        vert->vecinos[vecino->nombre] = vecino;
-        vert->grado++;
-    }
-    return vert->grado;
+    return 0;
 }
 
 
@@ -107,43 +104,37 @@ void fill_verts(FILE *fp, Grafo G) {
     u32 gradoy = 0;
     acomodar_puntero(fp);
 
+    // Creo la tabla hash
+
+    Hash_table *hash = crear_tabla(G->n);
+
     for (u32 i = 0; i < G->m; i++) {
         fscanf(fp, "%*s %s %s", xs, ys);
         x = (u32)atoi(xs);
         y = (u32)atoi(ys);
+        u32 pos_deX_enHash = hash_key(x,G->n);
+        u32 pos_deY_enHash = hash_key(y,G->n);
         
-        if (G->orden_natural[x] == 0 && G->orden_natural[y] == 0) {
+        if (buscar_vertice_en_hash(pos_deX_enHash,x,hash) == 0 && buscar_vertice_en_hash(pos_deY_enHash,y,hash) == 0) {
             Vert *vx = vert_create(x,G->m);
             Vert *vy = vert_create(y,G->m);
-            G->orden_natural[vx->nombre] = vx;
-            G->orden_natural[vy->nombre] = vy;
+            agregar_vertice(vx,pos_deX_enHash);
+            agregar_vertice(vy,pos_deY_enHash);
             G->vertices[pos] = vx;
             G->vertices[pos+1] = vy;
             pos = pos + 2;
-            gradox = agregar_vecino(vx,vy);
-            gradoy = agregar_vecino(vy,vx);
 
-            delta = actualizar_delta(gradox, gradoy, delta);
-
-        } else if (G->orden_natural[x] == 0 && G->orden_natural[y] != 0) {
+        } else if (buscar_vertice_en_hash(pos_deX_enHash,x,hash) == 0 && buscar_vertice_en_hash(pos_deY_enHash,y,hash) != 0) {
             Vert *vx = vert_create(x,G->m);
-            G->orden_natural[vx->nombre] = vx;
+            agregar_vertice(vx,pos_deX_enHash);
             G->vertices[pos] = vx;
             pos++;
-            gradox = agregar_vecino(vx, G->orden_natural[y]);
-            gradoy = agregar_vecino(G->orden_natural[y],vx);
 
-            delta = actualizar_delta(gradox, gradoy, delta);
-
-        } else if (G->orden_natural[x] != 0 && G->orden_natural[y] == 0) {
+        } else if (buscar_vertice_en_hash(pos_deX_enHash,x,hash) != 0 && buscar_vertice_en_hash(pos_deY_enHash,y,hash) == 0) {
             Vert *vy = vert_create(y,G->m);
-            G->orden_natural[vy->nombre] = vy;
+            agregar_vertice(vy,pos_deY_enHash);
             G->vertices[pos] = vy;
             pos++;
-            gradox = agregar_vecino(G->orden_natural[x],vy);
-            gradoy = agregar_vecino(vy,G->orden_natural[x]);
-
-            delta = actualizar_delta(gradox, gradoy, delta);
         }
     }
 
