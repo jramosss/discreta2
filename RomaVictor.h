@@ -86,6 +86,9 @@ u32 NombreVecino(u32 j,u32 i,Grafo G);
 u32 OrdenVecino(u32 j,u32 i,Grafo G);
 
 
+u32 PesoLadoConVecino(u32 j,u32 i,Grafo G);
+
+
 //--------------------Funciones para modificar datos de los vertices--------------------
 
 
@@ -107,7 +110,10 @@ char FijarColor(u32 x,u32 i,Grafo G);
 */
 char FijarOrden(u32 i,Grafo G,u32 N);
 
+u32 FijarPesoLadoConVecino(u32 j,u32 i,u32 p,Grafo G);
 
+
+/* Esto lo comento por que no es necesario para la primera parte del proyecto
 //orden Welsh Powell: por grados del mayor al menor
 char WelshPowell(Grafo G);
 
@@ -132,7 +138,7 @@ u32 Greedy(Grafo G);
 
 
 u32 NumCCs(Grafo G);
-
+*/
 
 
 #endif
