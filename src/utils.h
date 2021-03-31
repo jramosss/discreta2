@@ -2,9 +2,7 @@
 #define __UTILS_H__
 #include "../RomaVictor.h"        //No se si esto es necesario
 
-#define forn(var,n) for (unsigned int var = 0; i < n; i++)
-
-#define blank(k) forn(k) printf("\n")
+#define blank(k) printf("\n")
 
 #define error 4294967295
 
@@ -19,6 +17,8 @@ void check_coloreo_propio   (char);
 void check_chicogrande      (char);
 void check_wp               (char);
 void check_alv              (char);
+void check_eq               (u32,u32,char*);
+void print_arr              (u32*,u32);
 Vert* find_vert_by_index    (u32,Grafo);
 
 #endif
