@@ -29,6 +29,7 @@ NUMCCS 			= mains/main_for_NumCCs.c
 ALV				= mains/main_for_aleatvert.c
 SWITCH			= mains/main_for_switchcolores.c 
 WP 				= mains/main_for_welshpowell.c
+COPIAR 			= mains/main_copiar.c
 
 # Acá pueden configurar el nombre y directorio del output.
 # Yo lo hago en el subdirectorio './bin/', y el archivo se llama 'out.o'.
@@ -76,6 +77,9 @@ wp:
 
 list:
 	echo "cg,greedy,bip,nc,alv,sc,wp,debug,clean"
+
+copiar:
+	$(CC) $(CFLAGS0) $(TEST) $(COPIAR) $(OUT)
 
 debug:
 	$(CC) $(CFLAGS0) $(TEST_DEBUG) $(OUT)

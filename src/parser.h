@@ -1,7 +1,7 @@
 #include "../RomaVictor.h"
 #define MAXCHAR 100000
 
-Vert *vert_create (u32 name, u32 mlados, u32 index);
+Vert *vert_create (u32,u32);
 
 Vert **parsear (FILE *fp, Grafo graph);
 

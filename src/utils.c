@@ -54,3 +54,27 @@ Vert* find_vert_by_index (u32 i, Grafo G)
 {
     return G->vertices[i];
 }
+
+void check_eq (u32 x, u32 y,char* campo) {
+    if (x == y) {
+        printf("\033[0;32m"); //Set the text to the color red
+        printf("Los campos %s son iguales\n",campo); //Display Hello in red
+        printf("\033[0m"); //Resets the text to default color
+    }
+    else {
+        printf("\033[0;31m"); //Set the text to the color red
+        printf("Los campos %s no son iguales\n",campo); //Display Hello in red
+        printf("\033[0m"); //Resets the text to default color
+    }
+}
+
+void print_arr (u32* arr,u32 len) {
+    printf("[");
+    for (u32 i = 0; i < len; i++) {
+        if (i == len-1)
+            printf("%u",arr[i]);
+        else
+            printf("%u,",arr[i]);
+    }
+    printf("]\n");
+}

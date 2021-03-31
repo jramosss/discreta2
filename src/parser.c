@@ -31,8 +31,11 @@ static void acomodar_puntero (FILE *fp) {
     }
 }
 
-/* Initialize a vert */
-Vert *vert_create (u32 name, u32 mlados, u32 index) {
+/** Crea el vertice nombre "name" con el index "index"
+ * @param name nombre del vertice
+ * @param index index del vertice
+ */
+Vert *vert_create (u32 name, u32 index) {
     Vert *newvert = calloc(1, sizeof(struct Vert));
     newvert->vecinos = NULL;
     newvert->nombre = name;
@@ -68,9 +71,10 @@ void num_lados_vertices (FILE *fp, Grafo g) {
 }
 
 /* Agrega a la lista de vecinos de "vert" el vertice "vecino", y retorna el nuevo grado del vertice "vert" */
+/*
 static u32 agregar_vecino(Vert *vert, Vert *vecino){
     return 0;
-}
+}*/
 
 
 /* Dados 2 grados y el delta actual, si el mayor grado supera al delta se reemplaza. */
@@ -117,8 +121,8 @@ void fill_verts(FILE *fp, Grafo G) {
         Vert *esta_y = buscar_vertice_en_hash(pos_deY_enHash,y,hash);
         
         if (esta_x == NULL && esta_y == NULL) {
-            Vert *vx = vert_create(x,G->m, pos);
-            Vert *vy = vert_create(y,G->m, pos+1);
+            Vert *vx = vert_create(x, pos);
+            Vert *vy = vert_create(y, pos+1);
 
             vx->grado++;
             vy->grado++;
@@ -136,7 +140,7 @@ void fill_verts(FILE *fp, Grafo G) {
             pos = pos + 2;
 
         } else if (esta_x == NULL) {
-            Vert *vx = vert_create(x,G->m,pos);
+            Vert *vx = vert_create(x,pos);
 
             vx->grado++;
             esta_y->grado++;
@@ -153,7 +157,7 @@ void fill_verts(FILE *fp, Grafo G) {
             pos++;
 
         } else if (esta_y == NULL) {
-            Vert *vy = vert_create(y,G->m,pos);
+            Vert *vy = vert_create(y,pos);
 
             vy->grado++;
             esta_x->grado++;
