@@ -26,7 +26,7 @@ Hash_table *crear_tabla(u32 nvertices);
  * @param hash tabla en la que se busca el vertice
  * @return 1 si está, 0 caso contrario.
 */
-u32 buscar_vertice_en_hash(u32 key, u32 nombre, Hash_table *hash);
+Vert *buscar_vertice_en_hash(u32 key, u32 nombre, Hash_table *hash);
 
 
 /** Agrega un vertice en la tabla hash, si se produce una colision es decir ya hay un vertice en esa 

@@ -32,11 +32,11 @@ static void acomodar_puntero (FILE *fp) {
 }
 
 /* Initialize a vert */
-Vert *vert_create (u32 name, u32 mlados) {
+Vert *vert_create (u32 name, u32 mlados, u32 index) {
     Vert *newvert = calloc(1, sizeof(struct Vert));
-    newvert->vecinos = calloc(mlados, sizeof(Vert*));
+    newvert->vecinos = NULL;
     newvert->nombre = name;
-    newvert->index = name;
+    newvert->index = index;
     newvert->grado = 0;
     newvert->color = error;
     return newvert;
@@ -115,29 +115,73 @@ void fill_verts(FILE *fp, Grafo G) {
         u32 pos_deX_enHash = hash_key(x,G->n);
         u32 pos_deY_enHash = hash_key(y,G->n);
 
-        u32 esta_x = buscar_vertice_en_hash(pos_deX_enHash,x,hash);
-        u32 esta_y = buscar_vertice_en_hash(pos_deY_enHash,y,hash);
+        Vert *esta_x = buscar_vertice_en_hash(pos_deX_enHash,x,hash);
+        Vert *esta_y = buscar_vertice_en_hash(pos_deY_enHash,y,hash);
         
-        if (!esta_x && !esta_y) {
-            Vert *vx = vert_create(x,G->m);
-            Vert *vy = vert_create(y,G->m);
+        if (esta_x == NULL && esta_y == NULL) {
+            Vert *vx = vert_create(x,G->m, pos);
+            Vert *vy = vert_create(y,G->m, pos+1);
+
+            gradox = vx->grado++;
+            gradoy = vy->grado++;
+            vx->vecinos = calloc(1, sizeof(Vert*));
+            vy->vecinos = calloc(1, sizeof(Vert*));
+            vx->vecinos[vx->grado-1] = vy;
+            vy->vecinos[vy->grado-1] = vx;
+
+            delta = actualizar_delta(gradox, gradoy, delta);
+
             agregar_vertice(vx,pos_deX_enHash,hash);
             agregar_vertice(vy,pos_deY_enHash,hash);
             G->vertices[pos] = vx;
             G->vertices[pos+1] = vy;
+            G->orden_natural[pos] = vx;
+            G->orden_natural[pos+1] = vy;
             pos = pos + 2;
 
-        } else if (!esta_x && esta_y) {
-            Vert *vx = vert_create(x,G->m);
+        } else if (esta_x == NULL) {
+            Vert *vx = vert_create(x,G->m,pos);
+
+            gradox = vx->grado++;
+            gradoy = esta_y->grado++;
+            vx->vecinos = calloc(1, sizeof(Vert*));
+            esta_y->vecinos = realloc(esta_y->vecinos, esta_y->grado * sizeof(Vert*));
+            vx->vecinos[vx->grado-1] = esta_y;
+            esta_y->vecinos[esta_y->grado-1] = vx;
+
+            delta = actualizar_delta(gradox, gradoy, delta);
+
             agregar_vertice(vx,pos_deX_enHash,hash);
             G->vertices[pos] = vx;
+            G->orden_natural[pos] = vx;
             pos++;
 
-        } else if (esta_x  && !esta_y) {
-            Vert *vy = vert_create(y,G->m);
+        } else if (esta_y == NULL) {
+            Vert *vy = vert_create(y,G->m,pos);
+
+            gradoy = vy->grado++;
+            gradox = esta_x->grado++;
+            vy->vecinos = calloc(1, sizeof(Vert*));
+            esta_x->vecinos = realloc(esta_x->vecinos, esta_x->grado * sizeof(Vert*));
+            vy->vecinos[vy->grado-1] = esta_x;
+            esta_x->vecinos[esta_x->grado-1] = vy;
+
+            delta = actualizar_delta(gradox, gradoy, delta);
+
+
             agregar_vertice(vy,pos_deY_enHash,hash);
             G->vertices[pos] = vy;
+            G->orden_natural[pos] = vy;
             pos++;
+
+        } else {
+            esta_x->grado++;
+            esta_y->grado++;
+            esta_x->vecinos = realloc(esta_x->vecinos, esta_x->grado * sizeof(Vert*));
+            esta_y->vecinos = realloc(esta_y->vecinos, esta_y->grado * sizeof(Vert*));
+            esta_x->vecinos[esta_x->grado-1] = esta_y;
+            esta_y->vecinos[esta_y->grado-1] = esta_x;
+            delta = actualizar_delta(gradox, gradoy, delta);
         }
     }
 

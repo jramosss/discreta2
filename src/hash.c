@@ -36,20 +36,17 @@ void agregar_vertice(Vert *v, u32 posicion, Hash_table *hash)
   }
 }
 
-u32 buscar_vertice_en_hash(u32 key, u32 nombre, Hash_table *hash)
+Vert *buscar_vertice_en_hash(u32 key, u32 nombre, Hash_table *hash)
 {
   if(hash->tabla[key] == NULL){
-    printf("\nEn tabla[%d] no esta el vertice %d\n",key,nombre);
-    return 0;
+    return NULL;
   }else {
     for (u32 i = 0; i < hash->tabla[key]->tam; i++)
     {
       if(hash->tabla[key]->vertices[i]->nombre == nombre) {
-        return 1;
-        break;
+        return hash->tabla[key]->vertices[i];
       }
     }
-    printf("\nNo encontre el vertice %d en %d\n",nombre,key);
-    return 0;
+    return NULL;
   }
 }
