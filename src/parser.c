@@ -100,8 +100,6 @@ void fill_verts(FILE *fp, Grafo G) {
     u32 x = 0;
     u32 y = 0;
     u32 delta = 0;
-    u32 gradox = 0;
-    u32 gradoy = 0;
     acomodar_puntero(fp);
 
     // Creo la tabla hash
@@ -122,14 +120,12 @@ void fill_verts(FILE *fp, Grafo G) {
             Vert *vx = vert_create(x,G->m, pos);
             Vert *vy = vert_create(y,G->m, pos+1);
 
-            gradox = vx->grado++;
-            gradoy = vy->grado++;
+            vx->grado++;
+            vy->grado++;
             vx->vecinos = calloc(1, sizeof(Vert*));
             vy->vecinos = calloc(1, sizeof(Vert*));
             vx->vecinos[vx->grado-1] = vy;
             vy->vecinos[vy->grado-1] = vx;
-
-            delta = actualizar_delta(gradox, gradoy, delta);
 
             agregar_vertice(vx,pos_deX_enHash,hash);
             agregar_vertice(vy,pos_deY_enHash,hash);
@@ -142,14 +138,14 @@ void fill_verts(FILE *fp, Grafo G) {
         } else if (esta_x == NULL) {
             Vert *vx = vert_create(x,G->m,pos);
 
-            gradox = vx->grado++;
-            gradoy = esta_y->grado++;
+            vx->grado++;
+            esta_y->grado++;
             vx->vecinos = calloc(1, sizeof(Vert*));
             esta_y->vecinos = realloc(esta_y->vecinos, esta_y->grado * sizeof(Vert*));
             vx->vecinos[vx->grado-1] = esta_y;
             esta_y->vecinos[esta_y->grado-1] = vx;
 
-            delta = actualizar_delta(gradox, gradoy, delta);
+            delta = actualizar_delta(vx->grado, esta_y->grado, delta);
 
             agregar_vertice(vx,pos_deX_enHash,hash);
             G->vertices[pos] = vx;
@@ -159,15 +155,14 @@ void fill_verts(FILE *fp, Grafo G) {
         } else if (esta_y == NULL) {
             Vert *vy = vert_create(y,G->m,pos);
 
-            gradoy = vy->grado++;
-            gradox = esta_x->grado++;
+            vy->grado++;
+            esta_x->grado++;
             vy->vecinos = calloc(1, sizeof(Vert*));
             esta_x->vecinos = realloc(esta_x->vecinos, esta_x->grado * sizeof(Vert*));
             vy->vecinos[vy->grado-1] = esta_x;
             esta_x->vecinos[esta_x->grado-1] = vy;
 
-            delta = actualizar_delta(gradox, gradoy, delta);
-
+            delta = actualizar_delta(esta_x->grado, vy->grado, delta);
 
             agregar_vertice(vy,pos_deY_enHash,hash);
             G->vertices[pos] = vy;
