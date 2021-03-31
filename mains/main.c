@@ -28,5 +28,8 @@ int main(void) {
     printf("\nVertices %u, Lados %u\n", g->n, g->m);
     printf("2do Vert: %u\n", g->vertices[2]->nombre);
     printf("\nEl delta del grafo es: %u\n", g->delta);
+
+    DestruccionDelGrafo(g);
+
     return 0;
 }

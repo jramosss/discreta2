@@ -62,7 +62,6 @@ int main (void) {
     }
     check_cond((char)flag,"Los arreglos de orden natural son iguales",
                           "Los arreglos de orden natural no son iguales");
-    //check_cond(check_vert(G->raiz,C->raiz),"Las raices son iguales","Las raices no son iguales");
 
     for (u32 i = 0; i < G->n; i++) {
         flag = check_vert(G->vertices[i],C->vertices[i]);
@@ -71,4 +70,7 @@ int main (void) {
 
     check_cond((char)flag,"Los arreglos de vertices son iguales",
                           "Los arreglos de vertices no son iguales");
+
+    DestruccionDelGrafo(C);
+    DestruccionDelGrafo(G);
 }

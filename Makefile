@@ -19,7 +19,7 @@ FUNCIONES = $(filter-out $(wildcard main*.c), $(wildcard $(FUNCIONES_PATH)))
 # Reemplacen los paths de acuerdo a donde uds guarden sus mains.
 
 #Reemplazar dependiendo del main que desean usar, para tests.sh solo main.c
-NORMAL 			= test_construccion.c
+NORMAL 			= mains/main.c
 BIP 			= mains/main_bip.c
 DESAPROBACION 	= mains/main_desaprobacion.c
 CHICOGRANDE 	= mains/main_for_chicogrande.c
@@ -80,6 +80,9 @@ list:
 
 copiar:
 	$(CC) $(CFLAGS0) $(TEST) $(COPIAR) $(OUT)
+
+valgrind:
+	valgrind --leak-check=full ./test < grafos/q7.txt
 
 debug:
 	$(CC) $(CFLAGS0) $(TEST_DEBUG) $(OUT)
