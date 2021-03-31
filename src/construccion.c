@@ -22,14 +22,10 @@ void DestruccionDelGrafo(Grafo G) {
         free(G->vertices[i]);
     }
 
-    free(G->orden);
+    free(G->orden_natural);
     free(G->vertices);
     free(G->raiz);
     free(G);
-}
-
-Vert* CopiarVertice(Vert V) {
-    Vert C = calloc()
 }
 
 Grafo CopiarGrafo(Grafo G) {
@@ -38,6 +34,6 @@ Grafo CopiarGrafo(Grafo G) {
     C->n = NumeroDeVertices(G);
     C->m = NumeroDeLados(G);
     C->delta = Delta(G);
-    C->orden = calloc(C->n, sizeof(Vert*));
+    C->orden_natural = calloc(C->n, sizeof(Vert*));
     C->vertices = calloc(C->n, sizeof(Vert*));
 };
