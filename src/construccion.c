@@ -70,3 +70,15 @@ Grafo CopiarGrafo (Grafo G) {
 
     return C;
 }
+
+void DestruccionDelGrafo(Grafo G) {
+    for (u32 i = 0; i < G->n; i++) {
+        free(G->vertices[i]->vecinos);
+        free(G->vertices[i]);
+    }
+
+    free(G->orden_natural);
+    free(G->vertices);
+    free(G->raiz);
+    free(G);
+}
