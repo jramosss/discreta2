@@ -181,7 +181,7 @@ void fill_verts(FILE *fp, Grafo G) {
             esta_y->vecinos = realloc(esta_y->vecinos, esta_y->grado * sizeof(Vert*));
             esta_x->vecinos[esta_x->grado-1] = esta_y;
             esta_y->vecinos[esta_y->grado-1] = esta_x;
-            delta = actualizar_delta(gradox, gradoy, delta);
+            delta = actualizar_delta(esta_x->grado, esta_y->grado, delta);
         }
     }
 
