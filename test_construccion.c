@@ -31,4 +31,6 @@ int main (){
     printf("=================Grados=================\n");
     printf("Delta es %u\n", G->delta);
     G->delta == max ? printf("True") : printf("False");
+
+    DestruccionDelGrafo(G);
 }
