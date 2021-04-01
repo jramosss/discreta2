@@ -5,6 +5,7 @@ typedef struct Vert {
     u32         grado;
     u32         color;
     u32         index;
+    u32         *pesoslados;        // Arreglo de pesos, donde cada posicion se corresponde con el arreglo de vecinos
     struct Vert **vecinos;
 } Vert;
 
