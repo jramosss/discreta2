@@ -2,15 +2,6 @@
 #include <stdbool.h>
 #include "../src/utils.h"
 
-static void display_normalOrder (Grafo G){
-    printf("\nVertices orden interno: [");
-    for(u32 i = 0; i < (G->n); i++){
-        printf("%d,",G->vertices[i]->nombre);
-    }
-    printf("]\n");
-}
-
-
 int main(void) {
     Grafo G = ConstruccionDelGrafo();
     bool cond = true;

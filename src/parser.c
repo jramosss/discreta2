@@ -95,7 +95,8 @@ static u32 actualizar_delta(u32 gradox, u32 gradoy, u32 delta) {
     }
 }
 
-/*  A medida que se agregan vecinos, esta funcion 
+/**
+ * A medida que se agregan vecinos, esta funcion 
 tambien actualiza los iesimo pesolado del vertice x al vertice x->vecinos[i], 
 reallocando su arreglo*/
 static void actualizar_pesoslados(Vert *x) {
@@ -105,6 +106,23 @@ static void actualizar_pesoslados(Vert *x) {
     } else {
         x->pesoslados = realloc(x->pesoslados,x->grado *sizeof(u32*));
         x->pesoslados[x->grado-1] = 0;
+    }
+}
+
+/**
+ * Esta funcion agrega el vecino "y" al vertice "x"
+ * @param x vertice al que se le agrega el nuevo vecino
+ * @param y vecino a agregar
+*/
+static void agregar_vecino(Vert *x, Vert *y) {
+    if(x->grado == 0){
+        x->grado++;
+        x->vecinos = calloc(1, sizeof(Vert*));
+        x->vecinos[x->grado - 1] = y;
+    } else {
+        x->grado++;
+        x->vecinos = realloc(x->vecinos, x->grado * sizeof(Vert*));
+        x->vecinos[x->grado - 1] = y;
     }
 }
 
@@ -137,12 +155,8 @@ void fill_verts(FILE *fp, Grafo G) {
             Vert *vx = vert_create(x, pos);
             Vert *vy = vert_create(y, pos+1);
 
-            vx->grado++;
-            vy->grado++;
-            vx->vecinos = calloc(1, sizeof(Vert*));
-            vy->vecinos = calloc(1, sizeof(Vert*));
-            vx->vecinos[vx->grado-1] = vy;
-            vy->vecinos[vy->grado-1] = vx;
+            agregar_vecino(vx,vy);
+            agregar_vecino(vy,vx);
 
             actualizar_pesoslados(vx);
             actualizar_pesoslados(vy);
@@ -158,12 +172,8 @@ void fill_verts(FILE *fp, Grafo G) {
         } else if (esta_x == NULL) {
             Vert *vx = vert_create(x,pos);
 
-            vx->grado++;
-            esta_y->grado++;
-            vx->vecinos = calloc(1, sizeof(Vert*));
-            esta_y->vecinos = realloc(esta_y->vecinos, esta_y->grado * sizeof(Vert*));
-            vx->vecinos[vx->grado-1] = esta_y;
-            esta_y->vecinos[esta_y->grado-1] = vx;
+            agregar_vecino(vx,esta_y);
+            agregar_vecino(esta_y,vx);
 
             delta = actualizar_delta(vx->grado, esta_y->grado, delta);
 
@@ -178,12 +188,8 @@ void fill_verts(FILE *fp, Grafo G) {
         } else if (esta_y == NULL) {
             Vert *vy = vert_create(y,pos);
 
-            vy->grado++;
-            esta_x->grado++;
-            vy->vecinos = calloc(1, sizeof(Vert*));
-            esta_x->vecinos = realloc(esta_x->vecinos, esta_x->grado * sizeof(Vert*));
-            vy->vecinos[vy->grado-1] = esta_x;
-            esta_x->vecinos[esta_x->grado-1] = vy;
+            agregar_vecino(esta_x,vy);
+            agregar_vecino(vy,esta_x);
 
             delta = actualizar_delta(esta_x->grado, vy->grado, delta);
 
@@ -196,12 +202,9 @@ void fill_verts(FILE *fp, Grafo G) {
             pos++;
 
         } else {
-            esta_x->grado++;
-            esta_y->grado++;
-            esta_x->vecinos = realloc(esta_x->vecinos, esta_x->grado * sizeof(Vert*));
-            esta_y->vecinos = realloc(esta_y->vecinos, esta_y->grado * sizeof(Vert*));
-            esta_x->vecinos[esta_x->grado-1] = esta_y;
-            esta_y->vecinos[esta_y->grado-1] = esta_x;
+            agregar_vecino(esta_x,esta_y);
+            agregar_vecino(esta_y,esta_x);
+
             delta = actualizar_delta(esta_x->grado, esta_y->grado, delta);
 
             actualizar_pesoslados(esta_x);
