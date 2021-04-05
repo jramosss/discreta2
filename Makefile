@@ -20,6 +20,8 @@ FUNCIONES = $(filter-out $(wildcard main*.c), $(wildcard $(FUNCIONES_PATH)))
 
 #Reemplazar dependiendo del main que desean usar, para tests.sh solo main.c
 NORMAL 			= mains/main.c
+COPIAR 			= mains/main_copiar.c
+CONSTRUCCION 	= mains/main_construccion.c
 BIP 			= mains/main_bip.c
 DESAPROBACION 	= mains/main_desaprobacion.c
 CHICOGRANDE 	= mains/main_for_chicogrande.c
@@ -29,7 +31,6 @@ NUMCCS 			= mains/main_for_NumCCs.c
 ALV				= mains/main_for_aleatvert.c
 SWITCH			= mains/main_for_switchcolores.c 
 WP 				= mains/main_for_welshpowell.c
-COPIAR 			= mains/main_copiar.c
 
 # Acá pueden configurar el nombre y directorio del output.
 # Yo lo hago en el subdirectorio './bin/', y el archivo se llama 'out.o'.
@@ -50,6 +51,9 @@ TEST_DEBUG= $(SOURCES) $(FUNCIONES) $(NORMAL)
 
 normal:
 	$(CC) $(CFLAGS0) $(TEST_NORMAL) $(OUT)
+
+all:
+    make normal
 
 desaprobacion:
 	$(CC) $(CFLAGS0) $(TEST) $(DESAPROBACION) $(OUT)
@@ -80,6 +84,9 @@ list:
 
 copiar:
 	$(CC) $(CFLAGS0) $(TEST) $(COPIAR) $(OUT)
+
+construccion:
+	$(CC) $(CFLAGS0) $(TEST) $(CONSTRUCCION) $(OUT)
 
 valgrind:
 	valgrind --leak-check=full ./test < grafos/q7.txt

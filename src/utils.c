@@ -50,8 +50,7 @@ void check_alv (char alv) {
  * @param G Un grafo
  * @returns El vertice en el indice indicado
 */
-Vert* find_vert_by_index (u32 i, Grafo G)
-{
+Vert* find_vert_by_index (u32 i, Grafo G) {
     return G->vertices[i];
 }
 

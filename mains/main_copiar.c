@@ -41,7 +41,8 @@ int main (void) {
 
     blank(1);
 
-    printf("La construccion del grafo tardo %f segundos\n",(double)(end_t-start_t)/CLOCKS_PER_SEC);
+    //Time construction Took
+    printf("%f\n",(double)(end_t-start_t)/CLOCKS_PER_SEC);
 
     start_t = clock();
 
@@ -49,27 +50,31 @@ int main (void) {
 
     end_t = clock();
 
-    printf("La copia del grafo tardo %f segundos\n",(double)(end_t-start_t)/CLOCKS_PER_SEC);
+    //Time copy took
+    printf("%f\n",(double)(end_t-start_t)/CLOCKS_PER_SEC);
 
-    check_eq(G->delta,C->delta,"Delta");
-    check_eq(G->n,C->n,"N");
-    check_eq(G->m,C->m,"M");
+    printf(G->delta == C->delta ? "Los campos delta son iguales\n": "Los campos delta NO son iguales\n");
+
+    printf(G->n == C->n ? "Los campos N son iguales\n": "Los campos N NO son iguales\n");
+
+    printf(G->m == C->m ? "Los campos M son iguales\n" : "Los campos M NO son iguales\n");
+    
     
     bool flag = true;
     for (u32 i = 0; i < G->n; i++) {
         flag = check_vert(G->orden_natural[i],C->orden_natural[i]);
         if (!flag) break;
     }
-    check_cond((char)flag,"Los arreglos de orden natural son iguales",
-                          "Los arreglos de orden natural no son iguales");
+    printf(flag ?         "Los campos orden natural son iguales\n" :
+                          "Los campos orden natural NO son iguales\n");
 
     for (u32 i = 0; i < G->n; i++) {
         flag = check_vert(G->vertices[i],C->vertices[i]);
         if (!flag) break;
     }
 
-    check_cond((char)flag,"Los arreglos de vertices son iguales",
-                          "Los arreglos de vertices no son iguales");
+    printf(flag ?         "Los campos vertices son iguales\n" :
+                          "Los campos vertices NO son iguales\n");
 
     DestruccionDelGrafo(C);
     DestruccionDelGrafo(G);
