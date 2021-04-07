@@ -25,6 +25,12 @@ int main(void) {
     Grafo g = ConstruccionDelGrafo();
     //if (!grafo_muy_grande(g->n))
       //  display_normalOrder(g);
+
+    if (g == NULL) {
+        printf("\nEl grafo no pudo construirse ya que no cumple con el Standard Input\n");
+        return 0;
+    }
+    
     printf("\nVertices %u, Lados %u\n", g->n, g->m);
     printf("2do Vert: %u\n", g->vertices[2]->nombre);
     printf("\nEl delta del grafo es: %u\n", g->delta);

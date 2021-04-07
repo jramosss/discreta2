@@ -1,5 +1,4 @@
 #include "../RomaVictor.h"
-#define MAXCHAR 100000
 
 Vert *vert_create (u32,u32);
 

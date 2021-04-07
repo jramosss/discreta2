@@ -10,7 +10,6 @@ u32 hash_key(u32 vertice, u32 tam_hash)
 
 Hash_table *crear_tabla(u32 nvertices)
 {
-    assert(nvertices > 0);
     Hash_table *hash = calloc(1, sizeof(struct Hash_table));
     hash->num_datos = nvertices;
     hash->tabla = (Element_t**)calloc(nvertices, sizeof(struct Element_t*));

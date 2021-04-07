@@ -1,15 +1,30 @@
 #include <stdlib.h>
 #include "../RomaVictor.h"
 #include "parser.h"
+#include "utils.h"
 
 
 Grafo ConstruccionDelGrafo (void)
 {   
     Grafo G = calloc(1, sizeof(GrafoSt));
+
+    if(G == NULL)                                               // Si no hay memoria para allocar NULL
+        return NULL;
+
+    G->m = 0;
+    G->n = 0;
     num_lados_vertices(stdin, G);
+
+    if(G->m == 0 || hayMlineas(stdin, G->m) == '0')             // Si el grafo esta vacio, o no hay mlineas NULL    
+        return NULL;
+
     G->delta = 0;
     G->orden_natural = calloc(G->n + 1, sizeof(Vert*));         // Agregamos una posicion para el ultimo vertice.
     G->vertices = calloc(G->n, sizeof(Vert*));
+
+    if(G->vertices == NULL || G->orden_natural == NULL)         // Si no hay memoria para allocar NULL
+        return NULL;
+
     fill_verts(stdin, G);
     
     return G;

@@ -5,31 +5,6 @@
 #include "utils.h"
 #include "hash.h"
 
-/**
- * Esta funcion acomoda el puntero del fichero para empezar a leer las etiquetas "e x y"
- * @param fp fichero donde vamos a acomodar el puntero
- *  PD: Para ahora codigo podriamos eliminarla, y usar el num_lados_vertices() para acomodar el     puntero
-*/
-static void acomodar_puntero (FILE *fp) {
-    char palabra1[MAXCHAR];                             // Buscaremos el valor "p"
-    char palabra2[MAXCHAR];                             // Buscaremos el valor "edge"
-    char vertices[MAXCHAR];
-    char lados[MAXCHAR];
-    
-    fscanf(fp, "%1s", palabra1);
-    while (!feof(fp)) {
-        if (memcmp(palabra1,"c",2)==0) {
-            fscanf(fp, "%[^\n]", palabra1);             // Ignorar los comentarios
-            fscanf(fp, "%1s", palabra1);
-        } else if (memcmp(palabra1,"p",2)==0){
-            fscanf(fp, "%*s %s %s", vertices, lados);
-            break;
-        } else {
-            fscanf(fp, "%[^\n]", palabra1);
-            fscanf(fp, "%1s", palabra1);
-        }
-    }
-}
 
 /** Crea el vertice nombre "name" con el index "index"
  * @param name nombre del vertice

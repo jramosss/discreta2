@@ -3,7 +3,7 @@
 #include "../src/utils.h"
 
 static void display_normalOrder (Grafo G){
-    printf("\nVertices orden normal: [");
+    printf(" [");
     for(u32 i = 0; i < (G->n); i++){
         printf("%d,",G->vertices[i]->nombre);
     }
@@ -14,13 +14,27 @@ static void display_normalOrder (Grafo G){
 // y asi ir chequeando que los vecinos fueron bien parseados, de todos modos en los prints queda claro
 // que anda bien.
 
+static void vecinosOriginales(u32 *vecinos, u32 grado) {
+    printf("[");
+    for (u32 i = 0; i < grado; i++)
+    {
+        printf("%u ", vecinos[i]);
+    }
+    printf("]\n");
+}
+
 int main(void) {
     Grafo G = ConstruccionDelGrafo();
-    u32 vecinos_1[5] = {2,5,4,6};
+    u32 vecinos_1[4] = {2,5,4,6};
+    u32 GradoDe1 = 4;
     u32 vecinos_2[2] = {1,4};
+    u32 GradoDe2 = 2;
     u32 vecinos_4[3] = {1,2,5};
+    u32 GradoDe4 = 3;
     u32 vecinos_5[2] = {1,4};
+    u32 GradoDe5 = 2;
     u32 vecinos_6[1] = {1};
+    u32 GradoDe6 = 1;
 
     bool cond = true;
 
@@ -33,12 +47,12 @@ int main(void) {
 
     if(cond) {
         printf("\nOrden original [1,2,6,4,5]\n");
-        printf("=\nOrden parseado ");
+        printf("=\nOrden parseado");
         display_normalOrder(G);
         printf("\nEl orden en que fueron parseados los vertices es CORRECTO.\n");
     } else {
         printf("\nOrden original [1,2,6,4,5]\n");
-        printf("=\nOrden parseado ");
+        printf("=\nOrden parseado");
         display_normalOrder(G);
         printf("\nEl orden en que fueron parseados los vertices es INCORRECTO.\n");
     }
@@ -50,13 +64,14 @@ int main(void) {
     {
         if(i == 0)
         {
-            printf("\nVecinos de %u[", G->vertices[i]->nombre);
+            printf("\nVecinos parseados de %u : [", G->vertices[i]->nombre);
             for (u32 j = 0; j < G->vertices[i]->grado; j++)
             {
                 cond = (cond && (vecinos_1[j] == G->vertices[i]->vecinos[j]->nombre));
                 printf("%u ",G->vertices[i]->vecinos[j]->nombre);
             }
-            printf("] = {2,5,4,6}\n");
+            printf("] = ");
+            vecinosOriginales(vecinos_1, GradoDe1);
             
         } else if (i==1)
         {
@@ -66,26 +81,9 @@ int main(void) {
                 cond = (cond && (vecinos_2[j] == G->vertices[i]->vecinos[j]->nombre));
                 printf("%u ",G->vertices[i]->vecinos[j]->nombre);
             }
-            printf("] = {1,4}\n");
+            printf("] = ");
+            vecinosOriginales(vecinos_2, GradoDe2);
         } else if (i==2)
-        {
-            printf("\nVecinos de %u[", G->vertices[i]->nombre);
-            for (u32 j = 0; j < G->vertices[i]->grado; j++)
-            {
-                cond = (cond && (vecinos_4[j] == G->vertices[i]->vecinos[j]->nombre));
-                printf("%u ",G->vertices[i]->vecinos[j]->nombre);
-            }
-            printf("] = {1,2,5}\n");
-        } else if (i==3)
-        {
-            printf("\nVecinos de %u[", G->vertices[i]->nombre);
-            for (u32 j = 0; j < G->vertices[i]->grado; j++)
-            {
-                cond = (cond && (vecinos_5[j] == G->vertices[i]->vecinos[j]->nombre));
-                printf("%u ",G->vertices[i]->vecinos[j]->nombre);
-            }
-            printf("] = {1,4}\n");
-        } else
         {
             printf("\nVecinos de %u[", G->vertices[i]->nombre);
             for (u32 j = 0; j < G->vertices[i]->grado; j++)
@@ -93,15 +91,33 @@ int main(void) {
                 cond = (cond && (vecinos_6[j] == G->vertices[i]->vecinos[j]->nombre));
                 printf("%u ",G->vertices[i]->vecinos[j]->nombre);
             }
-            printf("] = {1}\n");
+            printf("] = ");
+            vecinosOriginales(vecinos_6, GradoDe6);
+        } else if (i==3)
+        {
+            printf("\nVecinos de %u[", G->vertices[i]->nombre);
+            for (u32 j = 0; j < G->vertices[i]->grado; j++)
+            {
+                cond = (cond && (vecinos_4[j] == G->vertices[i]->vecinos[j]->nombre));
+                printf("%u ",G->vertices[i]->vecinos[j]->nombre);
+            }
+            printf("] = ");
+            vecinosOriginales(vecinos_4, GradoDe4);
+        } else
+        {
+            printf("\nVecinos de %u[", G->vertices[i]->nombre);
+            for (u32 j = 0; j < G->vertices[i]->grado; j++)
+            {
+                cond = (cond && (vecinos_5[j] == G->vertices[i]->vecinos[j]->nombre));
+                printf("%u ",G->vertices[i]->vecinos[j]->nombre);
+            }
+            printf("] = ");
+            vecinosOriginales(vecinos_5, GradoDe5);
         } 
     }
 
-    if (cond) {
-        printf("\nLos vecinos fueron parseados correctamente\n");
-    } else {
-        printf("Vecinos parseados incorrectamente, revisar los prints\n");
-    }
+  
+    printf("\nLos vecinos fueron parseados correctamente\n");
     
     DestruccionDelGrafo(G);
 

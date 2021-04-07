@@ -77,3 +77,46 @@ void print_arr (u32* arr,u32 len) {
     }
     printf("]\n");
 }
+
+/**
+ * Esta funcion acomoda el puntero del fichero para empezar a leer las etiquetas "e x y"
+ * @param fp fichero donde vamos a acomodar el puntero
+ *  PD: Para ahora codigo podriamos eliminarla, y usar el num_lados_vertices() para acomodar el     puntero
+*/
+void acomodar_puntero (FILE *fp) {
+    char palabra1[MAXCHAR];                             // Buscaremos el valor "p"
+    char palabra2[MAXCHAR];                             // Buscaremos el valor "edge"
+    char vertices[MAXCHAR];
+    char lados[MAXCHAR];
+    
+    fseek(stdin,0,SEEK_SET);
+
+    fscanf(fp, "%1s", palabra1);
+    while (!feof(fp)) {
+        if (memcmp(palabra1,"c",2)==0) {
+            fscanf(fp, "%[^\n]", palabra1);             // Ignorar los comentarios
+            fscanf(fp, "%1s", palabra1);
+        } else if (memcmp(palabra1,"p",2)==0){
+            fscanf(fp, "%*s %s %s", vertices, lados);
+            break;
+        } else {
+            fscanf(fp, "%[^\n]", palabra1);
+            fscanf(fp, "%1s", palabra1);
+        }
+    }
+}
+
+char hayMlineas(FILE *fp, u32 mlineas) {
+    char xs[MAXCHAR];
+    char ys[MAXCHAR];
+    u32 lineas = 0;
+
+    acomodar_puntero(fp);
+
+    while(!feof(fp)) {
+        fscanf(fp, "%*s %s %s", xs, ys);
+        lineas++;
+    }
+
+    return (lineas >= mlineas ? '1' : '0');
+}
