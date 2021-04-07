@@ -19,3 +19,12 @@ char FijarOrden(u32 i,Grafo G,u32 N){
     
     return '0';
 }
+
+u32 FijarPesoLadoConVecino(u32 j,u32 i,u32 p,Grafo G){
+    // Ver que u32 debemos retornar, la funcion no aclara nada.
+    if (i >= G->n || j >= find_vert_by_index(i,G)->grado) return error;
+
+    Vert *vert = find_vert_by_index(i,G);
+    vert->pesoslados[j] = p;
+    return 0;
+}
