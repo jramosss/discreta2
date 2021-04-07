@@ -31,6 +31,9 @@ NUMCCS 			= mains/main_for_NumCCs.c
 ALV				= mains/main_for_aleatvert.c
 SWITCH			= mains/main_for_switchcolores.c 
 WP 				= mains/main_for_welshpowell.c
+COPIAR 			= mains/main_copiar.c
+FIJARPESO		=mains/main_fijarpeso.c
+VECINOS			=mains/main_vecinos.c
 
 # Acá pueden configurar el nombre y directorio del output.
 # Yo lo hago en el subdirectorio './bin/', y el archivo se llama 'out.o'.
@@ -84,6 +87,12 @@ copiar:
 
 construccion:
 	$(CC) $(CFLAGS0) $(TEST) $(CONSTRUCCION) $(OUT)
+
+fijarpeso:
+	$(CC) $(CFLAGS0) $(TEST) $(FIJARPESO) $(OUT)
+
+vecinos:
+	$(CC) $(CFLAGS0) $(TEST) $(VECINOS) $(OUT)
 
 valgrind:
 	valgrind --leak-check=full ./test < grafos/q7.txt

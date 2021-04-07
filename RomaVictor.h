@@ -96,7 +96,12 @@ u32 NombreVecino(u32 j,u32 i,Grafo G);
 */
 u32 OrdenVecino(u32 j,u32 i,Grafo G);
 
-
+/** 
+ * Devuelve el peso del lado formado por el i-´esimo v´ertice de G en el orden interno con el j-´esimo vecino de ese v´ertice. 
+ * @param j j-esimo vecino de i
+ * @param i i-esimo vertice en orden interno
+ * @param G grafo que contiene los vertices
+*/
 u32 PesoLadoConVecino(u32 j,u32 i,Grafo G);
 
 
@@ -120,6 +125,15 @@ char FijarColor(u32 x,u32 i,Grafo G);
  * @returns '0' si salio todo bien, '1' si algo salio mal
 */
 char FijarOrden(u32 i,Grafo G,u32 N);
+
+/**
+ * Hace que el lado formado por el i-´esimo v´ertice de G en el orden interno con el j-´esimo vecino de ese v´ertice tenga peso p.
+ * @param j j-esimo vertice de i
+ * @param i i-esimo vertice de G, orden interno 
+ * @param p peso a asignar
+ * @param G El grafo
+*/
+u32 FijarPesoLadoConVecino(u32 j,u32 i,u32 p,Grafo G);
 
 
 /* Esto lo comento por que no es necesario para la primera parte del proyecto

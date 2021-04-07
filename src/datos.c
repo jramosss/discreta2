@@ -49,3 +49,11 @@ u32 OrdenVecino(u32 j,u32 i,Grafo G){
     Vert *vert = find_vert_by_index(i,G);
     return j < vert->grado ? vert->vecinos[j]->index : (u32)error; 
 }
+
+
+u32 PesoLadoConVecino(u32 j,u32 i,Grafo G){
+    if (i >= G->n) return error;
+
+    Vert *vert = find_vert_by_index(i,G);
+    return j < vert->grado ? vert->pesoslados[j] : (u32)error;
+}
