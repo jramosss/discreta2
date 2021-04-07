@@ -20,6 +20,8 @@ FUNCIONES = $(filter-out $(wildcard main*.c), $(wildcard $(FUNCIONES_PATH)))
 
 #Reemplazar dependiendo del main que desean usar, para tests.sh solo main.c
 NORMAL 			= mains/main.c
+COPIAR 			= mains/main_copiar.c
+CONSTRUCCION 	= mains/main_construccion.c
 BIP 			= mains/main_bip.c
 DESAPROBACION 	= mains/main_desaprobacion.c
 CHICOGRANDE 	= mains/main_for_chicogrande.c
@@ -82,6 +84,9 @@ list:
 
 copiar:
 	$(CC) $(CFLAGS0) $(TEST) $(COPIAR) $(OUT)
+
+construccion:
+	$(CC) $(CFLAGS0) $(TEST) $(CONSTRUCCION) $(OUT)
 
 fijarpeso:
 	$(CC) $(CFLAGS0) $(TEST) $(FIJARPESO) $(OUT)
