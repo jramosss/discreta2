@@ -1,3 +1,5 @@
+# python3 test_copiar.py |  sed -i 's/[92//g' > results/copiar.txt
+
 import os
 import subprocess
 if __name__ == '__main__':
@@ -31,14 +33,14 @@ def test_all ():
     files       = sort_files_from_dir(GRAPHS_DIR)
     responses   = Responses()
 
-    os.system('gcc -g -Wall -Wextra -std=c99 -Wpedantic -Wstrict-prototypes -Wunreachable-code -Wconversion -Wshadow -O3 ../src/construccion.c ../src/parser.c ../src/hash.c ../src/utils.c  ../mains/main_copiar.c -o test')
+    os.system('make copiar')
     for graph in files:
         print_in_cyan("-----Testing " + graph)
         filename = GRAPHS_DIR + graph
         try:
             result   = subprocess.check_output('./test < ' + filename,shell=True,encoding='utf-8',text=True)
             fields   = result.split('\n')
-            AUX,TIME,COPY,DELTA,N,M,NAT_ORDER,VERT,AUX2 = fields
+            _,TIME,COPY,DELTA,N,M,NAT_ORDER,VERT,_ = fields
         except:
             print_in_red("Error corriendo el grafo")
 

@@ -19,4 +19,3 @@ def sort_files_from_dir (dir):
     files = os.listdir(dir)
     files.sort()
     return files
-

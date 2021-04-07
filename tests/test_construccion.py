@@ -23,7 +23,7 @@ def timekeep_all ():
         end = time.time()
         total = str(end-start)
         times[graph] = total
-        print_in_green(graph + " tardo                  " + total)
+        print(graph + " tardo                  " + total)
         f.write("Graph " + graph + ": " + total + "\n")
 
     #TODO calcular cual es el que mas tardo 
