@@ -19,7 +19,7 @@ Grafo ConstruccionDelGrafo (void)
         return NULL;
 
     G->delta = 0;
-    G->orden_natural = calloc(G->n + 1, sizeof(Vert*));         // Agregamos una posicion para el ultimo vertice.
+    G->orden_natural = calloc(G->n, sizeof(Vert*));         // Agregamos una posicion para el ultimo vertice.
     G->vertices = calloc(G->n, sizeof(Vert*));
 
     if(G->vertices == NULL || G->orden_natural == NULL)         // Si no hay memoria para allocar NULL

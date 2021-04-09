@@ -23,6 +23,7 @@ static void display_normalOrder (Grafo G){
 
 int main(void) {
     Grafo g = ConstruccionDelGrafo();
+    u32 suma_de_grados = 0;
     //if (!grafo_muy_grande(g->n))
       //  display_normalOrder(g);
 
@@ -30,6 +31,12 @@ int main(void) {
         printf("\nEl grafo no pudo construirse ya que no cumple con el Standard Input\n");
         return 0;
     }
+
+    for (u32 i = 0; i < g->n; i++)
+    {
+        suma_de_grados = suma_de_grados + g->vertices[i]->grado;
+    }
+    
     
     printf("\nVertices %u, Lados %u\n", g->n, g->m);
     printf("2do Vert: %u\n", g->vertices[2]->nombre);
