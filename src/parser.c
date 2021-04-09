@@ -33,11 +33,14 @@ void num_lados_vertices (FILE *fp, Grafo g) {
             fscanf(fp, "%[^\n]", palabra1);             // Ignorar los comentarios
             fscanf(fp, "%1s", palabra1);
         } else if (memcmp(palabra1,"p",2)==0){
-            fscanf(fp, "%*s %s %s", vertices, lados);
-            g->n = (u32)atoi(vertices);  
-            g->m = (u32)atoi(lados);
-            fseek(stdin,0,SEEK_SET);
-            break;
+            fscanf(fp, "%s", palabra1);
+            if (memcmp(palabra1,"edge",5)==0) {
+                fscanf(fp, "%s %s", vertices, lados);
+                g->n = (u32)atoi(vertices);  
+                g->m = (u32)atoi(lados);
+                fseek(stdin,0,SEEK_SET);
+                break;
+            }
         } else {
             fscanf(fp, "%[^\n]", palabra1);
             fscanf(fp, "%1s", palabra1);

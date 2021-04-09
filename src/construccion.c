@@ -15,7 +15,7 @@ Grafo ConstruccionDelGrafo (void)
     G->n = 0;
     num_lados_vertices(stdin, G);
 
-    if(G->m == 0 || hayMlineas(stdin, G->m) == '0')             // Si el grafo esta vacio, o no hay mlineas NULL    
+    if(G->n == 0 || hayMlineas(stdin, G->m) == '0')             // Si el grafo esta vacio, o no hay mlineas NULL    
         return NULL;
 
     G->delta = 0;
