@@ -15,13 +15,13 @@ COPIAR 			= ../mains/main_copiar.c
 CONSTRUCCION 	= ../mains/main_construccion.c
 BIP 			= ../mains/main_bip.c
 DESAPROBACION 	= ../mains/main_desaprobacion.c
-CHICOGRANDE 	= ../mains/main_for_chicogrande.c
-GREEDY 			= ../mains/main_for_greedy.c
-BIPARTITO 		= ../mains/main_for_bipartito.c
-NUMCCS 			= ../mains/main_for_NumCCs.c
-ALV				= ../mains/main_for_aleatvert.c
-SWITCH			= ../mains/main_for_switchcolores.c 
-WP 				= ../mains/main_for_welshpowell.c
+CHICOGRANDE 	= ../mains/main_chicogrande.c
+GREEDY 			= ../mains/main_greedy.c
+BIPARTITO 		= ../mains/main_bipartito.c
+NUMCCS 			= ../mains/main_NumCCs.c
+ALV				= ../mains/main_alv.c
+SWITCH			= ../mains/main_switchcolores.c 
+WP 				= ../mains/main_welshpowell.c
 
 OUT = -o test
 
@@ -79,11 +79,13 @@ clean:
 	rm -rvf test
 
 test_copiar:
-	python3 test_copiar.py |  sed -i 's/[92//g' > results/copiar.txt
-	cd ..
+	python test_copiar.py |  sed -i 's/[92//g' > results/copiar.txt
 
 test_construccion:
-	python3 test_construccion.py > results/construccion.txt
+	python test_construccion.py > results/construccion.txt
+
+test_alv:
+	python test_alv.py
 
 test_all:
 	make test_copiar
