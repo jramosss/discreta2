@@ -23,5 +23,9 @@ void print_arr              (u32*,u32);
 Vert* find_vert_by_index    (u32,Grafo);
 char hayMlineas             (FILE *fp, u32 mlineas);
 void acomodar_puntero       (FILE *fp);
+int compare                 (const void*, const void*);
+//Le asigna al arreglo de vertices el orden del arreglo de orden natural
+void assign_natural_order   (Grafo);
+void print_arr_vertices     (Grafo);
 
 #endif

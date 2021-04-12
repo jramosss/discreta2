@@ -28,3 +28,17 @@ u32 FijarPesoLadoConVecino(u32 j,u32 i,u32 p,Grafo G){
     vert->pesoslados[j] = p;
     return 0;
 }
+
+char AleatorizarVertices(Grafo G,u32 R) {
+    srand(R);
+    const u32 N = NumeroDeVertices(G);
+    const u32 random = (u32)rand();
+
+    for (u32 i = 0; i < N ;i++)
+        if (FijarOrden(i,G,(i+random)*R*random%N) == '1')
+            return '1';
+
+    //print_arr_vertices(G);
+
+    return '0';
+}

@@ -120,3 +120,24 @@ char hayMlineas(FILE *fp, u32 mlineas) {
 
     return (lineas >= mlineas ? '1' : '0');
 }
+
+int compare(const void *_a, const void *_b) {
+    int *a, *b;
+    
+    a = (int *) _a;
+    b = (int *) _b;
+    
+    return (*a - *b);
+}
+
+void assing_natural_order (Grafo G) {
+    for (u32 i = 0; i < NumeroDeVertices(G); i++)
+        FijarOrden(i,G,i);
+}
+
+void print_arr_vertices (Grafo G) {
+    printf("[");
+    for (u32 i = 0; i < NumeroDeVertices(G); i++) 
+        printf(i == NumeroDeVertices(G)-1 ? "%u" : "%u,",Nombre(i,G));
+    printf("]\n");
+}
