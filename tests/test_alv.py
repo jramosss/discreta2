@@ -9,7 +9,6 @@ else:
 def test_all ():
     GRAPHS_DIR  = '../grafos/'
     files       = sort_files_from_dir(GRAPHS_DIR)
-
     os.system('make alv')
     result = ""
     for graph in files:
@@ -24,6 +23,7 @@ def test_all ():
                 print_in_green(graph)
             else:
                 print_in_red("Unknown parameter in " + graph + ": " + result)
+            prev_result = result
 
         except Exception as e:
             print_in_red("Error corriendo el grafo: " + e.__str__())

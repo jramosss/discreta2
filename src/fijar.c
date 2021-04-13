@@ -34,11 +34,13 @@ char AleatorizarVertices(Grafo G,u32 R) {
     const u32 N = NumeroDeVertices(G);
     const u32 random = (u32)rand();
 
+    //Ordenamos el arreglo segun el orden natural
+    for (u32 i = 0; i < N; i++)
+        FijarOrden(i,G,i);
+
     for (u32 i = 0; i < N ;i++)
         if (FijarOrden(i,G,(i+random)*R*random%N) == '1')
             return '1';
-
-    //print_arr_vertices(G);
 
     return '0';
 }
