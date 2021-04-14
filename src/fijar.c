@@ -31,42 +31,35 @@ u32 FijarPesoLadoConVecino(u32 j,u32 i,u32 p,Grafo G){
     return 0;
 }
 
-
-char AleatorizarVertices(Grafo G,u32 R) {
+static void randomswaps(u32 *array, u32 n, u32 R){
     srand(R);
+    for (u32 i = 0; i < n; i++)
+        swap(&array[i],&array[((i+1) * R * rand() ) % n]);    
+}
+
+
+char AleatorizarVertices(Grafo G, u32 R){
     const u32 N = NumeroDeVertices(G);
-    const u32 random = (u32)rand();
-    char* used = malloc(N*sizeof(u32));
-    if (used == NULL) return '1';
-    u32 new_pos, i, n;
-    new_pos = i = n = 0;
-
-    //Ordenamos el arreglo segun el orden natural
-    for (u32 j = 0; j < N; j++)
-        FijarOrden(j,G,j);
-
-    memset(used,(u32)error,N);
-
-    while (i < N-1) {
-        new_pos = (i*R*random+n)%N;  
-        if (used[new_pos] == (char)error) {
-            used[new_pos] = '1';
-            if (FijarOrden(i,G,new_pos) == '1') return '1';
-            i++;
-        }
-        else
-            n++;
+    u32 *guia = malloc(N*sizeof(u32));    // Usamos este arreglo de guia para ordenar los vertices
+    if(guia == NULL) return '1';
+    //Ordeno el arreglo principal de forma natural 
+    //para olvidarme del orden con el que llego el grafo
+    for (u32 i = 0; i < N; i++){
+        FijarOrden(i, G, i);
+        guia[i] = i;                    // Array que voy a ordenar de forma aleatoria
     }
 
-    for (u32 t = 0; t < N; t++) {
-        if (used[t] == (char)error) {
-            FijarOrden(N-1,G,t);
-            break;
+    randomswaps(guia, N, R);            // Ordena el array de forma pesudoaleatoria dependiendo de R.
+
+    for (u32 i = 0; i < N; i++){        // De acuerdo al arreglo guia voy a reordenar el arreglo vertices de la estructura
+        if (guia[i] >= N) {
+            free(guia);
+            return '1';
         }
+        FijarOrden(i,G,guia[i]);
     }
 
-    free(used);
+    free(guia);
 
     return '0';
 }
-

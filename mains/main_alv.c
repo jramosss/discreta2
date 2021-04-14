@@ -1,5 +1,12 @@
+#include <time.h>
 #include "../RomaVictor.h"
 #include "../src/utils.h"
+
+void test_time (Grafo G,u32 times) {
+    u32 R = 1;
+    for (u32 i = 0; i < times; i++,R++)
+        AleatorizarVertices(G,R);    
+}
 
 void try_diff_seeds_aux (Grafo G,u32 times) {
     u32 R = 1;
@@ -26,7 +33,6 @@ void try_diff_seeds (Grafo G,u32 times) {
 
 int main (void) {
     Grafo G = ConstruccionDelGrafo();
-    const u32 R = 5;
     //Para los tests de python usar esta linea
     //printf("%c\n",AleatorizarVertices(G,R));
 
@@ -34,7 +40,18 @@ int main (void) {
     //try_diff_seeds(G,3);
 
     //Experimental
-    try_diff_seeds_aux(G,40);
+    //try_diff_seeds_aux(G,1000);
+
+    //Test time
+    clock_t start,end;
+    double total = 0;
+    start = clock();
+    test_time(G,1000);
+    end = clock();
+    total = (double)end-start/CLOCKS_PER_SEC;
+    printf("%f\n",total);
+
+    DestruccionDelGrafo(G);
 
     return 0;
 }

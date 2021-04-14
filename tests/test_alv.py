@@ -7,23 +7,20 @@ if __name__ == '__main__':
 else:
     from ._utils import *
 
-def just_run ():
+def timekeep ():
     GRAPHS_DIR = '../grafos/'
     os.system('make alv')
     files = sort_files_from_dir(GRAPHS_DIR)
     
     for graph in files:
         print_in_cyan("-----Testing " + graph)
-        #if graph.startswith('Bx') or graph.startswith('GRD') or graph.startswith('R1') or graph == 'bossgraph' or graph == 'elpi' or graph == "elgordo" or graph == 'elgraph':
-         #   continue
+
         filename = GRAPHS_DIR + graph
 
-        start = time.time()
-        subprocess.check_output('./test < ' + filename,shell=True,encoding='utf-8',text=True)
-        end = time.time()
+        result = subprocess.check_output('./test < ' + filename,shell=True,encoding='utf-8',text=True)
+        print_in_cyan(graph + " tardo " + str(result).replace('\n','') + " segundos")
 
-        print(graph," tardo ",end-start)
-
+    os.system('rm test')
 
 
 def test_correct ():
@@ -49,20 +46,18 @@ def test_correct ():
         vertices = [int(v) for v in aux_vertices]
         orden_nat = [int(ov) for ov in aux_orden_nat]
 
-        """
+
         for vert in vertices:
             if vert not in orden_nat:
                 print_in_red("Se perdio el vertice: "+vert)
                 flag1 = False
-        """
-
-        """
+    
         for i in range (0,len(vertices)):
             for j in range (0,len(vertices)):
                 if i != j and int(vertices[i]) == int(vertices[j]):
                     print_in_red(f"El vertice {vertices[i]} se repite en la posicion {i} y {j}")
                     flag2 = False
-        """
+        
         print_in_green(graph) if flag1 and flag2 else print_in_red(graph)
 
 
@@ -97,4 +92,4 @@ def test_all ():
 if __name__ == '__main__':
     #test_all()
     #test_correct()
-    just_run()
+    timekeep()

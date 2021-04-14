@@ -28,7 +28,8 @@ int compare                 (const void*, const void*);
 //Le asigna al arreglo de vertices el orden del arreglo de orden natural
 void assign_natural_order   (Grafo);
 void print_arr_vertices     (Grafo);
-bool  arr_contains          (u32*,u32,u32);
-int   cmpfunc               (const void*, const void*);
+bool arr_contains           (u32*,u32,u32);
+int  cmpfunc                (const void*, const void*);
+void swap                   (int *xp, int *yp);
 
 #endif

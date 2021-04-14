@@ -146,3 +146,9 @@ void print_arr_vertices (Grafo G) {
 int cmpfunc(const void * a, const void * b) {
    return ( *(int*)a - *(int*)b );
 }
+
+void swap(int *xp, int *yp) {
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
