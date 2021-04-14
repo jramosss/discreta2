@@ -6,7 +6,7 @@
     devuelve 0 queda coloreado con un coloreo propio. */
 char Bipartito(Grafo G){
     const u32 nvertices = NumeroDeVertices(G);
-    char *visitados = calloc(nvertices, sizeof(char));      // Arreglo que indica los vertices visitados (1) 
+    u32 *visitados = calloc(nvertices, sizeof(u32));      // Arreglo que indica los vertices visitados (1) 
     queue_t *queue = createQueue();
     u32 v;
 

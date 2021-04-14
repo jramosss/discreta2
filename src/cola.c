@@ -73,23 +73,3 @@ u32 dequeue(queue_t *queue) {
 u32 getQueueSize(queue_t *queue) {
     return queue->tam;
 }
-
-// int main(void){
-//     queue_t *cola = createQueue();
-//     enqueue(10,cola);
-//     enqueue(15,cola);
-//     enqueue(20,cola);
-//     enqueue(25,cola);
-//     enqueue(30,cola);
-//     printf("\nInicio: %u\n", cola->datos[cola->inicio]);
-//     printf("\nFin: %u\n", cola->datos[cola->fin]);
-//     printf("\nElemento removido %u\n", dequeue(cola));
-//     printf("\nElemento removido %u\n", dequeue(cola));
-//     printf("\nElemento removido %u\n", dequeue(cola));
-//     printf("\nInicio: %u deberia ser 25\n", cola->datos[cola->inicio]);
-//     enqueue(35, cola);
-//     enqueue(40, cola);
-//     enqueue(45, cola);
-//     printf("\nInicio: %u\n", cola->datos[cola->inicio]);
-//     printf("\nFin deberia ser 45: %u\n", cola->datos[cola->fin]);
-// }
