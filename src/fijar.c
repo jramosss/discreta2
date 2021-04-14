@@ -1,3 +1,5 @@
+#include <string.h>
+#include <time.h>
 #include "utils.h"
 #include "../RomaVictor.h"
 
@@ -13,10 +15,10 @@ char FijarColor(u32 x, u32 idx, Grafo G)
 
 char FijarOrden(u32 i,Grafo G,u32 N){
     if (i >= G->n || N >= G->n) return '1';
-
+    
     G->vertices[i] = G->orden_natural[N];
     G->vertices[i]->index = i;
-    
+
     return '0';
 }
 
@@ -29,18 +31,42 @@ u32 FijarPesoLadoConVecino(u32 j,u32 i,u32 p,Grafo G){
     return 0;
 }
 
+
 char AleatorizarVertices(Grafo G,u32 R) {
     srand(R);
     const u32 N = NumeroDeVertices(G);
     const u32 random = (u32)rand();
+    char* used = malloc(N*sizeof(u32));
+    if (used == NULL) return '1';
+    u32 new_pos, i, n;
+    new_pos = i = n = 0;
 
     //Ordenamos el arreglo segun el orden natural
-    for (u32 i = 0; i < N; i++)
-        FijarOrden(i,G,i);
+    for (u32 j = 0; j < N; j++)
+        FijarOrden(j,G,j);
 
-    for (u32 i = 0; i < N ;i++)
-        if (FijarOrden(i,G,(i+random)*R*random%N) == '1')
-            return '1';
+    memset(used,(u32)error,N);
+
+    while (i < N-1) {
+        new_pos = (i*R*random+n)%N;  
+        if (used[new_pos] == (char)error) {
+            used[new_pos] = '1';
+            if (FijarOrden(i,G,new_pos) == '1') return '1';
+            i++;
+        }
+        else
+            n++;
+    }
+
+    for (u32 t = 0; t < N; t++) {
+        if (used[t] == (char)error) {
+            FijarOrden(N-1,G,t);
+            break;
+        }
+    }
+
+    free(used);
 
     return '0';
 }
+

@@ -1,6 +1,7 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
 #include "../RomaVictor.h"        //No se si esto es necesario
+#include <stdbool.h>
 
 #define blank(k) printf("\n")
 
@@ -27,5 +28,7 @@ int compare                 (const void*, const void*);
 //Le asigna al arreglo de vertices el orden del arreglo de orden natural
 void assign_natural_order   (Grafo);
 void print_arr_vertices     (Grafo);
+bool  arr_contains          (u32*,u32,u32);
+int   cmpfunc               (const void*, const void*);
 
 #endif

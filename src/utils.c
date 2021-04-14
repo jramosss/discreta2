@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include "utils.h"
 #include "../RomaVictor.h"
 
@@ -140,4 +141,8 @@ void print_arr_vertices (Grafo G) {
     for (u32 i = 0; i < NumeroDeVertices(G); i++) 
         printf(i == NumeroDeVertices(G)-1 ? "%u" : "%u,",Nombre(i,G));
     printf("]\n");
+}
+
+int cmpfunc(const void * a, const void * b) {
+   return ( *(int*)a - *(int*)b );
 }
