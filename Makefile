@@ -34,6 +34,7 @@ WP 				= mains/main_for_welshpowell.c
 COPIAR 			= mains/main_copiar.c
 FIJARPESO		=mains/main_fijarpeso.c
 VECINOS			=mains/main_vecinos.c
+BIPARTITO		=mains/main_bipartito.c
 
 # Acá pueden configurar el nombre y directorio del output.
 # Yo lo hago en el subdirectorio './bin/', y el archivo se llama 'out.o'.
@@ -90,6 +91,9 @@ construccion:
 
 fijarpeso:
 	$(CC) $(CFLAGS0) $(TEST) $(FIJARPESO) $(OUT)
+
+bipartito:
+	$(CC) $(CFLAGS0) $(TEST) $(BIPARTITO) $(OUT)
 
 vecinos:
 	$(CC) $(CFLAGS0) $(TEST) $(VECINOS) $(OUT)

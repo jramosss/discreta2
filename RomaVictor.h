@@ -154,13 +154,13 @@ char AleatorizarVertices(Grafo G,u32 R);
 char SwitchColores(Grafo G,u32 i,u32 j);
 
 
-char Bipartito(Grafo G);
 u32 Greedy(Grafo G);
 
 
 u32 NumCCs(Grafo G);
 
 */
+char Bipartito(Grafo G);
 
 
 #endif
