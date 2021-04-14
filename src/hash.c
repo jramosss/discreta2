@@ -52,9 +52,7 @@ Vert *buscar_vertice_en_hash(u32 key, u32 nombre, Hash_table *hash)
 
 void destruir_hash(Hash_table *hash)
 {
-  printf("\nSe rompe\n");
   for (u32 i = 0; i < hash->num_datos; i++) {
-    printf("\nSe rompe %u\n", i);
     if(hash->tabla[i] != NULL) {
       free(hash->tabla[i]->vertices);
       free(hash->tabla[i]);

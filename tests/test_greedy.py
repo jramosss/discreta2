@@ -17,19 +17,16 @@ def test_all ():
         print_in_cyan("-----Testing " + graph)
         filename = GRAPHS_DIR + graph
         
-        try:
-            start   = time.time()
+        try: 
             result  = subprocess.check_output('./test < ' + filename,shell=True,encoding='utf-8',text=True)
-            end     = time.time()
-
-            print_in_green(str(result) + str(end-start))
-
+            colores = result.split("COLORES: ")[1]
+            print(colores)
             #Expected response = Greedy coloreo con n colores
             #TODO check correct results for each graph
             
             
-        except:
-            print_in_red("Error corriendo el grafo")
+        except Exception as e:
+            print_in_red("Error corriendo el grafo" + e.__str__())
 
 
 
