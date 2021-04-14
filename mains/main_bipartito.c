@@ -26,26 +26,31 @@ int main (void){
 
     clock_t start_t, end_t; 
     double total_t;
-    start_t = clock();
 
     u32 bipartito = 0;
     u32 coloreoprop = 0;
     Grafo G = ConstruccionDelGrafo();
 
-    blank(1);
+    if(G == NULL) 
+        printf("\nFallo la construccion del grafo\n");
+    else {
+        start_t = clock();
+        blank(1);
 
-    printf("\n====================BIPARTITO====================\n");
-        // 1 es true
-        char bip = Bipartito(G);
-        printf("\nEl resultado de bipartito fue %c\n", bip);
-        check_cond(bip=='1',"El grafo es bipartito","El grafo no es bipartito");
-        check_cond(coloreo_propio(G), "El coloreo es propio", "El coloreo no es propio");
-        if(coloreo_propio(G)) coloreoprop++;
+        printf("\n====================BIPARTITO====================\n");
+            // 1 es true
+            char bip = Bipartito(G);
+            printf("\nEl resultado de bipartito fue %c\n", bip);
+            check_cond(bip=='1',"El grafo es bipartito","El grafo no es bipartito");
+            check_cond(coloreo_propio(G), "El coloreo es propio", "El coloreo no es propio");
+            if(coloreo_propio(G)) coloreoprop++;
 
-    DestruccionDelGrafo(G);
+        DestruccionDelGrafo(G);
 
-    end_t = clock();
-    total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
-    printf("\nEl programa tardo %f segundos en ejecutarse\n",total_t);
+        end_t = clock();
+        total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
+        printf("\nEl programa tardo %f segundos en ejecutarse\n",total_t);
+    }
+
 
 }
