@@ -22,11 +22,9 @@ FUNCIONES = $(filter-out $(wildcard main*.c), $(wildcard $(FUNCIONES_PATH)))
 NORMAL 			= mains/main.c
 COPIAR 			= mains/main_copiar.c
 CONSTRUCCION 	= mains/main_construccion.c
-BIP 			= mains/main_bip.c
 DESAPROBACION 	= mains/main_desaprobacion.c
 CHICOGRANDE 	= mains/main_for_chicogrande.c
 GREEDY 			= mains/main_for_greedy.c
-BIPARTITO 		= mains/main_for_bipartito.c
 NUMCCS 			= mains/main_for_NumCCs.c
 ALV				= mains/main_for_aleatvert.c
 SWITCH			= mains/main_for_switchcolores.c 
@@ -34,6 +32,7 @@ WP 				= mains/main_for_welshpowell.c
 COPIAR 			= mains/main_copiar.c
 FIJARPESO		=mains/main_fijarpeso.c
 VECINOS			=mains/main_vecinos.c
+BIPARTITO		=mains/main_bipartito.c
 
 # Acá pueden configurar el nombre y directorio del output.
 # Yo lo hago en el subdirectorio './bin/', y el archivo se llama 'out.o'.
@@ -93,6 +92,9 @@ fijarpeso:
 
 vecinos:
 	$(CC) $(CFLAGS0) $(TEST) $(VECINOS) $(OUT)
+
+bipartito:
+	$(CC) $(CFLAGS0) $(TEST) $(BIPARTITO) $(OUT)
 
 valgrind:
 	valgrind --leak-check=full ./test < grafos/q7.txt
