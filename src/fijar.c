@@ -1,5 +1,3 @@
-#include <string.h>
-#include <time.h>
 #include "utils.h"
 #include "../RomaVictor.h"
 
@@ -37,21 +35,19 @@ static void randomswaps(u32 *array, u32 n, u32 R){
         swap(&array[i],&array[((i+1) * R * rand() ) % n]);    
 }
 
-
 char AleatorizarVertices(Grafo G, u32 R){
     const u32 N = NumeroDeVertices(G);
-    u32 *guia = malloc(N*sizeof(u32));    // Usamos este arreglo de guia para ordenar los vertices
+    u32 *guia   = malloc(N*sizeof(u32));    // Usamos este arreglo de guia para ordenar los vertices
     if(guia == NULL) return '1';
-    //Ordeno el arreglo principal de forma natural 
-    //para olvidarme del orden con el que llego el grafo
-    for (u32 i = 0; i < N; i++){
-        FijarOrden(i, G, i);
-        guia[i] = i;                    // Array que voy a ordenar de forma aleatoria
-    }
+    
+    for (u32 i = 0; i < N; i++){            // Ordeno el arreglo principal de forma natural 
+        FijarOrden(i, G, i);                // para olvidarme del orden con el que llego el grafo
+        guia[i] = i;                        // Array que voy a ordenar de forma aleatoria
+    }   
 
-    randomswaps(guia, N, R);            // Ordena el array de forma pesudoaleatoria dependiendo de R.
+    randomswaps(guia, N, R);                // Ordena el array de forma pesudoaleatoria dependiendo de R.
 
-    for (u32 i = 0; i < N; i++){        // De acuerdo al arreglo guia voy a reordenar el arreglo vertices de la estructura
+    for (u32 i = 0; i < N; i++){            // De acuerdo al arreglo guia voy a reordenar el arreglo vertices de la estructura
         if (guia[i] >= N) {
             free(guia);
             return '1';

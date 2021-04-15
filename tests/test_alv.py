@@ -1,24 +1,26 @@
 import os
 import subprocess
-import time
+from optparse import OptionParser
+import sys
 
 if __name__ == '__main__':
     from _utils import *
 else:
     from ._utils import *
 
-def timekeep ():
+def timekeep (times):
     GRAPHS_DIR = '../grafos/'
     os.system('make alv')
     files = sort_files_from_dir(GRAPHS_DIR)
     
     for graph in files:
-        print_in_cyan("-----Testing " + graph)
+        for _ in range (0,times):
+            print_in_cyan("-----Testing " + graph)
 
-        filename = GRAPHS_DIR + graph
+            filename = GRAPHS_DIR + graph
 
-        result = subprocess.check_output('./test < ' + filename,shell=True,encoding='utf-8',text=True)
-        print_in_cyan(graph + " tardo " + str(result).replace('\n','') + " segundos")
+            result = subprocess.check_output('./test < ' + filename,shell=True,encoding='utf-8',text=True)
+            print_in_cyan(graph + " tardo " + str(result).replace('\n','') + " segundos")
 
     os.system('rm test')
 
@@ -35,11 +37,7 @@ def test_correct ():
          #   continue
         filename = GRAPHS_DIR + graph
 
-        start = time.time()
         result   = subprocess.check_output('./test < ' + filename,shell=True,encoding='utf-8',text=True)
-        end = time.time()
-
-        print(graph," tardo ",end-start)
 
         aux_vertices = result.split("[")[1].replace(']','').replace('\n','').split(',')
         aux_orden_nat = result.split("[")[1].replace(']','').split(',')
@@ -62,7 +60,7 @@ def test_correct ():
 
 
 
-def test_all ():
+def test_result ():
     GRAPHS_DIR  = '../grafos/'
     files       = sort_files_from_dir(GRAPHS_DIR)
     os.system('make alv')
@@ -80,7 +78,6 @@ def test_all ():
                 print_in_green(graph)
             else:
                 print_in_red("Unknown parameter in " + graph + ": " + result)
-            prev_result = result
 
         except Exception as e:
             print_in_red("Error corriendo el grafo: " + e.__str__())
@@ -90,6 +87,34 @@ def test_all ():
 
 
 if __name__ == '__main__':
-    #test_all()
-    #test_correct()
-    timekeep()
+    parser = OptionParser()
+    parser.add_option(
+        "-r", "--result",
+        help="Testea solo el resultado de AleatorizarVertices (0/1)")
+    parser.add_option(
+        "-c", "--correct",
+        help="Testea que no se haya perdido ningun vertice ni se repita")
+    parser.add_option(
+        "-t", "--time",
+        help="Testea el tiempo que tarda en correr n AleatorizarVertices",default=1)
+
+    options, args = parser.parse_args()
+    
+    print(options)
+
+    if options.result != None:
+        test_result()
+    elif options.correct != None:
+        test_correct()
+    elif options.time != None:
+        try:
+            times = int(options.time)
+            timekeep(times)
+        except ValueError:
+            print("Numero invalido")
+            sys.exit(1)
+    else:
+        test_result()
+        test_correct()
+        timekeep(int(options.time))
+    
