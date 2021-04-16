@@ -162,8 +162,16 @@ char Bipartito(Grafo G);
 
 u32 Greedy(Grafo G);
 
-
 //u32 NumCCs(Grafo G);
+
+/**
+ * Corre Greedy en G comenzando con el color 0, utiliando el orden interno que 
+ * debe estar guardado de alguna forma dentro de G.
+ * @param Grafo G
+ * @return u32 cantidad_colores
+ */ 
+u32 Greedy(Grafo G);
+
 
 
 #endif
