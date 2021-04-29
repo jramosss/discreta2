@@ -22,6 +22,7 @@ NUMCCS 			= ../mains/main_NumCCs.c
 ALV				= ../mains/main_alv.c
 SWITCH			= ../mains/main_switchcolores.c 
 WP 				= ../mains/main_welshpowell.c
+APROBACION		= ../mains/main_aprobacion.c
 
 OUT = -o test
 
@@ -69,6 +70,9 @@ copiar:
 construccion:
 	$(CC) $(CFLAGS0) $(TEST) $(CONSTRUCCION) $(OUT)
 
+aprobacion:
+	$(CC) $(CFLAGS0) $(TEST) $(APROBACION) $(OUT)
+
 valgrind:
 	valgrind --leak-check=full ./test < grafos/q7.txt
 
@@ -83,6 +87,9 @@ test_copiar:
 
 test_construccion:
 	python test_construccion.py > results/construccion.txt
+
+test_aprobacion:
+	python test_aprobacion.py
 
 test_alv:
 	python test_alv.py

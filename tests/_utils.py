@@ -14,6 +14,9 @@ def print_in_cyan (msg):
     OKCYAN = '\033[96m'
     print(OKCYAN + msg)
 
+def bold_print (msg):
+    print('\033[1m' + msg)
+
 
 def sort_files_from_dir (dir):
     files = os.listdir(dir)

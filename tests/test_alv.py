@@ -1,7 +1,6 @@
 import os
 import subprocess
 from optparse import OptionParser
-import sys
 
 if __name__ == '__main__':
     from _utils import *
@@ -12,17 +11,18 @@ def timekeep (times):
     GRAPHS_DIR = '../grafos/'
     os.system('make alv')
     files = sort_files_from_dir(GRAPHS_DIR)
-    
+    time_pg = 0
+
     for graph in files:
-        for _ in range (0,times):
-            print_in_cyan("-----Testing " + graph)
+        time_pg = 0
+        print_in_cyan("-----Testing " + graph)
 
-            filename = GRAPHS_DIR + graph
+        filename = GRAPHS_DIR + graph
 
-            result = subprocess.check_output('./test < ' + filename,shell=True,encoding='utf-8',text=True)
-            print_in_cyan(graph + " tardo " + str(result).replace('\n','') + " segundos")
+        result = subprocess.check_output('./test ' + str(times) + ' ' + '< ' + filename,shell=True,encoding='utf-8',text=True)
+        time_pg += float(result.replace('\n',''))
 
-    os.system('rm test')
+        bold_print(graph + " tardo " + str(result).replace('\n','') + " segundos en correr " + str(times) + " veces")
 
 
 def test_correct ():
@@ -83,8 +83,6 @@ def test_result ():
             print_in_red("Error corriendo el grafo: " + e.__str__())
 
 
-    os.system('rm test')
-
 
 if __name__ == '__main__':
     parser = OptionParser()
@@ -99,8 +97,6 @@ if __name__ == '__main__':
         help="Testea el tiempo que tarda en correr n AleatorizarVertices",default=1)
 
     options, args = parser.parse_args()
-    
-    print(options)
 
     if options.result != None:
         test_result()
@@ -109,12 +105,15 @@ if __name__ == '__main__':
     elif options.time != None:
         try:
             times = int(options.time)
+            print_in_green("Corriendo AleatorizarVertices " + str(times) +  " veces en cada grafo")
             timekeep(times)
         except ValueError:
-            print("Numero invalido")
-            sys.exit(1)
+            print("Numero invalido, corriendo con 1")
+            timekeep(1)
     else:
         test_result()
         test_correct()
         timekeep(int(options.time))
+
+    os.system('rm test')
     
