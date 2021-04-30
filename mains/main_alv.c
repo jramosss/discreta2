@@ -1,15 +1,17 @@
+#include <errno.h>   // for errno
+#include <limits.h>  // for INT_MAX, INT_MIN
 #include <time.h>
 #include "../RomaVictor.h"
 #include "../src/utils.h"
 
-void test_time (Grafo G) {
-    u32 R = (u32)rand();
-    AleatorizarVertices(G,R);    
+void test_time (Grafo G,int times) {
+    while (times--)
+        AleatorizarVertices(G,(u32)rand());    
 }
 
 void try_diff_seeds_aux (Grafo G,u32 times) {
     u32 R = 1;
-    for (u32 i = 0; i < times; i++) {
+    while(times--) {
         AleatorizarVertices(G,R);
         print_arr_vertices(G);
         printf("[");
@@ -22,7 +24,7 @@ void try_diff_seeds_aux (Grafo G,u32 times) {
 
 void try_diff_seeds (Grafo G,u32 times) {
     u32 R = 1;
-    for (u32 i = 0; i < times; i++) {
+    while(times--) {
         AleatorizarVertices(G,R);
         printf("Con R = %u: \n",R);
         R++;
@@ -30,8 +32,23 @@ void try_diff_seeds (Grafo G,u32 times) {
     }
 }
 
-//TODO hacer que este programa tome parametros para saber cuantas veces correr
-int main (void) {
+int main (int argc, char* argv[]) {
+    char* p;
+    long times = 1;
+    errno = 0;
+
+    if (argc > 2){
+        printf("Invalid number of arguments");
+        return 1;
+    }
+    else if (argc == 2){
+        times = strtol(argv[1], &p, 10);
+        if (errno != 0 || *p != '\0' || times > INT_MAX || times < INT_MIN) {
+            printf("Error en la conversion a entero\n");
+            return 1;
+        }
+    }
+
     Grafo G = ConstruccionDelGrafo();
     //Para los tests de python usar esta linea
     //printf("%c\n",AleatorizarVertices(G,R));
@@ -44,12 +61,10 @@ int main (void) {
 
     //Test time
     clock_t start,end;
-    double total = 0;
     start = clock();
-    test_time(G);
+    test_time(G,(int)times);
     end = clock();
-    total = (double)end-start/CLOCKS_PER_SEC;
-    printf("%f\n",total);
+    printf("%f\n",(double)(end-start)/CLOCKS_PER_SEC);
 
     DestruccionDelGrafo(G);
 

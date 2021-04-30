@@ -73,6 +73,9 @@ construccion:
 aprobacion:
 	$(CC) $(CFLAGS0) $(TEST) $(APROBACION) $(OUT)
 
+bipartito: 
+	$(CC) $(CFLAGS0) $(TEST) $(BIPARTITO) $(OUT)
+
 valgrind:
 	valgrind --leak-check=full ./test < grafos/q7.txt
 
@@ -88,8 +91,9 @@ test_copiar:
 test_construccion:
 	python test_construccion.py > results/construccion.txt
 
+#Default 1000, hay que cambiarlo manualmente
 test_aprobacion:
-	python test_aprobacion.py
+	python test_aprobacion.py 1000
 
 test_alv:
 	python test_alv.py
@@ -97,3 +101,5 @@ test_alv:
 test_all:
 	make test_copiar
 	make test_construccion
+	make test_aprobacion
+	make test_alv

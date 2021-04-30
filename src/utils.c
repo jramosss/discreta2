@@ -152,3 +152,9 @@ void swap(int *xp, int *yp) {
     *xp = *yp;
     *yp = temp;
 }
+
+int vert_cmp (const void* a,const void* b) {
+    Vert *xs = *(struct Vert **)a;
+    Vert *ys = *(struct Vert **)b;
+    return (xs->nombre - ys->nombre);
+}

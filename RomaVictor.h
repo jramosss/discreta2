@@ -7,7 +7,7 @@
 
 
 
-#include "GrafoSt2020.h"
+#include "GrafoSt2021.h"
 
 //Grafo es un puntero a una estructura, la cual esta definida en el .h de arriba
 

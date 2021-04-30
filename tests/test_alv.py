@@ -19,10 +19,12 @@ def timekeep (times):
 
         filename = GRAPHS_DIR + graph
 
-        result = subprocess.check_output('./test ' + str(times) + ' ' + '< ' + filename,shell=True,encoding='utf-8',text=True)
+        result = subprocess.check_output('./test ' + str(times) + ' ' + '< ' + 
+                                         filename,shell=True,encoding='utf-8',text=True)
         time_pg += float(result.replace('\n',''))
 
-        bold_print(graph + " tardo " + str(result).replace('\n','') + " segundos en correr " + str(times) + " veces")
+        bold_print(graph + " tardo " + str(result).replace('\n','') + 
+                    " segundos en correr " + str(times) + " veces")
 
 
 def test_correct ():

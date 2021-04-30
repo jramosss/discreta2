@@ -58,3 +58,50 @@ Pej, para hacer 34 AleatorizarVertices+Greedy, demora 78m1.253s.
 
 
 Proyecto Desaprobado.
+
+# Correccion primera parte penazzi 2021
+
+Tienen segfault incluso con grafos chicos
+empezando la construccion
+p edge 4 5
+e 1 4
+e 1 5
+e 1 7
+e 4 5
+e 5 7
+lista construccion
+Segmentation fault (core dumped)
+
+
+Incluso con 1 solo lado
+
+empezando la construccion
+p edge 2 1
+e 1 2
+lista construccion
+ Calculando el numero de Vertices
+Segmentation fault (core dumped)
+
+Ni siquiera puede uno pedir el numero de vertices que se clava.
+
+Sin embargo, eso es solo si uno introduce el grafo desde stdin, como habiamos dicho que ibamos a hacer.
+Si uno introduce el grafo haciendo redirect a un archivo DESDE stdin, entonces funciona bien.
+
+Ademas no pusieron un include de GrafoSt21.h como se pedia sino de GrafoSt2020.h
+y hay lineas de un proyecto de 2020 comentadas.
+
+Tienen esto:
+void check_bipartito (char bip) {
+    check_cond(bip == '1',"El grafo es bipartito","El grafo no es bipartito");
+}
+
+Para que esta esto?
+
+En FijarOrden y FijarColor devuelven '0' o '1' en vez de 0 o 1.
+
+Mas importante: Su FijarOrden NO HACE lo que se pide que haga.
+
+No usa el orden natural de los vertices sino el orden INICIAL en que ustedes crean
+al principio de todo.
+
+El resto parece estar bien.  

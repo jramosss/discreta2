@@ -1,48 +1,45 @@
+#include <stdio.h>
+#include <time.h>
 #include "../RomaVictor.h"
-
-inline static u32 grafo_muy_grande (u32 n) {
-    return n > 100;
-}
 
 static void display_naturalOrder (Grafo G){
     printf("\nVertices orden natural: [");
-    for(u32 i = 0; i < (G->n); i++){
+    for(u32 i = 0; i < (G->n)-1; i++)
         printf("%d,",G->orden_natural[i+1]->nombre);
-    }
     printf("]\n");
 }
 
 static void display_normalOrder (Grafo G){
     printf("\nVertices orden normal: [");
-    for(u32 i = 0; i < (G->n); i++){
+    for(u32 i = 0; i < G->n; i++)
         printf("%d,",G->vertices[i]->nombre);
-    }
     printf("]\n");
 }
 
 
 int main(void) {
+    clock_t start = clock();
+
     Grafo g = ConstruccionDelGrafo();
-    u32 suma_de_grados = 0;
-    //if (!grafo_muy_grande(g->n))
-      //  display_normalOrder(g);
 
-    if (g == NULL) {
-        printf("\nEl grafo no pudo construirse ya que no cumple con el Standard Input\n");
-        return 0;
-    }
+    clock_t end = clock();
 
-    for (u32 i = 0; i < g->n; i++)
-    {
-        suma_de_grados = suma_de_grados + g->vertices[i]->grado;
-    }
+    double total = (double)((end-start)/CLOCKS_PER_SEC);
+
+    printf("Construccion: %f\n",total);
+
+    if (g == NULL) return 0;
     
-    
-    printf("\nVertices %u, Lados %u\n", g->n, g->m);
-    printf("2do Vert: %u\n", g->vertices[2]->nombre);
-    printf("\nEl delta del grafo es: %u\n", g->delta);
+    //Comenten estas dos lineas si quieren usar los tests de python
+    //display_normalOrder(g);
+    //display_naturalOrder(g);
 
+    start = clock();
     DestruccionDelGrafo(g);
+    end   = clock();
+    total = (double)((end-start)/CLOCKS_PER_SEC);
+
+    printf("Destruccion: %f\n",total);
 
     return 0;
 }

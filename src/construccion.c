@@ -4,8 +4,7 @@
 #include "utils.h"
 
 
-Grafo ConstruccionDelGrafo (void)
-{   
+Grafo ConstruccionDelGrafo (void) {   
     Grafo G = calloc(1, sizeof(GrafoSt));
 
     if(G == NULL)                                               // Si no hay memoria para allocar NULL
@@ -19,7 +18,7 @@ Grafo ConstruccionDelGrafo (void)
         return NULL;
 
     G->delta = 0;
-    G->orden_natural = calloc(G->n, sizeof(Vert*));         // Agregamos una posicion para el ultimo vertice.
+    G->orden_natural = malloc(G->n*sizeof(Vert*));               // Agregamos una posicion para el ultimo vertice.
     G->vertices = calloc(G->n, sizeof(Vert*));
 
     if(G->vertices == NULL || G->orden_natural == NULL)         // Si no hay memoria para allocar NULL
@@ -27,6 +26,8 @@ Grafo ConstruccionDelGrafo (void)
 
     fill_verts(stdin, G);
     
+    qsort(G->orden_natural,G->n,sizeof(Vert*),vert_cmp);
+
     return G;
 }
 
