@@ -22,11 +22,11 @@ class Responses:
     
 
 def check_eq (param1,param2,field):
-    if param1 == param2:
-        print_in_green(field)
-    else:
-        print_in_red(field)
-
+    print_in_green(field) if param1 == param2 else print_in_red(field)
+    
+#TODO
+def timekeep ():
+    pass
 
 def test_all ():
     GRAPHS_DIR  = '../grafos/'

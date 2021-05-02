@@ -7,7 +7,7 @@
 
 
 
-#include "GrafoSt2020.h"
+#include "GrafoSt2021.h"
 
 //Grafo es un puntero a una estructura, la cual esta definida en el .h de arriba
 
@@ -135,9 +135,7 @@ char FijarOrden(u32 i,Grafo G,u32 N);
 */
 u32 FijarPesoLadoConVecino(u32 j,u32 i,u32 p,Grafo G);
 
-
-/* Esto lo comento por que no es necesario para la primera parte del proyecto
-
+/*
 //orden Welsh Powell: por grados del mayor al menor
 char WelshPowell(Grafo G);
 
@@ -146,19 +144,25 @@ char RevierteBC(Grafo G);
 
 //ordena por cardinalidad de los bloques de colores, del mas chico al mas grande
 char ChicoGrandeBC(Grafo G);
+*/
 
-//pseudo-aleatoriza vertices usando semilla R.
+/**
+ * "Aleatoriza” el orden de los vertices de G, usando como semilla de aleatoridad el numero R
+ * @param G El grafo
+ * @param R la semilla
+ * @returns '0' si todo anduvo bien, '1' si algo salio mal
+*/
 char AleatorizarVertices(Grafo G,u32 R);
-
+/*
 //intercambia esos colores
 char SwitchColores(Grafo G,u32 i,u32 j);
-
+*/
 
 char Bipartito(Grafo G);
 
+u32 Greedy(Grafo G);
 
-u32 NumCCs(Grafo G);
-*/
+//u32 NumCCs(Grafo G);
 
 /**
  * Corre Greedy en G comenzando con el color 0, utiliando el orden interno que 

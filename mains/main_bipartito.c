@@ -22,36 +22,19 @@ static bool coloreo_propio (Grafo G){
     return true;
 }
 
-int main (void){
-
-    clock_t start_t, end_t; 
-    double total_t;
-
-    u32 bipartito = 0;
+int main(void) {
     Grafo G = ConstruccionDelGrafo();
 
-    if(G == NULL) 
-        printf("\nFallo la construccion del grafo\n");
-    else {
-        start_t = clock();
-        blank(1);
+    clock_t start = clock();
 
-        printf("\n====================BIPARTITO====================\n");
-            // 1 es true
-            char bip = Bipartito(G);
-            check_cond(bip=='1',"El grafo es bipartito","El grafo no es bipartito");
-            end_t = clock();
-            total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
-            if(bip=='1') {
-                printf("\nLa funcion bipartito tardo %f segundos en ejecutarse\n\n",total_t);
-            } else {
-                printf("\nLa funcion bipartito + greedy tardo %f segundos en ejecutarse\n\n",total_t);
-            }
-            check_cond(coloreo_propio(G), "El coloreo es propio", "El coloreo no es propio");
+    const char resultado = Bipartito(G);
 
-        DestruccionDelGrafo(G);
+    clock_t end = clock();
 
-    }
+    double total = (double) (end - start) / CLOCKS_PER_SEC;
 
-
+    printf("Resultado: %u\n", resultado);
+    printf("Tiempo : %f\n", total);
+    
+    DestruccionDelGrafo(G);
 }

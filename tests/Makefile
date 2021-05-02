@@ -15,13 +15,14 @@ COPIAR 			= ../mains/main_copiar.c
 CONSTRUCCION 	= ../mains/main_construccion.c
 BIP 			= ../mains/main_bip.c
 DESAPROBACION 	= ../mains/main_desaprobacion.c
-CHICOGRANDE 	= ../mains/main_for_chicogrande.c
+CHICOGRANDE 	= ../mains/main_chicogrande.c
 GREEDY 			= ../mains/main_greedy.c
-BIPARTITO 		= ../mains/main_for_bipartito.c
-NUMCCS 			= ../mains/main_for_NumCCs.c
-ALV				= ../mains/main_for_aleatvert.c
-SWITCH			= ../mains/main_for_switchcolores.c 
-WP 				= ../mains/main_for_welshpowell.c
+BIPARTITO 		= ../mains/main_bipartito.c
+NUMCCS 			= ../mains/main_NumCCs.c
+ALV				= ../mains/main_alv.c
+SWITCH			= ../mains/main_switchcolores.c 
+WP 				= ../mains/main_welshpowell.c
+APROBACION		= ../mains/main_aprobacion.c
 
 OUT = -o test
 
@@ -69,6 +70,12 @@ copiar:
 construccion:
 	$(CC) $(CFLAGS0) $(TEST) $(CONSTRUCCION) $(OUT)
 
+aprobacion:
+	$(CC) $(CFLAGS0) $(TEST) $(APROBACION) $(OUT)
+
+bipartito: 
+	$(CC) $(CFLAGS0) $(TEST) $(BIPARTITO) $(OUT)
+
 valgrind:
 	valgrind --leak-check=full ./test < grafos/q7.txt
 
@@ -79,12 +86,20 @@ clean:
 	rm -rvf test
 
 test_copiar:
-	python3 test_copiar.py |  sed -i 's/[92//g' > results/copiar.txt
-	cd ..
+	python test_copiar.py |  sed -i 's/[92//g' > results/copiar.txt
 
 test_construccion:
-	python3 test_construccion.py > results/construccion.txt
+	python test_construccion.py > results/construccion.txt
+
+#Default 1000, hay que cambiarlo manualmente
+test_aprobacion:
+	python test_aprobacion.py 1000
+
+test_alv:
+	python test_alv.py
 
 test_all:
 	make test_copiar
 	make test_construccion
+	make test_aprobacion
+	make test_alv
