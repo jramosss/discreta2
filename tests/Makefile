@@ -86,10 +86,10 @@ clean:
 	rm -rvf test
 
 test_copiar:
-	python test_copiar.py |  sed -i 's/[92//g' > results/copiar.txt
+	python test_copiar.py
 
 test_construccion:
-	python test_construccion.py > results/construccion.txt
+	python test_construccion.py
 
 #Default 1000, hay que cambiarlo manualmente
 test_aprobacion:
@@ -98,8 +98,12 @@ test_aprobacion:
 test_alv:
 	python test_alv.py
 
+test_greedy:
+	python test_greedy.py 200
+
 test_all:
-	make test_copiar
 	make test_construccion
-	make test_aprobacion
+	make test_copiar
 	make test_alv
+	make test_aprobacion
+	make test_greedy

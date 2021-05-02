@@ -38,6 +38,7 @@ BIPARTITO		=mains/main_bipartito.c
 # Acá pueden configurar el nombre y directorio del output.
 # Yo lo hago en el subdirectorio './bin/', y el archivo se llama 'out.o'.
 OUT = -o test
+LEAK_TESTING_GRAPH = grafos/q7.txt
 
 
 ######## Tipos de testeo. ########
@@ -96,9 +97,37 @@ vecinos:
 
 bipartito:
 	$(CC) $(CFLAGS0) $(TEST) $(BIPARTITO) $(OUT)
+greedy:
+	$(CC) $(CFLAGS0) $(TEST) $(GREEDY) $(OUT)
 
 valgrind:
-	valgrind --leak-check=full ./test < grafos/q7.txt
+	valgrind --leak-check=full ./test < $(LEAK_TESTING_GRAPH)
+
+leak_bipartito:
+	echo LEAK CHECK BIPARTITO
+	make bipartito
+	make valgrind
+
+leak_construccion:
+	echo LEAK CHECK CONSTRUCCION
+	make construccion
+	make valgrind
+
+leak_greedy:
+	echo LEAK CHECK GREEDY
+	make greedy
+	make valgrind
+
+leak_copiar:
+	echo LEAK CHECK COPIAR
+	make copiar
+	make valgrind
+
+leak_all:
+	make leak_bipartito
+	make leak_construccion
+	make leak_greedy
+	make leak_copiar
 
 debug:
 	$(CC) $(CFLAGS0) $(TEST_DEBUG) $(OUT)

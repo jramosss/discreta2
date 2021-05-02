@@ -89,6 +89,7 @@ Grafo CopiarGrafo (Grafo G) {
 void DestruccionDelGrafo(Grafo G) {
     for (u32 i = 0; i < G->n; i++) {
         free(G->vertices[i]->vecinos);
+        free(G->vertices[i]->pesoslados);
         free(G->vertices[i]);
     }
 

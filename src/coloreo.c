@@ -4,71 +4,62 @@
 #include <assert.h>
 #include "cola.h"
 
-u32 Greedy(Grafo G) {
 /* 
     Cotas para greedy
     X(G) <= Delta + 1.
     Si G es conexo, entonces X(G) <= Delta, a menos que G sea un ciclo impar o un grafo completo.
 */  
-    u32 colorsQty = 0;
-    u32 maxColors = Delta(G) + 1;
-    char *usedColors = calloc(maxColors, sizeof(char));
+u32 Greedy(Grafo G) {
+    u32 colorsQty       =   0;
+    u32 color           =   error;
+    const u32 maxColors =   Delta(G) + 1;
+    const u32 N         =   NumeroDeVertices(G);
+    char *usedColors    =   malloc(maxColors*sizeof(char));
     if (usedColors == NULL) return error;
-    
-    u32 *visitados = calloc(NumeroDeVertices(G), sizeof(u32));
+    u32 *visitados      =   calloc(N, sizeof(u32));
     if(visitados == NULL) {
         free(usedColors);
         return error;
     }
     
-
-    // Pinto al primer vertice con 0 y incremento la cantidad de colores.
+    // Pinto al primer vert con 0 e incremento la cantidad de colores.
     FijarColor(0, 0, G);
     visitados[0] =  1;
     colorsQty++;
 
-    
-    //Luego por cada vertice, siempre intento pintar con el menor color posible.
-    for (u32 i = 1; i < NumeroDeVertices(G); i++) {
+    //Luego por cada vert, siempre intento pintar con el menor color posible.
+    for (u32 vert = 1; vert < N; vert++) {
+        // Reset a los colores usados por los vecinos.
+        memset(usedColors, 0, maxColors);
 
-        // reset a los colores usados por los vecinos.
-        memset(usedColors, '0', maxColors);
-        u32 color = error;
-        for (u32 j = 0; j < Grado(i, G); j++) {
-            
-            //para cada vecino visitado seteo su color como usado.
-            if (visitados[OrdenVecino(j, i, G)] == 1) {
-                color = ColorVecino(j, i, G);
-                usedColors[color] = '1';
-            }
-        }
+        for (u32 vec = 0; vec < Grado(vert, G); vec++)
+            //para cada vec visitado seteo su color como usado.
+            if (visitados[OrdenVecino(vec, vert, G)] == 1)
+                usedColors[ColorVecino(vec, vert, G)] = 1;
 
         /*  Luego busco segun la cantidad de colores que utilice hasta el
             momento en usedColors resultante, El menor color posible para
-            colorear el vertice.
+            colorear el vert.
         */
-        color = error;
+        
         for (u32 k = 0; k < maxColors; k++) {
-
-            if (usedColors[k] == '0') {
+            if (usedColors[k] == 0) {
                 color = k;
                 break;
             }
         }
-        assert(color != error);
+        if (color == error) return error;
 
         /*  Checkeo si tengo que utilizar un nuevo color. 
             De ser asi aumento colorsQty 
         */
-        if(color == colorsQty) {
-            colorsQty++;
-        }
-        /*  Una vez encontrado el minimo color para el vertice i, lo pinto y lo
+        if (color == colorsQty) colorsQty++;
+        /*  Una vez encontrado el minimo color para el vert i, lo pinto y lo
             guardo en visitados.
         */
     
-        FijarColor(color, i, G);
-        visitados[i] = 1;
+        FijarColor(color, vert, G);
+        visitados[vert] = 1;
     }
 
     free(visitados);
@@ -84,7 +75,12 @@ u32 Greedy(Grafo G) {
 char Bipartito(Grafo G){
     u32 nvertices = NumeroDeVertices(G);
     u32 *visitados = calloc(nvertices, sizeof(u32));      // Arreglo que indica los vertices visitados (1) 
+    if (visitados == NULL) return 7;
     queue_t *queue = createQueue();
+    if (queue == NULL) {
+        free(visitados);
+        return 7;
+    }
     u32 v;
 
     for (u32 i = 0; i < nvertices; i++){                    // Iteramos en los vertices, y por cada vertice (v) no visitado
@@ -105,7 +101,7 @@ char Bipartito(Grafo G){
                             free(visitados);
                             removeQueue(queue);
                             Greedy(G);
-                            return '0';
+                            return 0;
                         }
                     }else {
                         enqueue(OrdenVecino(j,v,G),queue);
@@ -119,5 +115,5 @@ char Bipartito(Grafo G){
 
     free(visitados);
     removeQueue(queue);
-    return '1';
+    return 1;
 }

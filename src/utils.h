@@ -30,7 +30,7 @@ void assign_natural_order   (Grafo);
 void print_arr_vertices     (Grafo);
 bool arr_contains           (u32*,u32,u32);
 int  cmpfunc                (const void*, const void*);
-void swap                   (int*, int*);
+void swap                   (u32*, u32*);
 int  vert_cmp               (const void*,const void*);
 
 #endif

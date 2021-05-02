@@ -86,23 +86,23 @@ void print_arr (u32* arr,u32 len) {
 */
 void acomodar_puntero (FILE *fp) {
     char palabra1[MAXCHAR];                             // Buscaremos el valor "p"
-    char palabra2[MAXCHAR];                             // Buscaremos el valor "edge"
     char vertices[MAXCHAR];
     char lados[MAXCHAR];
+    int  ignore_me = 0;
     
     fseek(stdin,0,SEEK_SET);
 
-    fscanf(fp, "%1s", palabra1);
+    ignore_me = fscanf(fp, "%1s", palabra1);
     while (!feof(fp)) {
         if (memcmp(palabra1,"c",2)==0) {
-            fscanf(fp, "%[^\n]", palabra1);             // Ignorar los comentarios
-            fscanf(fp, "%1s", palabra1);
+            ignore_me = fscanf(fp, "%[^\n]", palabra1);             // Ignorar los comentarios
+            ignore_me = fscanf(fp, "%1s", palabra1);
         } else if (memcmp(palabra1,"p",2)==0){
-            fscanf(fp, "%*s %s %s", vertices, lados);
+            ignore_me = fscanf(fp, "%*s %s %s", vertices, lados);
             break;
         } else {
-            fscanf(fp, "%[^\n]", palabra1);
-            fscanf(fp, "%1s", palabra1);
+            ignore_me = fscanf(fp, "%[^\n]", palabra1);
+            ignore_me = fscanf(fp, "%1s", palabra1);
         }
     }
 }
@@ -147,8 +147,8 @@ int cmpfunc(const void * a, const void * b) {
    return ( *(int*)a - *(int*)b );
 }
 
-void swap(int *xp, int *yp) {
-    int temp = *xp;
+void swap(u32 *xp, u32 *yp) {
+    u32 temp = *xp;
     *xp = *yp;
     *yp = temp;
 }

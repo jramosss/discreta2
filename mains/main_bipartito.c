@@ -7,12 +7,6 @@
 
 const double MAX_TIME = 60*15;
 
-static bool ordena_bien (Grafo G){
-    for(u32 i = 0; i < NumeroDeVertices(G)-1; i++)
-        if(Grado(i,G) < Grado(i+1,G))
-            return false;
-    return true;
-}
 
 static bool coloreo_propio (Grafo G){
     for(u32 i = 0; i < NumeroDeVertices(G); i++)
@@ -33,8 +27,10 @@ int main(void) {
 
     double total = (double) (end - start) / CLOCKS_PER_SEC;
 
-    printf("Resultado: %u\n", resultado);
-    printf("Tiempo : %f\n", total);
+    if (!coloreo_propio(G))
+        print_in_red("EL COLOREO NO ES PROPRIO");
+
+    printf("%u %f", (u32)resultado,total);
     
     DestruccionDelGrafo(G);
 }

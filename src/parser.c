@@ -23,27 +23,28 @@ Vert *vert_create (u32 name, u32 index) {
 /* Setea en el grafo los valores n y m */
 void num_lados_vertices (FILE *fp, Grafo g) {
     char palabra1[MAXCHAR];                             // Buscaremos el valor "p"
-    char palabra2[MAXCHAR];                             // Buscaremos el valor "edge"
     char vertices[MAXCHAR];
     char lados[MAXCHAR];
-    
-    fscanf(fp, "%1s", palabra1);
+    //Just to prevent warnings
+    int  ignore_me = 0;
+
+    ignore_me = fscanf(fp, "%1s", palabra1);
     while (!feof(fp)) {
         if (memcmp(palabra1,"c",2)==0) {
-            fscanf(fp, "%[^\n]", palabra1);             // Ignorar los comentarios
-            fscanf(fp, "%1s", palabra1);
+            ignore_me = fscanf(fp, "%[^\n]", palabra1);             // Ignorar los comentarios
+            ignore_me = fscanf(fp, "%1s", palabra1);
         } else if (memcmp(palabra1,"p",2)==0){
-            fscanf(fp, "%s", palabra1);
+            ignore_me = fscanf(fp, "%s", palabra1);
             if (memcmp(palabra1,"edge",5)==0) {
-                fscanf(fp, "%s %s", vertices, lados);
+                ignore_me = fscanf(fp, "%s %s", vertices, lados);
                 g->n = (u32)atoi(vertices);  
                 g->m = (u32)atoi(lados);
                 fseek(stdin,0,SEEK_SET);
                 break;
             }
         } else {
-            fscanf(fp, "%[^\n]", palabra1);
-            fscanf(fp, "%1s", palabra1);
+            ignore_me = fscanf(fp, "%[^\n]", palabra1);
+            ignore_me = fscanf(fp, "%1s", palabra1);
         }
     }
 }
@@ -106,7 +107,6 @@ static void agregar_vecino(Vert *x, Vert *y) {
 
 /* Esta funcion llena el arreglo vertices con el orden dado, y genera el arreglo con orden natural. */
 void fill_verts(FILE *fp, Grafo G) {
-    char e[MAXCHAR];
     char xs[MAXCHAR];
     char ys[MAXCHAR];
     u32 pos = 0;   // Esta variable hacer referencia a la posicion de un vertice x en el grafo.txt

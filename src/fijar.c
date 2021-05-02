@@ -33,7 +33,7 @@ u32 FijarPesoLadoConVecino(u32 j,u32 i,u32 p,Grafo G){
 static void randomswaps(u32 *array, u32 n, u32 R){
     srand(R);
     for (u32 i = 0; i < n; i++)
-        swap(&array[i],&array[((i+1) * R * rand() ) % n]);    
+        swap(&array[i],&array[((i+1) * R * (u32)rand() ) % n]);    
 }
 
 char AleatorizarVertices(Grafo G, u32 R){
