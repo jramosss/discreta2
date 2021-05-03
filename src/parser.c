@@ -47,6 +47,8 @@ void num_lados_vertices (FILE *fp, Grafo g) {
             ignore_me = fscanf(fp, "%1s", palabra1);
         }
     }
+    //To prevent warnings
+    if (ignore_me) pass;
 }
 
 /* Agrega a la lista de vecinos de "vert" el vertice "vecino", y retorna el nuevo grado del vertice "vert" */
@@ -58,20 +60,10 @@ static u32 agregar_vecino(Vert *vert, Vert *vecino){
 
 /* Dados 2 grados y el delta actual, si el mayor grado supera al delta se reemplaza. */
 static u32 actualizar_delta(u32 gradox, u32 gradoy, u32 delta) {
-
-    if (gradox > gradoy){
-        if (gradox > delta) {
-            return gradox;    
-        } else {
-            return delta;
-        }
-    } else {
-        if (gradoy > delta) {
-            return gradoy; 
-        } else {
-            return delta;
-        }
-    }
+    if (gradox > gradoy)
+        return gradox > delta ? gradox : delta;
+     else
+        return gradoy > delta ? gradoy : delta;
 }
 
 /**
@@ -120,7 +112,8 @@ void fill_verts(FILE *fp, Grafo G) {
     Hash_table *hash = crear_tabla(G->n);
 
     for (u32 i = 0; i < G->m; i++) {
-        fscanf(fp, "%*s %s %s", xs, ys);
+        //To prevent warnings
+        if (fscanf(fp, "%*s %s %s", xs, ys)) pass;
         x = (u32)atoi(xs);
         y = (u32)atoi(ys);
         u32 pos_deX_enHash = hash_key(x,G->n);
@@ -194,8 +187,4 @@ void fill_verts(FILE *fp, Grafo G) {
     destruir_hash(hash);
 
     fseek(stdin,0,SEEK_SET);
-    
 }
-
-
-

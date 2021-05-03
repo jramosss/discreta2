@@ -1,18 +1,19 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 #include "utils.h"
 #include "../RomaVictor.h"
 
 void print_in_red (char* msg) {
-    printf("\033[0;31m"); //Set the text to the color red
-    printf("%s\n",msg); //Display Hello in red
-    printf("\033[0m"); //Resets the text to default color
+    printf("\033[0;31m");
+    printf("%s\n",msg);
+    printf("\033[0m");
 }
 
 void print_in_green (char*msg) {
-    printf("\033[0;32m"); //Set the text to the color red
-    printf("%s\n",msg); //Display Hello in red
-    printf("\033[0m"); //Resets the text to default color
+    printf("\033[0;32m");
+    printf("%s\n",msg); 
+    printf("\033[0m");
 }
 
 void check_cond (char cond,char* affirmative_msg,char* negative_msg) {
@@ -89,15 +90,16 @@ void acomodar_puntero (FILE *fp) {
     char vertices[MAXCHAR];
     char lados[MAXCHAR];
     int  ignore_me = 0;
+    const long unsigned int lines = 2;
     
     fseek(stdin,0,SEEK_SET);
 
     ignore_me = fscanf(fp, "%1s", palabra1);
     while (!feof(fp)) {
-        if (memcmp(palabra1,"c",2)==0) {
+        if (memcmp(palabra1,"c",lines)==0) {
             ignore_me = fscanf(fp, "%[^\n]", palabra1);             // Ignorar los comentarios
             ignore_me = fscanf(fp, "%1s", palabra1);
-        } else if (memcmp(palabra1,"p",2)==0){
+        } else if (memcmp(palabra1,"p",lines)==0){
             ignore_me = fscanf(fp, "%*s %s %s", vertices, lados);
             break;
         } else {
@@ -105,20 +107,22 @@ void acomodar_puntero (FILE *fp) {
             ignore_me = fscanf(fp, "%1s", palabra1);
         }
     }
+    if (ignore_me) pass;
 }
 
 char hayMlineas(FILE *fp, u32 mlineas) {
     char xs[MAXCHAR];
     char ys[MAXCHAR];
     u32 lineas = 0;
+    int ignore_me = 0;
 
     acomodar_puntero(fp);
 
     while(!feof(fp)) {
-        fscanf(fp, "%*s %s %s", xs, ys);
+        ignore_me = fscanf(fp, "%*s %s %s", xs, ys);
         lineas++;
     }
-
+    if (ignore_me) pass;
     return (lineas >= mlineas ? '1' : '0');
 }
 

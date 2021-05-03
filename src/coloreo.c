@@ -1,8 +1,8 @@
-#include "../RomaVictor.h"
-#include "utils.h"
-#include <string.h>
 #include <assert.h>
 #include "cola.h"
+#include <string.h>
+#include "../RomaVictor.h"
+#include "utils.h"
 
 /* 
     Cotas para greedy
@@ -11,39 +11,41 @@
 */  
 u32 Greedy(Grafo G) {
     u32 colorsQty       =   0;
+    u32 gradoVertice    =   0;
     u32 color           =   error;
     const u32 maxColors =   Delta(G) + 1;
     const u32 N         =   NumeroDeVertices(G);
     char *usedColors    =   malloc(maxColors*sizeof(char));
     if (usedColors == NULL) return error;
-    u32 *visitados      =   calloc(N, sizeof(u32));
+    char *visitados      =   calloc(N, sizeof(u32));
     if(visitados == NULL) {
         free(usedColors);
         return error;
     }
     
-    // Pinto al primer vert con 0 e incremento la cantidad de colores.
+    // Pinto al primer vertice con 0 e incremento la cantidad de colores.
     FijarColor(0, 0, G);
     visitados[0] =  1;
     colorsQty++;
 
-    //Luego por cada vert, siempre intento pintar con el menor color posible.
+    //Luego por cada vertice, siempre intento pintar con el menor color posible.
     for (u32 vert = 1; vert < N; vert++) {
+        gradoVertice = Grado(vert,G);
         // Reset a los colores usados por los vecinos.
-        memset(usedColors, 0, maxColors);
+        memset(usedColors, 0, gradoVertice);
 
-        for (u32 vec = 0; vec < Grado(vert, G); vec++)
-            //para cada vec visitado seteo su color como usado.
-            if (visitados[OrdenVecino(vec, vert, G)] == 1)
+        for (u32 vec = 0; vec < gradoVertice; vec++)
+            //para cada vecino visitado seteo su color como usado.
+            if (visitados[OrdenVecino(vec, vert, G)])
                 usedColors[ColorVecino(vec, vert, G)] = 1;
 
         /*  Luego busco segun la cantidad de colores que utilice hasta el
             momento en usedColors resultante, El menor color posible para
-            colorear el vert.
+            colorear el vertice.
         */
         
         for (u32 k = 0; k < maxColors; k++) {
-            if (usedColors[k] == 0) {
+            if (!usedColors[k]) {
                 color = k;
                 break;
             }
@@ -54,7 +56,7 @@ u32 Greedy(Grafo G) {
             De ser asi aumento colorsQty 
         */
         if (color == colorsQty) colorsQty++;
-        /*  Una vez encontrado el minimo color para el vert i, lo pinto y lo
+        /*  Una vez encontrado el minimo color para el vertice i, lo pinto y lo
             guardo en visitados.
         */
     

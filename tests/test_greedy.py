@@ -7,7 +7,8 @@ if __name__ == '__main__':
 else:
     from ._utils import *
 
-def test_all ():
+
+if __name__ == '__main__':
     GRAPHS_DIR  = '../grafos/'
     files       = sort_files_from_dir(GRAPHS_DIR)
 
@@ -25,9 +26,14 @@ def test_all ():
         filename = GRAPHS_DIR + graph
         
         try: 
-            result  = subprocess.check_output('./test ' + str(times) + '< ' + filename,shell=True,encoding='utf-8',text=True)
-            colores = result.split("COLORES: ")[1]
-            print(colores)
+            command = './test ' + str(times) + ' < ' + filename
+            result  = subprocess.check_output(command,shell=True,encoding='utf-8',text=True)
+            splitt  = result.split(' ')
+            colores = splitt[0]
+            tiempo  = splitt[1]
+            
+            print("Colores: " + colores)
+            print("Tiempo : " + tiempo)
             #Expected response = Greedy coloreo con n colores
             #TODO check correct results for each graph
             
@@ -35,7 +41,4 @@ def test_all ():
         except Exception as e:
             print_in_red("Error corriendo el grafo" + e.__str__())
 
-
-
-if __name__ == '__main__':
-    test_all()
+    os.system('rm test')

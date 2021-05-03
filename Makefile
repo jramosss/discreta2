@@ -62,9 +62,6 @@ desaprobacion:
 cg:
 	$(CC) $(CFLAGS0) $(TEST) $(CHICOGRANDE) $(OUT)
 
-greedy:
-	$(CC) $(CFLAGS0) $(TEST) $(GREEDY) $(OUT)
-
 bip:
 	$(CC) $(CFLAGS0) $(TEST) $(BIPARTITO) $(OUT)
 

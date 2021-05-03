@@ -23,12 +23,12 @@ int main(int argc,char* argv[]) {
     clock_t start = clock();
     
     u32 colores = 0;
+
     for (long i = 0; i < times; i++)
         colores = Greedy(G);
 
     clock_t end = clock();
     double total = (double) (end - start) / CLOCKS_PER_SEC;
-    printf("COLORES: %u\n", colores);
-    printf("TIEMPO: %f\n", total);
+    printf("%u %f\n", colores,total);
     DestruccionDelGrafo(G);
 }

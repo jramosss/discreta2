@@ -8,11 +8,7 @@ int main (int argc,char* argv[]) {
     long times = 1;
     char* p;
     errno = 0;
-    if (argc != 2){
-        printf("Invalid number of arguments");
-        return 1;
-    }
-    else {
+    if (argc == 2) {
         times = strtol(argv[1], &p, 10);
         if (errno != 0 || *p != '\0' || times > INT_MAX || times < INT_MIN) {
             printf("Error en la conversion a entero\n");
@@ -22,16 +18,13 @@ int main (int argc,char* argv[]) {
     
     Grafo G = ConstruccionDelGrafo();
 
-    double total;
-    clock_t start,end;
-
-    start = clock();
+    clock_t start = clock();
     for (int i = 0; i < times; i++) {
         Greedy(G);
         AleatorizarVertices(G,rand());
     }
-    end = clock();
-    total = (double)(end-start)/CLOCKS_PER_SEC;
+    clock_t end = clock();
+    double total = (double)(end-start)/CLOCKS_PER_SEC;
 
     printf("%f\n",total);
 

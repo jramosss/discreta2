@@ -8,6 +8,8 @@
 #define error 4294967295
 #define MAXCHAR 100000
 
+#define pass (void)0
+
 #define section(msg) printf("\n\n\n============================%s=============================\n\n\n",msg)
 
 void print_in_red           (char*);
