@@ -14,7 +14,7 @@ Grafo ConstruccionDelGrafo (void) {
     G->n = 0;
     num_lados_vertices(stdin, G);
 
-    if(G->n == 0 || hayMlineas(stdin, G->m) == '0')             // Si el grafo esta vacio, o no hay mlineas NULL    
+    if(G->n == 0)             // Si el grafo esta vacio, o no hay mlineas NULL    
         return NULL;
 
     G->delta = 0;
@@ -24,7 +24,9 @@ Grafo ConstruccionDelGrafo (void) {
     if(G->vertices == NULL || G->orden_natural == NULL)         // Si no hay memoria para allocar NULL
         return NULL;
 
-    fill_verts(stdin, G);
+    if(fill_verts(stdin, G) == 1) {
+        return NULL;
+    };
     
     qsort(G->orden_natural,G->n,sizeof(Vert*),vert_cmp);
 

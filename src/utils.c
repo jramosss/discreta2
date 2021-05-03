@@ -85,32 +85,38 @@ void print_arr (u32* arr,u32 len) {
  * @param fp fichero donde vamos a acomodar el puntero
  *  PD: Para ahora codigo podriamos eliminarla, y usar el num_lados_vertices() para acomodar el     puntero
 */
-void acomodar_puntero (FILE *fp) {
+u32 acomodar_puntero (FILE *fp) {
     char palabra1[MAXCHAR];                             // Buscaremos el valor "p"
     char vertices[MAXCHAR];
     char lados[MAXCHAR];
     int  ignore_me = 0;
-    const long unsigned int lines = 2;
+    //const long unsigned int lines = 2;
     
     fseek(stdin,0,SEEK_SET);
 
-    ignore_me = fscanf(fp, "%1s", palabra1);
     while (!feof(fp)) {
-        if (memcmp(palabra1,"c",lines)==0) {
+        ignore_me = fscanf(fp, "%1s", palabra1);
+        if (memcmp(palabra1,"c",2)==0) {
             ignore_me = fscanf(fp, "%[^\n]", palabra1);             // Ignorar los comentarios
-            ignore_me = fscanf(fp, "%1s", palabra1);
-        } else if (memcmp(palabra1,"p",lines)==0){
-            ignore_me = fscanf(fp, "%*s %s %s", vertices, lados);
-            break;
+            printf("\n%s\n", palabra1);
+        } else if (memcmp(palabra1,"p",2)==0){
+            ignore_me = fscanf(fp, "%s", palabra1);
+            if (memcmp(palabra1,"edge",5)==0) {
+                ignore_me = fscanf(fp, "%s", vertices);
+                ignore_me = fscanf(fp, "%s", lados);
+                printf("\n%s %s\n", vertices, lados);
+                return 0;
+            }
         } else {
             ignore_me = fscanf(fp, "%[^\n]", palabra1);
-            ignore_me = fscanf(fp, "%1s", palabra1);
+            printf("\n%s\n", palabra1);
         }
     }
     if (ignore_me) pass;
+    return 1;
 }
 
-char hayMlineas(FILE *fp, u32 mlineas) {
+u32 hayMlineas(FILE *fp, u32 mlineas) {
     char xs[MAXCHAR];
     char ys[MAXCHAR];
     u32 lineas = 0;
@@ -123,7 +129,7 @@ char hayMlineas(FILE *fp, u32 mlineas) {
         lineas++;
     }
     if (ignore_me) pass;
-    return (lineas >= mlineas ? '1' : '0');
+    return (lineas >= mlineas ? 1 : 0);
 }
 
 int compare(const void *_a, const void *_b) {

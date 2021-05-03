@@ -21,32 +21,31 @@ Vert *vert_create (u32 name, u32 index) {
 }
 
 /* Setea en el grafo los valores n y m */
-void num_lados_vertices (FILE *fp, Grafo g) {
+u32 num_lados_vertices (FILE *fp, Grafo g) {
     char palabra1[MAXCHAR];                             // Buscaremos el valor "p"
     char vertices[MAXCHAR];
     char lados[MAXCHAR];
     //Just to prevent warnings
     int  ignore_me = 0;
-
-    ignore_me = fscanf(fp, "%1s", palabra1);
+    
     while (!feof(fp)) {
+        ignore_me = fscanf(fp, "%1s", palabra1);
         if (memcmp(palabra1,"c",2)==0) {
             ignore_me = fscanf(fp, "%[^\n]", palabra1);             // Ignorar los comentarios
-            ignore_me = fscanf(fp, "%1s", palabra1);
         } else if (memcmp(palabra1,"p",2)==0){
             ignore_me = fscanf(fp, "%s", palabra1);
             if (memcmp(palabra1,"edge",5)==0) {
-                ignore_me = fscanf(fp, "%s %s", vertices, lados);
+                ignore_me = fscanf(fp, "%s", vertices);
+                ignore_me = fscanf(fp, "%s", lados);
                 g->n = (u32)atoi(vertices);  
                 g->m = (u32)atoi(lados);
-                fseek(stdin,0,SEEK_SET);
-                break;
+                return 1;
             }
         } else {
             ignore_me = fscanf(fp, "%[^\n]", palabra1);
-            ignore_me = fscanf(fp, "%1s", palabra1);
         }
     }
+    return 0;
     //To prevent warnings
     if (ignore_me) pass;
 }
@@ -98,22 +97,24 @@ static void agregar_vecino(Vert *x, Vert *y) {
 }
 
 /* Esta funcion llena el arreglo vertices con el orden dado, y genera el arreglo con orden natural. */
-void fill_verts(FILE *fp, Grafo G) {
+u32 fill_verts(FILE *fp, Grafo G) {
     char xs[MAXCHAR];
     char ys[MAXCHAR];
     u32 pos = 0;   // Esta variable hacer referencia a la posicion de un vertice x en el grafo.txt
     u32 x = 0;
     u32 y = 0;
     u32 delta = 0;
-    acomodar_puntero(fp);
+    u32 lineas = 0;
+    //u32 puntero_acomodado = acomodar_puntero(fp);
 
     // Creo la tabla hash
 
     Hash_table *hash = crear_tabla(G->n);
 
-    for (u32 i = 0; i < G->m; i++) {
+    while(!feof(fp)) {
         //To prevent warnings
         if (fscanf(fp, "%*s %s %s", xs, ys)) pass;
+        lineas++;
         x = (u32)atoi(xs);
         y = (u32)atoi(ys);
         u32 pos_deX_enHash = hash_key(x,G->n);
@@ -141,9 +142,7 @@ void fill_verts(FILE *fp, Grafo G) {
             pos = pos + 2;
 
         } else if (esta_x == NULL) {
-            Vert *vx = vert_create(x,pos);
-
-            agregar_vecino(vx,esta_y);
+            Vert *vx = vert_create(x,pos); agregar_vecino(vx,esta_y);
             agregar_vecino(esta_y,vx);
 
             delta = actualizar_delta(vx->grado, esta_y->grado, delta);
@@ -158,7 +157,6 @@ void fill_verts(FILE *fp, Grafo G) {
 
         } else if (esta_y == NULL) {
             Vert *vy = vert_create(y,pos);
-
             agregar_vecino(esta_x,vy);
             agregar_vecino(vy,esta_x);
 
@@ -172,8 +170,7 @@ void fill_verts(FILE *fp, Grafo G) {
             G->orden_natural[pos] = vy;
             pos++;
 
-        } else {
-            agregar_vecino(esta_x,esta_y);
+        } else {agregar_vecino(esta_x,esta_y);
             agregar_vecino(esta_y,esta_x);
 
             delta = actualizar_delta(esta_x->grado, esta_y->grado, delta);
@@ -182,9 +179,8 @@ void fill_verts(FILE *fp, Grafo G) {
             actualizar_pesoslados(esta_y);
         }
     }
-
     G->delta = delta;
     destruir_hash(hash);
 
-    fseek(stdin,0,SEEK_SET);
+    return ((lineas >= G->m) ? 0 : 1);
 }
