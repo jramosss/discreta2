@@ -20,6 +20,8 @@ GREEDY 			= ../mains/main_greedy.c
 BIPARTITO 		= ../mains/main_bipartito.c
 NUMCCS 			= ../mains/main_NumCCs.c
 ALV				= ../mains/main_alv.c
+ALV2 			= ../mains/main_alv2.c
+ALV3 			= ../mains/main_alv3.c
 SWITCH			= ../mains/main_switchcolores.c 
 WP 				= ../mains/main_welshpowell.c
 APROBACION		= ../mains/main_aprobacion.c
@@ -54,6 +56,12 @@ nc:
 
 alv:
 	$(CC) $(CFLAGS0) $(TEST) $(ALV) $(OUT)
+
+alv2:
+	$(CC) $(CFLAGS0) $(TEST) $(ALV2) $(OUT)
+
+alv3:
+	$(CC) $(CFLAGS0) $(TEST) $(ALV3) $(OUT)
 
 sc:
 	$(CC) $(CFLAGS0) $(TEST) $(SWITCH) $(OUT)
@@ -96,7 +104,7 @@ test_aprobacion:
 	python test_aprobacion.py 1000
 
 test_alv:
-	python test_alv.py
+	python test_alv.py -t 1000
 
 test_greedy:
 	python test_greedy.py 200

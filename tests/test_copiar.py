@@ -60,7 +60,7 @@ def test_all ():
         check_eq(NAT_ORDER,responses.NAT[0],'Orden natural')
         check_eq(VERT,responses.VERT[0],'Vertices')
 
-    os.system('rm test')
+    os.system('rm test && rm gmon.out')
 
 
 if __name__ == '__main__':

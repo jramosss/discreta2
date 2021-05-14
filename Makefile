@@ -28,6 +28,7 @@ GREEDY 			= mains/main_greedy.c
 BIPARTITO 		= mains/main_bipartito.c
 NUMCCS 			= mains/main_NumCCs.c
 ALV				= mains/main_alv.c
+ALV2			= mains/main_alv2.c
 SWITCH			= mains/main_switchcolores.c 
 WP 				= mains/main_welshpowell.c
 COPIAR 			= mains/main_copiar.c
@@ -70,6 +71,9 @@ nc:
 
 alv:
 	$(CC) $(CFLAGS0) $(TEST) $(ALV) $(OUT)
+
+alv2:
+	$(CC) $(CFLAGS0) $(TEST) $(ALV2) $(OUT)
 
 sc:
 	$(CC) $(CFLAGS0) $(TEST) $(SWITCH) $(OUT)

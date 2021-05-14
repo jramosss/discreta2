@@ -23,5 +23,5 @@ if __name__ == '__main__':
         print_in_green(result)
 
     #TODO calcular cual es el que mas tardo 
-    os.system('rm test')
+    os.system('rm test && rm gmon.out')
 

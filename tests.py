@@ -152,4 +152,5 @@ def diagnose (dump):
 
 if __name__ == '__main__':
     main()
+    os.system('rm test && rm gmon.out && rm ts')
     #diagnose()

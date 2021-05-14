@@ -12,6 +12,7 @@
  */
 Vert *vert_create (u32 name, u32 index) {
     Vert *newvert = calloc(1, sizeof(struct Vert));
+    if (newvert == NULL) return NULL;
     newvert->vecinos = NULL;
     newvert->nombre = name;
     newvert->index = index;

@@ -58,4 +58,4 @@ if __name__ == '__main__':
         except Exception as e:
             print_in_red("Error corriendo el grafo" + e.__str__())
 
-    os.system('rm test')
+    os.system('rm test && rm gmoun.out')

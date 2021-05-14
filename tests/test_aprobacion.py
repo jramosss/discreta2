@@ -25,14 +25,13 @@ if __name__ == '__main__':
     maxtime_name = ""
 
     for graph in graphs:
-        print_in_cyan("------Testing " + graph)
 
         filename = GRAPHS_DIR + graph
 
         graph_time = subprocess.check_output('./test ' + str(times) + ' < ' + filename,
                                              shell=True,encoding='utf-8',text=True)
 
-        print(graph + " tardo " + graph_time)
+        print_in_green(graph + " tardo " + graph_time)
 
         """
         if float(graph_time) > float(maxtime):
@@ -42,4 +41,4 @@ if __name__ == '__main__':
     
     #bold_print("The graph that took the longest was " + maxtime_name + " with " + maxtime + " seconds")
 
-    os.system('rm test')
+    os.system('rm test && rm gmon.out')
