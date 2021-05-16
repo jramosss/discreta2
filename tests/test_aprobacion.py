@@ -31,14 +31,13 @@ if __name__ == '__main__':
         graph_time = subprocess.check_output('./test ' + str(times) + ' < ' + filename,
                                              shell=True,encoding='utf-8',text=True)
 
+        time_min = float(graph_time) / 60
         print_in_green(graph + " tardo " + graph_time)
 
-        """
         if float(graph_time) > float(maxtime):
             maxtime = graph_time
             maxtime_name = graph
-        """
     
-    #bold_print("The graph that took the longest was " + maxtime_name + " with " + maxtime + " seconds")
+    bold_print("The graph that took the longest was " + maxtime_name + " with " + maxtime + " seconds")
 
     os.system('rm test && rm gmon.out')
