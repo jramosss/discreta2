@@ -1,6 +1,6 @@
 #include <assert.h>
-#include "cola.h"
 #include <string.h>
+#include "../ADT/queue/cola.h"
 #include "../RomaVictor.h"
 #include "utils.h"
 

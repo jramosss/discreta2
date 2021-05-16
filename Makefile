@@ -8,10 +8,15 @@ ALLFLAGS = $(CFLAGS0) $(CFLAGS1)
 
 # Cambiar de acuerdo al directorio donde esté el código.
 # Esto compila todos los .c menos los que empiecen con 'main'.
-SOURCES_PATH = src/*.c
-FUNCIONES_PATH = funciones/*.c	
+SOURCES_PATH   = src/*.c
+QUEUE_PATH 	   = ADT/queue/*.c
+HASH_PATH 	   = ADT/hash/*.c
+SET_PATH 	   = ADT/set/*.c
+
 SOURCES = $(filter-out $(wildcard main*.c), $(wildcard $(SOURCES_PATH)))
-FUNCIONES = $(filter-out $(wildcard main*.c), $(wildcard $(FUNCIONES_PATH)))
+QUEUE     = $(filter-out $(wildcard main*.c), $(wildcard $(QUEUE_PATH)))
+HASH      = $(filter-out $(wildcard main*.c), $(wildcard $(HASH_PATH)))
+SET       = $(filter-out $(wildcard main*.c), $(wildcard $(SET_PATH)))
 # Acá yo tengo un directorio 'mains', donde tengo varios mains.
 # El normal testea cosas parecidas a las del profe, el debug
 # es más riguroso pero no sirve para medir tiempos ni uso
@@ -32,9 +37,10 @@ ALV2			= mains/main_alv2.c
 SWITCH			= mains/main_switchcolores.c 
 WP 				= mains/main_welshpowell.c
 COPIAR 			= mains/main_copiar.c
-FIJARPESO		=mains/main_fijarpeso.c
-VECINOS			=mains/main_vecinos.c
-BIPARTITO		=mains/main_bipartito.c
+FIJARPESO		= mains/main_fijarpeso.c
+VECINOS			= mains/main_vecinos.c
+BIPARTITO		= mains/main_bipartito.c
+ORDEN			= mains/main_orden.c
 
 # Acá pueden configurar el nombre y directorio del output.
 # Yo lo hago en el subdirectorio './bin/', y el archivo se llama 'out.o'.
@@ -44,7 +50,7 @@ LEAK_TESTING_GRAPH = grafos/q7.txt
 
 ######## Tipos de testeo. ########
 TEST_NORMAL= -O3 $(SOURCES) $(FUNCIONES) $(NORMAL) 
-TEST = -O3 $(SOURCES) $(FUNCIONES)
+TEST = -O3 $(SOURCES) $(FUNCIONES) $(HASH)
 TEST_DEBUG= $(SOURCES) $(FUNCIONES) $(NORMAL) 
 
 
@@ -58,48 +64,48 @@ normal:
 	$(CC) $(CFLAGS0) $(TEST_NORMAL) $(OUT)
 
 desaprobacion:
-	$(CC) $(CFLAGS0) $(TEST) $(DESAPROBACION) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST) $(QUEUE)  $(SET)  $(DESAPROBACION) $(OUT)
 
 cg:
-	$(CC) $(CFLAGS0) $(TEST) $(CHICOGRANDE) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(CHICOGRANDE) $(OUT)
 
 bip:
-	$(CC) $(CFLAGS0) $(TEST) $(BIPARTITO) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(BIPARTITO) $(OUT)
 
 nc:
-	$(CC) $(CFLAGS0) $(TEST) $(NUMCCS) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(NUMCCS) $(OUT)
 
 alv:
-	$(CC) $(CFLAGS0) $(TEST) $(ALV) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(ALV) $(OUT)
 
 alv2:
-	$(CC) $(CFLAGS0) $(TEST) $(ALV2) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(ALV2) $(OUT)
 
 sc:
-	$(CC) $(CFLAGS0) $(TEST) $(SWITCH) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(SWITCH) $(OUT)
 
 wp:
-	$(CC) $(CFLAGS0) $(TEST) $(WP) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(WP) $(OUT)
 
 list:
 	echo "cg,greedy,bip,nc,alv,sc,wp,debug,clean"
 
 copiar:
-	$(CC) $(CFLAGS0) $(TEST) $(COPIAR) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(COPIAR) $(OUT)
 
 construccion:
-	$(CC) $(CFLAGS0) $(TEST) $(CONSTRUCCION) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(CONSTRUCCION) $(OUT)
 
 fijarpeso:
-	$(CC) $(CFLAGS0) $(TEST) $(FIJARPESO) $(OUT)
-
-vecinos:
-	$(CC) $(CFLAGS0) $(TEST) $(VECINOS) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(FIJARPESO) $(OUT)
 
 bipartito:
-	$(CC) $(CFLAGS0) $(TEST) $(BIPARTITO) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(BIPARTITO) $(OUT)
 greedy:
-	$(CC) $(CFLAGS0) $(TEST) $(GREEDY) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(GREEDY) $(OUT)
+
+orden:
+	$(CC) $(CFLAGS0) $(TEST) $(QUEUE)  $(SET) $(ORDEN) $(OUT)
 
 valgrind:
 	valgrind --leak-check=full ./test < $(LEAK_TESTING_GRAPH)

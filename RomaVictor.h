@@ -171,5 +171,11 @@ char Bipartito(Grafo G);
 u32 Greedy(Grafo G);
 
 
+/*
+Ordenar los vertices por colores, poniendo los vertices 
+de color perm[0] primero, luego los de color perm[1], etc....
+*/
+char OrdenPorBloqueDeColores(Grafo G,u32* perm);
+
 
 #endif

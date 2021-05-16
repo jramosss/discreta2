@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "parser.h"
 #include "utils.h"
-#include "hash.h"
+#include "../ADT/hash/hash.h"
 
 
 /** Crea el vertice nombre "name" con el index "index"

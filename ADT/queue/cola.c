@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../RomaVictor.h"
-#include "utils.h"
+#include "../../RomaVictor.h"
+#include "../../src/utils.h"
 #include "cola.h"
 
 struct Queue{

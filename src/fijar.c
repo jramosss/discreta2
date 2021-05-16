@@ -1,5 +1,6 @@
 #include "utils.h"
 #include "../RomaVictor.h"
+#include "../ADT/set/set.h"
 
 char FijarColor(u32 x, u32 idx, Grafo G)
 {
@@ -49,4 +50,27 @@ char AleatorizarVertices(Grafo G, u32 R) {
     free(guia);
 
     return 0;
+}
+
+static bool arrayIsPerm (u32* array, u32 N) {
+    set_t* s = set_create();
+    u32 max  = 0;
+
+    for (u32 i = 0; i < N; i++) {
+        set_insert(s,array[i]);
+        if (array[i] > max)
+            max = array[i];
+    }
+
+    //if (max != N) return 0;
+
+    return set_length(s) == N;
+}
+
+char OrdenPorBloqueDeColores(Grafo G,u32* perm) {
+    const u32 N = NumeroDeVertices(G);
+    if (!arrayIsPerm(perm,N)) return false;
+
+    return true;
+
 }
