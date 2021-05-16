@@ -52,17 +52,18 @@ char AleatorizarVertices(Grafo G, u32 R) {
     return 0;
 }
 
-static bool arrayIsPerm (u32* array, u32 N) {
+static char arrayIsPerm (u32* array, u32 N) {
     set_t* s = set_create();
     u32 max  = 0;
 
-    for (u32 i = 0; i < N; i++) {
+    for (u32 i = 1; i <= N; i++) {
         set_insert(s,array[i]);
         if (array[i] > max)
             max = array[i];
     }
 
-    //if (max != N) return 0;
+    printf("max: %u\n",max);
+    if (max != N) return false;
 
     return set_length(s) == N;
 }
