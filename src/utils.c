@@ -32,12 +32,12 @@ void check_cond (char cond,char* affirmative_msg,char* negative_msg) {
 }
 
 void check_bipartito (char bip) {
-    check_cond(bip == '1',"El grafo es bipartito","El grafo no es bipartito");
+    check_cond(bip,"El grafo es bipartito","El grafo no es bipartito");
 }
 
 //Check Switch Colores
 void check_sc (char sw) {
-    check_cond(sw == '0', "BIEN: SwitchColores","ERROR SwitchColores");
+    check_cond(sw, "BIEN: SwitchColores","ERROR SwitchColores");
 }
 
 void check_coloreo_propio (char cond) {
@@ -45,17 +45,21 @@ void check_coloreo_propio (char cond) {
 }
 
 void check_chicogrande (char cgbc) {
-    check_cond(cgbc == '0', "BIEN:ChicoGrande","ERROR: ChicoGrande");
+    check_cond(cgbc, "BIEN:ChicoGrande","ERROR: ChicoGrande");
 }
 
 //Check welshpowell
 void check_wp (char wp) {
-    check_cond(wp == '0' , "BIEN:WelshPowel","ERROR: WelshPowel");
+    check_cond(wp , "BIEN:WelshPowel","ERROR: WelshPowel");
 }
 
 //Check aleatorizar Vertices
 void check_alv (char alv) {
-    check_cond(alv == '0', "BIEN:AleatorizarVertices","ERROR: AleatorizarVertices");
+    check_cond(alv, "BIEN:AleatorizarVertices","ERROR: AleatorizarVertices");
+}
+
+void section (char* msg) {
+    printf("\n\n\n====================%s====================\n\n\n",msg);
 }
 
 /**
@@ -142,8 +146,33 @@ int vert_cmp (const void* a,const void* b) {
     return (xs->nombre - ys->nombre);
 }
 
-int color_cmp (const void* a, const void* b) {
-    lightVert *xs = *(struct lightVert **)a;
-    lightVert *ys = *(struct lightVert **)b;
-    return (xs->color - ys->color);
+u32* generate (u32 n) {
+    u32* array = malloc(n*sizeof(u32));
+    for (u32 i = 0; i < n; i++)
+        array[i] = i;
+
+    return array;
+}
+
+u32* etareneg (u32 n,u32 e) {
+    u32* array = malloc(n*sizeof(u32));
+    for (u32 i = n; i > 0; i--)
+        array[i] = i;
+
+    u32 ran = (u32)rand() % e;
+    for (u32 i = 0; i < n; i++) {
+        if (ran == (u32)rand() % e)
+            swap(&array[i],&array[(u32)rand() % n]);
+    }
+
+    return array;
+}
+
+u32* generateAndShuffle (u32 n) {
+    u32* arr = generate(n);
+
+    for (u32 i = 0; i < n; i++)
+        swap(&arr[i],&arr[(u32)rand() % n]);
+
+    return arr;
 }

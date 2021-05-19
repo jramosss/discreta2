@@ -50,7 +50,6 @@ u32 OrdenVecino(u32 j,u32 i,Grafo G){
     return j < vert->grado ? vert->vecinos[j]->index : (u32)error; 
 }
 
-
 u32 PesoLadoConVecino(u32 j,u32 i,Grafo G){
     if (i >= G->n) return error;
 

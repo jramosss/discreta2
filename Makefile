@@ -1,8 +1,7 @@
 ###################### MATEMÁTICA DISCRETA II ######################
 
 ######## Seteo básico. ########
-#CC = gcc -g
-CC = gcc
+CC = gcc -g
 CFLAGS0 = -Wall -Wextra -std=c99 -Wpedantic -Wstrict-prototypes -Wunreachable-code -Wconversion -Wshadow
 CFLAGS1 = -fsanitize=address -fsanitize=leak -fsanitize=undefined -fstack-protector-strong
 ALLFLAGS = $(CFLAGS0) $(CFLAGS1)
@@ -50,10 +49,7 @@ OUT = -o test
 LEAK_TESTING_GRAPH = grafos/q7.txt
 
 
-######## Tipos de testeo. ########
-TEST_NORMAL= -O3 $(SOURCES) $(FUNCIONES) $(NORMAL) 
 TEST = -O3 $(SOURCES) $(FUNCIONES) $(HASH) $(QUEUE) $(SET)
-TEST_DEBUG= $(SOURCES) $(FUNCIONES) $(NORMAL) 
 
 
 ######## Opciones de la línea de comandos. ########
@@ -63,7 +59,7 @@ TEST_DEBUG= $(SOURCES) $(FUNCIONES) $(NORMAL)
 .PHONY: normal
 
 normal:
-	$(CC) $(CFLAGS0) $(TEST_NORMAL) $(OUT)
+	$(CC) $(CFLAGS0) -lm $(TEST) $(NORMAL) $(OUT)
 
 aprobacion:
 	$(CC) $(CFLAGS0) $(TEST)   $(APROBACION) $(OUT)
@@ -151,6 +147,21 @@ gprof_aprobacion:
 
 gprof:
 	gprof ./test gmon.out > analisis.txt
+
+test_main:
+	make
+	./test 8 5 47 7 3 3 < grafos/Octo
+	./test 16 0 82 4 3 5 < grafos/Octo
+	./test 8 5 47 7 3 3 < grafos/Gf12345_12111222_457_15
+	./test 8 5 47 7 3 3 < grafos/largecomplex4.txt
+	./test 16 0 820 4 3 3 < grafos/queen13
+	./test 4 4 4 4 4 3 < grafos/zzz_BxB1100_999_54_2017
+	./test 4 4 4 4 4 3 < grafos/zzz_R1999999_10123123_1
+	./test 4 4 4 4 4 3 < grafos/zzz_R1999999_10123123_1
+	./test 4 4 4 4 4 3 < grafos/zzz_R1999999_10123123_1
+	./test 4 4 4 4 4 3 < grafos/zzz_R1999999_10123123_1
+
+
 
 clean:
 	rm -rvf test

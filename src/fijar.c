@@ -77,29 +77,6 @@ char OrdenPorBloqueDeColores(Grafo G,u32* perm) {
             max = c;
     }
     if (!arrayIsPerm(perm,max)) return false;
-    //?
-    lightVert** colorArray  = calloc(N,sizeof(u32));
-    if (colorArray == NULL) return false;
-
-    for (u32 i = 0; i < N; i++) {
-        colorArray[i] = calloc(1,sizeof(lightVert));
-        printf("Perm[%u]: %u\n",i,perm[i]);
-        colorArray[i]->color = Color(perm[i],G);
-        printf("color: %u\n",colorArray[i]->color);
-        colorArray[i]->index = i;
-    }
-
-    printf("[");
-    for (u32 i = 0; i < N; i++)
-        printf(i == N-1 ? "%u" : "%u,",colorArray[i]->index);
-    printf("]");
-
-    qsort(colorArray,N,sizeof(u32),color_cmp);
-
-    printf("[");
-    for (u32 i = 0; i < N; i++)
-        printf(i == N-1 ? "%u" : "%u,",colorArray[i]->index);
-    printf("]");
 
     return true;
 }
