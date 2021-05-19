@@ -40,4 +40,4 @@ if __name__ == '__main__':
     
     bold_print("The graph that took the longest was " + maxtime_name + " with " + maxtime + " seconds")
 
-    os.system('rm test && rm gmon.out')
+    os.system('rm test')
