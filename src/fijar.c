@@ -52,54 +52,23 @@ char AleatorizarVertices(Grafo G, u32 R) {
     return 0;
 }
 
-static char arrayIsPerm (u32* array, u32 N) {
-    set_t* s = set_create();
-    u32 max  = 0;
-
-    for (u32 i = 0; i < N; i++) {
-        set_insert(s,array[i]);
-        if (array[i] > max)
-            max = array[i];
-    }
-
-    if (max != N) return false;
-
-    return set_length(s) == N;
-}
-
-char OrdenPorBloqueDeColores(Grafo G,u32* perm) {
+char OrdenPorBloqueDeColores(Grafo G, u32* perm) {
     const u32 N = NumeroDeVertices(G);
-    u32 max,c;
-    max = c = 0;
-    for (u32 i = 0; i < N; i++) {
-        c = Color(i,G);
-        if (c > max)
-            max = c;
-    }
-    if (!arrayIsPerm(perm,max)) return false;
-    //?
-    lightVert** colorArray  = calloc(N,sizeof(u32));
-    if (colorArray == NULL) return false;
+    u32 max,c,sum_colores;
+    max = c = sum_colores = 0;
+    u32 cant_colores = sizeof(perm)/sizeof(perm[0]);
 
     for (u32 i = 0; i < N; i++) {
-        colorArray[i] = calloc(1,sizeof(lightVert));
-        printf("Perm[%u]: %u\n",i,perm[i]);
-        colorArray[i]->color = Color(perm[i],G);
-        printf("color: %u\n",colorArray[i]->color);
-        colorArray[i]->index = i;
+        for (u32 j = 0; j < cant_colores-1; j++) {
+            if (i == 0) 
+                sum_colores += perm[j];
+            if (perm[j] > Color(i,G))                    // La permutacion tiene colores que el grafo no.
+                return false;
+        }
+        if (i == 0 && sum_colores != ((cant_colores-1)*cant_colores)/2) {       // Si esto sucede significa que no es una permutacion
+            return false;
+        }
     }
-
-    printf("[");
-    for (u32 i = 0; i < N; i++)
-        printf(i == N-1 ? "%u" : "%u,",colorArray[i]->index);
-    printf("]");
-
-    qsort(colorArray,N,sizeof(u32),color_cmp);
-
-    printf("[");
-    for (u32 i = 0; i < N; i++)
-        printf(i == N-1 ? "%u" : "%u,",colorArray[i]->index);
-    printf("]");
-
+    
     return true;
 }
