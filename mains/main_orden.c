@@ -6,12 +6,14 @@ int main (void) {
     Grafo G = ConstruccionDelGrafo();
     const u32 N = NumeroDeVertices(G);
     u32* perm = calloc(N,sizeof(u32));
-    for (u32 i = 1; i <= N; i++)
-        perm[i] = i;
+    u32 j = 1;
+    for (u32 i = 0; i < N; i++,j++)
+        perm[i] = j;
 
+    Greedy(G);
     char res = OrdenPorBloqueDeColores(G,perm);
 
-    printf("%d\n",res);
+    printf("\n%d\n",res);
 
     return 0;
 }

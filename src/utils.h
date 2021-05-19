@@ -10,29 +10,31 @@
 
 #define pass (void)0
 
-#define section(msg) printf("\n\n\n============================%s=============================\n\n\n",msg)
+#define section (msg) printf("\n\n\n====================%s====================\n\n\n",msg);
+
+typedef struct lightVert {
+    u32 index;
+    u32 color;
+}lightVert;
 
 void print_in_red           (char*);
 void print_in_green         (char*);
-void check_cond             (char,char*,char*);
-void check_bipartito        (char);
-void check_sc               (char);
-void check_coloreo_propio   (char);
-void check_chicogrande      (char);
-void check_wp               (char);
-void check_alv              (char);
-void check_eq               (u32,u32,char*);
 void print_arr              (u32*,u32);
+void check_cond             (char cond,char* affirmative_msg,char* negative_msg);
+void check_alv              (char alv);
+void check_wp               (char wp);
+void check_chicogrande      (char cgbc);
+void check_coloreo_propio   (char cond);
+void check_sc               (char sw);
+void check_bipartito        (char bip);
 Vert* find_vert_by_index    (u32,Grafo);
-u32 hayMlineas             (FILE *fp, u32 mlineas);
-u32 acomodar_puntero       (FILE *fp);
+u32 hayMlineas              (FILE *fp, u32 mlineas);
+u32 acomodar_puntero        (FILE *fp);
 int compare                 (const void*, const void*);
-//Le asigna al arreglo de vertices el orden del arreglo de orden natural
-void assign_natural_order   (Grafo);
 void print_arr_vertices     (Grafo);
-bool arr_contains           (u32*,u32,u32);
 int  cmpfunc                (const void*, const void*);
 void swap                   (u32*, u32*);
 int  vert_cmp               (const void*,const void*);
+int  color_cmp              (const void*, const void*);
 
 #endif

@@ -16,6 +16,17 @@ void print_in_green (char*msg) {
     printf("\033[0m");
 }
 
+void print_arr (u32* arr,u32 len) {
+    printf("[");
+    for (u32 i = 0; i < len; i++) {
+        if (i == len-1)
+            printf("%u",arr[i]);
+        else
+            printf("%u,",arr[i]);
+    }
+    printf("]\n");
+}
+
 void check_cond (char cond,char* affirmative_msg,char* negative_msg) {
     cond ? print_in_green(affirmative_msg) : print_in_red(negative_msg);
 }
@@ -45,39 +56,6 @@ void check_wp (char wp) {
 //Check aleatorizar Vertices
 void check_alv (char alv) {
     check_cond(alv == '0', "BIEN:AleatorizarVertices","ERROR: AleatorizarVertices");
-}
-
-/**
- * @param i Un indice
- * @param G Un grafo
- * @returns El vertice en el indice indicado
-*/
-Vert* find_vert_by_index (u32 i, Grafo G) {
-    return G->vertices[i];
-}
-
-void check_eq (u32 x, u32 y,char* campo) {
-    if (x == y) {
-        printf("\033[0;32m"); //Set the text to the color red
-        printf("Los campos %s son iguales\n",campo); //Display Hello in red
-        printf("\033[0m"); //Resets the text to default color
-    }
-    else {
-        printf("\033[0;31m"); //Set the text to the color red
-        printf("Los campos %s no son iguales\n",campo); //Display Hello in red
-        printf("\033[0m"); //Resets the text to default color
-    }
-}
-
-void print_arr (u32* arr,u32 len) {
-    printf("[");
-    for (u32 i = 0; i < len; i++) {
-        if (i == len-1)
-            printf("%u",arr[i]);
-        else
-            printf("%u,",arr[i]);
-    }
-    printf("]\n");
 }
 
 /**
@@ -141,11 +119,6 @@ int compare(const void *_a, const void *_b) {
     return (*a - *b);
 }
 
-void assing_natural_order (Grafo G) {
-    for (u32 i = 0; i < NumeroDeVertices(G); i++)
-        FijarOrden(i,G,i);
-}
-
 void print_arr_vertices (Grafo G) {
     printf("[");
     for (u32 i = 0; i < NumeroDeVertices(G); i++) 
@@ -167,4 +140,10 @@ int vert_cmp (const void* a,const void* b) {
     Vert *xs = *(struct Vert **)a;
     Vert *ys = *(struct Vert **)b;
     return (xs->nombre - ys->nombre);
+}
+
+int color_cmp (const void* a, const void* b) {
+    lightVert *xs = *(struct lightVert **)a;
+    lightVert *ys = *(struct lightVert **)b;
+    return (xs->color - ys->color);
 }

@@ -21,7 +21,7 @@ int main (int argc,char* argv[]) {
     clock_t start = clock();
     for (int i = 0; i < times; i++) {
         Greedy(G);
-        AleatorizarVertices(G,(u32)rand());
+        AleatorizarVertices(G,4);
     }
     clock_t end = clock();
     double total = (double)(end-start)/CLOCKS_PER_SEC;

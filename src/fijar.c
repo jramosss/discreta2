@@ -4,7 +4,7 @@
 
 char FijarColor(u32 x, u32 idx, Grafo G)
 {
-    Vert *vert = find_vert_by_index(idx, G);
+    Vert *vert = G->vertices[idx];
 
     if (vert==NULL) return 1;
 
@@ -23,9 +23,9 @@ char FijarOrden(u32 i,Grafo G,u32 N){
 
 u32 FijarPesoLadoConVecino(u32 j,u32 i,u32 p,Grafo G){
     // Ver que u32 debemos retornar, la funcion no aclara nada.
-    if (i >= G->n || j >= find_vert_by_index(i,G)->grado) return error;
+    Vert *vert = G->vertices[i];
+    if (i >= G->n || j >= vert->grado) return error;
 
-    Vert *vert = find_vert_by_index(i,G);
     vert->pesoslados[j] = p;
 
     return 0;
@@ -56,13 +56,12 @@ static char arrayIsPerm (u32* array, u32 N) {
     set_t* s = set_create();
     u32 max  = 0;
 
-    for (u32 i = 1; i <= N; i++) {
+    for (u32 i = 0; i < N; i++) {
         set_insert(s,array[i]);
         if (array[i] > max)
             max = array[i];
     }
 
-    printf("max: %u\n",max);
     if (max != N) return false;
 
     return set_length(s) == N;
@@ -70,8 +69,37 @@ static char arrayIsPerm (u32* array, u32 N) {
 
 char OrdenPorBloqueDeColores(Grafo G,u32* perm) {
     const u32 N = NumeroDeVertices(G);
-    if (!arrayIsPerm(perm,N)) return false;
+    u32 max,c;
+    max = c = 0;
+    for (u32 i = 0; i < N; i++) {
+        c = Color(i,G);
+        if (c > max)
+            max = c;
+    }
+    if (!arrayIsPerm(perm,max)) return false;
+    //?
+    lightVert** colorArray  = calloc(N,sizeof(u32));
+    if (colorArray == NULL) return false;
+
+    for (u32 i = 0; i < N; i++) {
+        colorArray[i] = calloc(1,sizeof(lightVert));
+        printf("Perm[%u]: %u\n",i,perm[i]);
+        colorArray[i]->color = Color(perm[i],G);
+        printf("color: %u\n",colorArray[i]->color);
+        colorArray[i]->index = i;
+    }
+
+    printf("[");
+    for (u32 i = 0; i < N; i++)
+        printf(i == N-1 ? "%u" : "%u,",colorArray[i]->index);
+    printf("]");
+
+    qsort(colorArray,N,sizeof(u32),color_cmp);
+
+    printf("[");
+    for (u32 i = 0; i < N; i++)
+        printf(i == N-1 ? "%u" : "%u,",colorArray[i]->index);
+    printf("]");
 
     return true;
-
 }

@@ -1,7 +1,8 @@
 ###################### MATEMÁTICA DISCRETA II ######################
 
 ######## Seteo básico. ########
-CC = gcc -g
+#CC = gcc -g
+CC = gcc
 CFLAGS0 = -Wall -Wextra -std=c99 -Wpedantic -Wstrict-prototypes -Wunreachable-code -Wconversion -Wshadow
 CFLAGS1 = -fsanitize=address -fsanitize=leak -fsanitize=undefined -fstack-protector-strong
 ALLFLAGS = $(CFLAGS0) $(CFLAGS1)
@@ -27,7 +28,7 @@ SET       = $(filter-out $(wildcard main*.c), $(wildcard $(SET_PATH)))
 NORMAL 			= mains/main.c
 COPIAR 			= mains/main_copiar.c
 CONSTRUCCION 	= mains/main_construccion.c
-DESAPROBACION 	= mains/main_desaprobacion.c
+APROBACION 		= mains/main_aprobacion.c
 CHICOGRANDE 	= mains/main_chicogrande.c
 GREEDY 			= mains/main_greedy.c
 BIPARTITO 		= mains/main_bipartito.c
@@ -41,6 +42,7 @@ FIJARPESO		= mains/main_fijarpeso.c
 VECINOS			= mains/main_vecinos.c
 BIPARTITO		= mains/main_bipartito.c
 ORDEN			= mains/main_orden.c
+COLOREOPROPIO   = mains/main_coloreopropio.c
 
 # Acá pueden configurar el nombre y directorio del output.
 # Yo lo hago en el subdirectorio './bin/', y el archivo se llama 'out.o'.
@@ -50,7 +52,7 @@ LEAK_TESTING_GRAPH = grafos/q7.txt
 
 ######## Tipos de testeo. ########
 TEST_NORMAL= -O3 $(SOURCES) $(FUNCIONES) $(NORMAL) 
-TEST = -O3 $(SOURCES) $(FUNCIONES) $(HASH)
+TEST = -O3 $(SOURCES) $(FUNCIONES) $(HASH) $(QUEUE) $(SET)
 TEST_DEBUG= $(SOURCES) $(FUNCIONES) $(NORMAL) 
 
 
@@ -63,49 +65,52 @@ TEST_DEBUG= $(SOURCES) $(FUNCIONES) $(NORMAL)
 normal:
 	$(CC) $(CFLAGS0) $(TEST_NORMAL) $(OUT)
 
-desaprobacion:
-	$(CC) $(CFLAGS0) $(TEST) $(QUEUE)  $(SET)  $(DESAPROBACION) $(OUT)
+aprobacion:
+	$(CC) $(CFLAGS0) $(TEST)   $(APROBACION) $(OUT)
 
 cg:
-	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(CHICOGRANDE) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)   $(CHICOGRANDE) $(OUT)
+
+cp:
+	$(CC) $(CFLAGS0) $(TEST)   $(COLOREOPROPIO) $(OUT)
 
 bip:
-	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(BIPARTITO) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)   $(BIPARTITO) $(OUT)
 
 nc:
-	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(NUMCCS) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)   $(NUMCCS) $(OUT)
 
 alv:
-	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(ALV) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)   $(ALV) $(OUT)
 
 alv2:
-	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(ALV2) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)   $(ALV2) $(OUT)
 
 sc:
-	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(SWITCH) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)   $(SWITCH) $(OUT)
 
 wp:
-	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(WP) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)   $(WP) $(OUT)
 
 list:
 	echo "cg,greedy,bip,nc,alv,sc,wp,debug,clean"
 
 copiar:
-	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(COPIAR) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)   $(COPIAR) $(OUT)
 
 construccion:
-	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(CONSTRUCCION) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)   $(CONSTRUCCION) $(OUT)
 
 fijarpeso:
-	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(FIJARPESO) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)   $(FIJARPESO) $(OUT)
 
 bipartito:
-	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(BIPARTITO) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)   $(BIPARTITO) $(OUT)
 greedy:
-	$(CC) $(CFLAGS0) $(TEST)  $(QUEUE)  $(SET) $(GREEDY) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)   $(GREEDY) $(OUT)
 
 orden:
-	$(CC) $(CFLAGS0) $(TEST) $(QUEUE)  $(SET) $(ORDEN) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST)  $(ORDEN) $(OUT)
 
 valgrind:
 	valgrind --leak-check=full ./test < $(LEAK_TESTING_GRAPH)
@@ -138,6 +143,14 @@ leak_all:
 
 debug:
 	$(CC) $(CFLAGS0) $(TEST_DEBUG) $(OUT)
+
+gprof_aprobacion:
+	$(CC) -pg $(CFLAGS0) $(TEST)   $(APROBACION) $(OUT)
+	./test 1000 < grafos/Octo
+	gprof ./test gmon.out > analisis.txt
+
+gprof:
+	gprof ./test gmon.out > analisis.txt
 
 clean:
 	rm -rvf test

@@ -4,18 +4,14 @@
 #include "../RomaVictor.h"
 #include "utils.h"
 
-/* 
-    Cotas para greedy
-    X(G) <= Delta + 1.
-    Si G es conexo, entonces X(G) <= Delta, a menos que G sea un ciclo impar o un grafo completo.
-*/  
+
 u32 Greedy(Grafo G) {
     u32 colorsQty       =   0;
     u32 gradoVertice    =   0;
     u32 color           =   error;
     const u32 maxColors =   Delta(G) + 1;
     const u32 N         =   NumeroDeVertices(G);
-    char *usedColors    =   malloc(maxColors*sizeof(char));
+    char *usedColors    =   calloc(maxColors,sizeof(char));
     if (usedColors == NULL) return error;
     char *visitados      =   calloc(N, sizeof(u32));
     if(visitados == NULL) {
@@ -31,13 +27,11 @@ u32 Greedy(Grafo G) {
     //Luego por cada vertice, siempre intento pintar con el menor color posible.
     for (u32 vert = 1; vert < N; vert++) {
         gradoVertice = Grado(vert,G);
-        // Reset a los colores usados por los vecinos.
-        memset(usedColors, 0, gradoVertice);
 
         for (u32 vec = 0; vec < gradoVertice; vec++)
             //para cada vecino visitado seteo su color como usado.
             if (visitados[OrdenVecino(vec, vert, G)])
-                usedColors[ColorVecino(vec, vert, G)] = 1;
+                usedColors[ColorVecino(vec, vert, G)] = true;
 
         /*  Luego busco segun la cantidad de colores que utilice hasta el
             momento en usedColors resultante, El menor color posible para
@@ -59,9 +53,14 @@ u32 Greedy(Grafo G) {
         /*  Una vez encontrado el minimo color para el vertice i, lo pinto y lo
             guardo en visitados.
         */
+
+       for (u32 vec = 0; vec < gradoVertice; vec++)
+            //para cada vecino visitado seteo su color como usado.
+            if (visitados[OrdenVecino(vec, vert, G)])
+                usedColors[ColorVecino(vec, vert, G)] = false;
     
         FijarColor(color, vert, G);
-        visitados[vert] = 1;
+        visitados[vert] = true;
     }
 
     free(visitados);
@@ -117,5 +116,6 @@ char Bipartito(Grafo G){
 
     free(visitados);
     removeQueue(queue);
+
     return 1;
 }
