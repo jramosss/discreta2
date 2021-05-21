@@ -1,19 +1,38 @@
-#include <stdio.h> 
+#include <stdio.h>
 #include "../RomaVictor.h"
 #include "../src/utils.h"
 
 int main (void) {
     Grafo G = ConstruccionDelGrafo();
-    const u32 N = NumeroDeVertices(G);
-    u32* perm = calloc(N,sizeof(u32));
-    u32 j = 1;
-    for (u32 i = 0; i < N; i++,j++)
-        perm[i] = j;
 
-    Greedy(G);
-    char res = OrdenPorBloqueDeColores(G,perm);
+    /*
+    for (u32 i = 0; i < NumeroDeVertices(G); i++)
+        perm[i] = (u32)rand() % NumeroDeVertices(G);
+    */
 
-    printf("\n%d\n",res);
+    u32 colores = Greedy(G);
+
+    printf("Colores de greedy: %u\n",colores);
+
+    u32* perm = calloc(colores,sizeof(u32));
+
+    for (u32 i = 0; i < colores; i++)
+        perm[i] = i;
+
+    printf("\nObc: %c\n",OrdenPorBloqueDeColores(G,perm));
+
+    printf("Colores: [");
+    for (u32 i = 0; i < NumeroDeVertices(G); i++) {
+        printf(i == NumeroDeVertices(G)-1 ? "%u" : "%u,",Color(i,G));
+    }
+    printf("]");
+
+    printf("Vertices\n");
+    print_arr_vertices(G);
+
+    colores = Greedy(G);
+
+    printf("\nColores de greedy: %u\n",colores);
 
     return 0;
 }

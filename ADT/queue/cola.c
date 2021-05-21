@@ -35,10 +35,7 @@ u32 peek(queue_t *queue) {
 }
 
 char isEmpty(queue_t *queue) {
-	if(queue->inicio == error || queue->inicio > queue->fin)
-		return 1;
-	else
-		return 0;
+	return queue->inicio == error || queue->inicio > queue->fin;
 }
 
 /* Creo que esta funcion podria mejorar, tal vez teniendo claro los extremos no es necesario

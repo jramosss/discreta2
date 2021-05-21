@@ -35,24 +35,6 @@ void check_bipartito (char bip) {
     check_cond(bip,"El grafo es bipartito","El grafo no es bipartito");
 }
 
-//Check Switch Colores
-void check_sc (char sw) {
-    check_cond(sw, "BIEN: SwitchColores","ERROR SwitchColores");
-}
-
-void check_coloreo_propio (char cond) {
-    check_cond(cond , "El coloreo es propio","El coloreo no es propio");
-}
-
-void check_chicogrande (char cgbc) {
-    check_cond(cgbc, "BIEN:ChicoGrande","ERROR: ChicoGrande");
-}
-
-//Check welshpowell
-void check_wp (char wp) {
-    check_cond(wp , "BIEN:WelshPowel","ERROR: WelshPowel");
-}
-
 //Check aleatorizar Vertices
 void check_alv (char alv) {
     check_cond(alv, "BIEN:AleatorizarVertices","ERROR: AleatorizarVertices");

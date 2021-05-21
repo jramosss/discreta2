@@ -59,7 +59,7 @@ TEST = -O3 $(SOURCES) $(FUNCIONES) $(HASH) $(QUEUE) $(SET)
 .PHONY: normal
 
 normal:
-	$(CC) $(CFLAGS0) -lm $(TEST) $(NORMAL) $(OUT)
+	$(CC) $(CFLAGS0) $(TEST) $(NORMAL) $(OUT)
 
 aprobacion:
 	$(CC) $(CFLAGS0) $(TEST)   $(APROBACION) $(OUT)

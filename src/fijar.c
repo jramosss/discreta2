@@ -1,6 +1,7 @@
 #include "utils.h"
 #include "../RomaVictor.h"
 #include "../ADT/set/set.h"
+#include "../ADT/queue/cola.h"
 
 char FijarColor(u32 x, u32 idx, Grafo G)
 {
@@ -62,9 +63,13 @@ static char arrayIsPerm (u32* array, u32 N) {
             max = array[i];
     }
 
-    if (max != N) return false;
+    if (max+1 != N) return false;
 
-    return set_length(s) == N;
+    const char lenIsEqual = set_length(s) == N;
+
+    free(s);
+
+    return lenIsEqual;
 }
 
 char OrdenPorBloqueDeColores(Grafo G,u32* perm) {
@@ -75,8 +80,31 @@ char OrdenPorBloqueDeColores(Grafo G,u32* perm) {
         c = Color(i,G);
         if (c > max)
             max = c;
+        FijarOrden(i, G, i);
     }
-    if (!arrayIsPerm(perm,max)) return false;
+    if (!arrayIsPerm(perm,max)) return 0;
+    
+    queue_t **queue = calloc(max + 1, sizeof(queue_t *));
+    
+    for (u32 i = 0; i < N; i++) {
+        if (queue[Color(i,G)] == NULL)
+            queue[Color(i,G)] = createQueue();
 
-    return true;
+        enqueue(i, queue[Color(i,G)]);
+    }
+
+    u32 j = 0;
+    for (u32 i = 0; i < max + 1; i++) {
+        while (!isEmpty(queue[i])) {
+            FijarOrden(j, G, dequeue(queue[i]));
+            j++;
+        }
+    }
+
+    for (u32 i = 0; i < max+1; i++)
+        removeQueue(queue[i]);
+
+    free(queue);
+
+    return 1;
 }

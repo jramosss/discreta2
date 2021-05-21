@@ -100,16 +100,21 @@ int main(int argc,char* argv[]){
         g1 = CopiarGrafo(G);
         g2 = CopiarGrafo(G);
         for (u32 j = 0; j < d; j++) {
+            //printf("GRI\n");
             gri = Greedy(G);
             gri1 = Greedy(g1);
             gri2 = Greedy(g2);
             printf("G: %u, G1: %u, G2: %u\n",gri,gri1,gri2);
             arr1 = generateAndShuffle(gri);
             OrdenPorBloqueDeColores(G,arr1);
+
             arr2 = generate(gri1);
-            OrdenPorBloqueDeColores(g1,arr2);
+            if (OrdenPorBloqueDeColores(g1,arr2))
+                print_arr_vertices(G);
+            /*
             arr3 = etareneg(gri2,e);
             OrdenPorBloqueDeColores(g2,arr3);
+            */
 
             if (gri < min1)
                 min1 = gri1;
