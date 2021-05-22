@@ -112,8 +112,10 @@ int main(int argc,char* argv[]){
     min = 0;
 
     for (u32 i = 0; i < c; i++) {
+        printf("El Mejor color: %u \n", Greedy(G));
         g1 = CopiarGrafo(G);
         g2 = CopiarGrafo(G);
+
         for (u32 j = 0; j < d; j++) {
             arr1 = generateAndShuffle(gri,f);
             OrdenPorBloqueDeColores(G,arr1);
@@ -134,6 +136,7 @@ int main(int argc,char* argv[]){
             if (gri2 < min3)
                 min3 = gri2;
         }
+        
         printf("Min G: %u, Min G1: %u, Min G2: %u\n",min1,min2,min3);
         if (min1 >= min2) {
             if (min2 >= min3) {
@@ -141,12 +144,14 @@ int main(int argc,char* argv[]){
                 DestruccionDelGrafo(g1);
                 G = g2;
                 min = min3;
+                gri = min3;
             }
             else {
                 DestruccionDelGrafo(G);
                 DestruccionDelGrafo(g2);
                 G = g1;
                 min = min2;
+                gri = min2;
             }
         }
         else {
@@ -154,12 +159,14 @@ int main(int argc,char* argv[]){
                 DestruccionDelGrafo(g2);
                 DestruccionDelGrafo(g1);
                 min = min1;
+                gri = min1;
             }
             else {
                 DestruccionDelGrafo(G);
                 DestruccionDelGrafo(g1);
                 G = g2;
                 min = min3;
+                gri = min3;
             }
         }
     }
@@ -172,12 +179,12 @@ int main(int argc,char* argv[]){
     printf("Minimo color obtenido: %u\n",min);
     printf("Greedys hechos: %u\n",c*d*3);
 
-    if (G != NULL)
-        DestruccionDelGrafo(G);
-    if (g1 != NULL)
-        DestruccionDelGrafo(g1);
-    if (g2 != NULL)
+    if (min == min3) 
         DestruccionDelGrafo(g2);
+    else if (min == min2)
+        DestruccionDelGrafo(g1);
+    else if (min == min1)
+        DestruccionDelGrafo(G);
 
     fclose(stdin);
 
