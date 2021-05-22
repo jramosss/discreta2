@@ -78,12 +78,14 @@ char OrdenPorBloqueDeColores(Grafo G,u32* perm) {
     const u32 N = NumeroDeVertices(G);
     u32 max,c;
     max = c = 0;
+
     for (u32 i = 0; i < N; i++) {
         c = Color(i,G);
         if (c > max)
             max = c;
         FijarOrden(i, G, i);
     }
+    
     if (!arrayIsPerm(perm,max+1)) return false;
 
     queue_t **queue = calloc(max + 1, sizeof(queue_t *));
@@ -92,7 +94,6 @@ char OrdenPorBloqueDeColores(Grafo G,u32* perm) {
         c = Color(i,G);
         if (queue[c] == NULL)
             queue[c] = createQueue();
-
         enqueue(i, queue[c]);
     }
 

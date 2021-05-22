@@ -21,12 +21,12 @@ int main(int argc,char* argv[]){
         exit(1);
     }
     else {
-        a = (u32)strtol(argv[0], &p, 10);;
-        b = (u32)strtol(argv[1], &p, 10);;
-        c = (u32)strtol(argv[2], &p, 10);;
-        d = (u32)strtol(argv[3], &p, 10);;
-        e = (u32)strtol(argv[4], &p, 10);;
-        f = (u32)strtol(argv[5], &p, 10);;
+        a = (u32)strtol(argv[1], &p, 10);;
+        b = (u32)strtol(argv[2], &p, 10);;
+        c = (u32)strtol(argv[3], &p, 10);;
+        d = (u32)strtol(argv[4], &p, 10);;
+        e = (u32)strtol(argv[5], &p, 10);;
+        f = (u32)strtol(argv[6], &p, 10);;
     }
 
     printf("ARGS: %u %u %u %u %u %u\n",a,b,c,d,e,f);
@@ -112,7 +112,6 @@ int main(int argc,char* argv[]){
     min = 0;
 
     for (u32 i = 0; i < c; i++) {
-        printf("El Mejor color: %u \n", Greedy(G));
         g1 = CopiarGrafo(G);
         g2 = CopiarGrafo(G);
 
@@ -144,14 +143,12 @@ int main(int argc,char* argv[]){
                 DestruccionDelGrafo(g1);
                 G = g2;
                 min = min3;
-                gri = min3;
             }
             else {
                 DestruccionDelGrafo(G);
                 DestruccionDelGrafo(g2);
                 G = g1;
                 min = min2;
-                gri = min2;
             }
         }
         else {
@@ -159,16 +156,17 @@ int main(int argc,char* argv[]){
                 DestruccionDelGrafo(g2);
                 DestruccionDelGrafo(g1);
                 min = min1;
-                gri = min1;
             }
             else {
                 DestruccionDelGrafo(G);
                 DestruccionDelGrafo(g1);
                 G = g2;
                 min = min3;
-                gri = min3;
             }
         }
+
+        gri = gri1 = gri2 = min;
+
     }
 
     //!8    

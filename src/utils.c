@@ -146,8 +146,10 @@ u32* generate (u32 n) {
 u32* etareneg (u32 n) {
     u32* array = malloc(n*sizeof(u32));
     int j = 0;
-    for (int i = (int)(n-1) ; i >= 0; i--,j++)
-        array[j] = (u32)i;
+    for (u32 i = 0; i < n; i++) {
+        array[j] = (n-1)-i;
+        j++;
+    }
 
     return array;
 }
