@@ -32,9 +32,8 @@ set_t *set_create(void)
 
 static void leaf_destroy(struct tree_node *node) 
 {
-	if(node != NULL){
-		return;
-	}
+	if(node == NULL) return;
+	
 	leaf_destroy(node->left);
 	leaf_destroy(node->right);
 	free(node);

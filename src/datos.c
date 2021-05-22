@@ -31,6 +31,7 @@ u32 ColorVecino(u32 j, u32 i, Grafo G){
     if (i >= G->n) return error;
 
     Vert *vert = G->vertices[i];
+    if (G->vertices[i] == NULL) return error;
     return j < vert->grado ? vert->vecinos[j]->color : (u32)error;
 }
 
@@ -38,6 +39,7 @@ u32 NombreVecino(u32 j,u32 i,Grafo G){
     if (i >= G->n) return error;
 
     Vert *vert = G->vertices[i];
+    if (G->vertices[i] == NULL) return error;
     return j < vert->grado ? vert->vecinos[j]->nombre : (u32)error;
     //Checkear si vert == NULL aca seria una programacion mas defensiva
     //de lo necesario, ya que nunca andamos borrando vertices
@@ -47,6 +49,7 @@ u32 OrdenVecino(u32 j,u32 i,Grafo G){
     if (i >= G->n) return error;
 
     Vert *vert = G->vertices[i];
+    if (G->vertices[i] == NULL) return error;
     return j < vert->grado ? vert->vecinos[j]->index : (u32)error; 
 }
 
@@ -54,5 +57,6 @@ u32 PesoLadoConVecino(u32 j,u32 i,Grafo G){
     if (i >= G->n) return error;
 
     Vert *vert = G->vertices[i];
+    if (G->vertices[i] == NULL) return error;
     return j < vert->grado ? vert->pesoslados[j] : (u32)error;
 }

@@ -58,16 +58,18 @@ static char arrayIsPerm (u32* array, u32 N) {
     u32 max  = 0;
 
     for (u32 i = 0; i < N; i++) {
+        if (array[i] > N) {
+            set_destroy(s);
+            return false;
+        }
         set_insert(s,array[i]);
         if (array[i] > max)
             max = array[i];
     }
 
-    if (max+1 != N) return false;
-
     const char lenIsEqual = set_length(s) == N;
 
-    free(s);
+    set_destroy(s);
 
     return lenIsEqual;
 }
@@ -82,21 +84,22 @@ char OrdenPorBloqueDeColores(Grafo G,u32* perm) {
             max = c;
         FijarOrden(i, G, i);
     }
-    if (!arrayIsPerm(perm,max)) return 0;
-    
-    queue_t **queue = calloc(max + 1, sizeof(queue_t *));
-    
-    for (u32 i = 0; i < N; i++) {
-        if (queue[Color(i,G)] == NULL)
-            queue[Color(i,G)] = createQueue();
+    if (!arrayIsPerm(perm,max+1)) return false;
 
-        enqueue(i, queue[Color(i,G)]);
+    queue_t **queue = calloc(max + 1, sizeof(queue_t *));
+
+    for (u32 i = 0; i < N; i++) {
+        c = Color(i,G);
+        if (queue[c] == NULL)
+            queue[c] = createQueue();
+
+        enqueue(i, queue[c]);
     }
 
     u32 j = 0;
     for (u32 i = 0; i < max + 1; i++) {
-        while (!isEmpty(queue[i])) {
-            FijarOrden(j, G, dequeue(queue[i]));
+        while (!isEmpty(queue[perm[i]])) {
+            FijarOrden(j, G, dequeue(queue[perm[i]]));
             j++;
         }
     }
@@ -106,5 +109,5 @@ char OrdenPorBloqueDeColores(Grafo G,u32* perm) {
 
     free(queue);
 
-    return 1;
+    return true;
 }

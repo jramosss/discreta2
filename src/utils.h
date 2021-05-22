@@ -18,15 +18,17 @@ void check_alv              (char alv);
 void check_bipartito        (char bip);
 void section                (char* msg);
 Vert* find_vert_by_index    (u32,Grafo);
-u32  hayMlineas             (FILE *fp, u32 mlineas);
-u32  acomodar_puntero       (FILE *fp);
+u32  hayMlineas             (FILE*, u32 mlineas);
+u32  acomodar_puntero       (FILE*);
 int compare                 (const void*, const void*);
 void print_arr_vertices     (Grafo);
+void print_arr_colores      (Grafo);
 int  cmpfunc                (const void*, const void*);
 void swap                   (u32*, u32*);
 int  vert_cmp               (const void*,const void*);
 u32*  generate              (u32 n);
-u32* etareneg               (u32 n,u32 e);
-u32* generateAndShuffle     (u32 n);
+u32* etareneg               (u32 n);
+u32* generateAndShuffle     (u32 n,u32 seed);
+u32* eswap                  (u32 n,u32 e, u32 seed);
 
 #endif

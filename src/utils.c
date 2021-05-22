@@ -112,6 +112,13 @@ void print_arr_vertices (Grafo G) {
     printf("]\n");
 }
 
+void print_arr_colores (Grafo G) {
+    printf("[");
+    for (u32 i = 0; i < NumeroDeVertices(G); i++) 
+        printf(i == NumeroDeVertices(G)-1 ? "%u" : "%u,",Color(i,G));
+    printf("]\n");
+}
+
 int cmpfunc(const void * a, const void * b) {
    return ( *(int*)a - *(int*)b );
 }
@@ -136,25 +143,37 @@ u32* generate (u32 n) {
     return array;
 }
 
-u32* etareneg (u32 n,u32 e) {
+u32* etareneg (u32 n) {
     u32* array = malloc(n*sizeof(u32));
-    for (u32 i = n; i > 0; i--)
-        array[i] = i;
-
-    u32 ran = (u32)rand() % e;
-    for (u32 i = 0; i < n; i++) {
-        if (ran == (u32)rand() % e)
-            swap(&array[i],&array[(u32)rand() % n]);
-    }
+    int j = 0;
+    for (int i = (int)(n-1) ; i >= 0; i--,j++)
+        array[j] = (u32)i;
 
     return array;
 }
 
-u32* generateAndShuffle (u32 n) {
-    u32* arr = generate(n);
-
+u32* eswap (u32 n,u32 e,u32 seed) {
+    u32* array = etareneg(n);
+    srand(seed);
+    u32 ran = (u32)rand() % e;
+    
     for (u32 i = 0; i < n; i++)
-        swap(&arr[i],&arr[(u32)rand() % n]);
+        if (ran == (u32)rand() % e)
+            swap(&array[i],&array[(u32)rand() % n]);
+
+    return array;
+}
+
+u32* generateAndShuffle (u32 n,u32 seed) {
+    u32* arr = generate(n);
+    srand(seed);
+
+    for (u32 i = 0; i < n; i++) {
+        u32 randd = (u32)rand() % n;
+        while (randd == i)
+            randd = (u32)rand() % n;
+        swap(&arr[i],&arr[randd]);
+    }
 
     return arr;
 }
